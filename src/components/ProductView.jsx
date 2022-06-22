@@ -1,12 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
+import { useDispatch } from 'react-redux';
+
+import { addItem } from '~/redux/shopping-cart/cartItemsSlide';
+
 import 'boxicons';
 import Button from './Button';
 import numberWithCommas from '~/utils/numberWithCommas';
 import { useHistory } from 'react-router-dom';
 
 const ProductView = (props) => {
+    const dispatch = useDispatch();
+
     const [previewImg, setPreviewImg] = useState(props.product.image01);
 
     const [descriptionExpand, setDescriptionExpand] = useState(false);
@@ -59,17 +65,32 @@ const ProductView = (props) => {
     };
 
     const addToCart = () => {
-        if (check())
-            console.log({
-                color,
-                size,
-                quantity,
-            });
+        if (check()) {
+            dispatch(
+                addItem({
+                    slug: props.product.slug,
+                    color: color,
+                    size: size,
+                    quantity: quantity,
+                    price: props.product.price,
+                }),
+            );
+        }
     };
 
     const goToCart = () => {
-        check();
-        if (check()) history.push('/cart');
+        if (check()) {
+            dispatch(
+                addItem({
+                    slug: props.product.slug,
+                    color: color,
+                    size: size,
+                    quantity: quantity,
+                    price: props.product.price,
+                }),
+            );
+            history.push('/cart');
+        }
     };
 
     return (

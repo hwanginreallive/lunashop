@@ -16,10 +16,6 @@ const mainNav = [
         path: '/catalog',
     },
     {
-        display: 'Phụ kiện',
-        path: '/accessories',
-    },
-    {
         display: 'Liên hệ',
         path: '/contact',
     },
@@ -101,16 +97,18 @@ const Header = () => {
                             </div>
                         </div>
                         <div className="header__menu__item header__menu__right__item">
-                            <Link to="/cart"> </Link>
-                            <div className="icon">
-                                <AiOutlineShoppingCart />
-                            </div>
+                            <Link to="/cart">
+                                <div className="icon">
+                                    <AiOutlineShoppingCart />
+                                </div>
+                            </Link>
                         </div>
                         <div className="header__menu__item header__menu__right__item">
-                            <Link to="/user"> </Link>
-                            <div className="icon">
-                                <AiOutlineUser></AiOutlineUser>
-                            </div>
+                            <Link to="/user">
+                                <div className="icon">
+                                    <AiOutlineUser></AiOutlineUser>
+                                </div>
+                            </Link>
                         </div>
                     </div>
                 </div>
