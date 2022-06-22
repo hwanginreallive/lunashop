@@ -1,0 +1,107 @@
+.catalog {
+    padding-top: 30px;
+    @include flex(flex-start, flex-start);
+
+    @include tablet {
+        flex-direction: column;
+    }
+
+    &__filter {
+        width: 20%;
+        position: sticky;
+        top: $header-height;
+        @include tablet {
+            width: max-content;
+            height: 100vh;
+            background-color: $main-bg;
+            padding: 1rem;
+            position: fixed;
+            z-index: 98;
+            left: 0;
+            top: $header-tablet-height;
+            box-shadow: $box-shadow;
+            animation: fadeOut ease 1s;
+            transform: translateX(-100%);
+        }
+        @include mobile {
+            top: $header-mobile-height;
+        }
+        &.active {
+            animation: fadeIn ease 1s;
+            transform: translateX(0);
+        }
+
+        &__widget {
+            margin-bottom: 2rem;
+
+            &__title {
+                font-size: 1.25rem;
+                font-weight: 600;
+                text-transform: capitalize;
+                margin-bottom: 16px;
+            }
+
+            &__content {
+                color: $txt-second-color;
+                &__item {
+                    margin-bottom: 13px;
+                }
+            }
+        }
+        &__exit {
+            margin-left: 130px;
+            display: none;
+            width: 50px;
+            cursor: pointer;
+            text-align: center;
+            @include tablet {
+                display: block;
+            }
+            @include mobile {
+                display: block;
+            }
+        }
+    }
+
+    &__content {
+        flex-grow: 1;
+        @include tablet {
+            width: 100%;
+        }
+    }
+    &__toggle {
+        position: absolute;
+        display: none;
+        @include tablet {
+            display: block;
+            top: $header-tablet-height;
+            left: $header-tablet-height;
+        }
+        @include mobile {
+            display: block;
+            top: $header-mobile-height;
+            left: $header-mobile-height;
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+}
