@@ -16,8 +16,8 @@ const mainNav = [
         path: '/catalog',
     },
     {
-        display: 'Liên hệ',
-        path: '/contact',
+        display: 'Hỗ trợ',
+        path: '/support',
     },
 ];
 
@@ -104,7 +104,7 @@ const Header = () => {
                             </Link>
                         </div>
                         <div className="header__menu__item header__menu__right__item">
-                            <Link to="/user">
+                            <Link to="/user/profile">
                                 <div className="icon">
                                     <AiOutlineUser></AiOutlineUser>
                                 </div>

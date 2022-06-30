@@ -5,27 +5,28 @@ import { Link } from 'react-router-dom';
 import Grid from './Grid';
 
 import logo from '~/assets/images/Logo-2.png';
+import 'boxicons';
 
 const footerAboutLink = [
     {
-        display: 'Giới thiệu',
-        path: '/about',
+        display: 'Facebook',
+        icon: 'facebook-circle',
+        href: 'https://www.facebook.com/',
     },
     {
-        display: 'Liên hệ',
-        path: '/contact',
+        display: 'Twitter',
+        icon: 'twitter',
+        href: 'https://twitter.com',
     },
     {
-        display: 'tuyển dụng',
-        path: '/about',
+        display: 'Instagram',
+        icon: 'instagram',
+        href: 'https://www.instagram.com/',
     },
     {
-        display: 'tin tức',
-        path: '/about',
-    },
-    {
-        display: 'hệ thống cửa hàng',
-        path: '/about',
+        display: 'Youtube',
+        icon: 'youtube',
+        href: 'https://www.youtube.com/',
     },
 ];
 
@@ -35,17 +36,14 @@ const footerCustomerLink = [
         path: '/about',
     },
     {
-        display: 'chính sách bảo hành',
+        display: 'Chính sách bảo hành',
         path: '/contact',
     },
     {
-        display: 'chính sách hoàn trả',
+        display: 'Chính sách hoàn trả',
         path: '/about',
     },
-    {
-        display: 'chính sách bảo hành',
-        path: '/about',
-    },
+
     {
         display: 'Chính sách hoàn tiền',
         path: '/about',
@@ -75,9 +73,12 @@ const Footer = () => {
                         <div className="footer__title">About Us</div>
                         <div className="footer__content">
                             {footerAboutLink.map((item, index) => (
-                                <p key={index}>
-                                    <Link to={item.path}>{item.display}</Link>
-                                </p>
+                                <a href={item.href} className="about-us" key={index}>
+                                    <p>
+                                        <box-icon type="logo" name={item.icon}></box-icon>
+                                    </p>
+                                    <p>{item.display}</p>
+                                </a>
                             ))}
                         </div>
                     </div>

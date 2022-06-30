@@ -6,7 +6,7 @@ const PolicyCard = (props) => {
     return (
         <div className="policy-card">
             <div className="policy-card__icon">
-                <box-icon type="regular" name={props.icon}></box-icon>
+                <box-icon type="regular  " name={props.icon}></box-icon>
             </div>
             <div className="policy-card__info">
                 <div className="policy-card__info__name">

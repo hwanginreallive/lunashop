@@ -6,12 +6,13 @@ import Header from './Header';
 import Footer from './Footer';
 
 import Routes from '../routes/Routes';
+import InfoUser from './infoUser';
 const Layout = () => {
     return (
         <BrowserRouter>
             <Route
                 render={(props) => (
-                    <div>
+                    <>
                         <Header {...props} />
                         <div className="container">
                             <div className="main">
@@ -19,9 +20,9 @@ const Layout = () => {
                             </div>
                         </div>
                         <Footer />
-                    </div>
+                    </>
                 )}
-            />
+            ></Route>
         </BrowserRouter>
     );
 };

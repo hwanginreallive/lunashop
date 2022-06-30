@@ -29,10 +29,6 @@ const CartItem = (props) => {
         }
     };
 
-    // const updateCartItem = () => {
-    //     dispatch(updateItem({...item, quantity: quantity}))
-    // }
-
     const removeCartItem = () => {
         console.log('removeCartItem');
         dispatch(removeItem(item));
@@ -49,12 +45,12 @@ const CartItem = (props) => {
                 <div className="cart__item__info__name">
                     <Link to={`/catalog/${item.slug}`}>
                         <span>{item.product.title}</span>
+                        <span>{item.color}</span>
+                        <span>{item.size}</span>
+                        <span>{numberWithCommas(item.product.price)}</span>
                     </Link>
                 </div>
-                <div className="cart__item__info__color">{item.color}</div>
-                <div className="cart__item__info__size">{item.size}</div>
 
-                <div className="cart__item__info__price">{numberWithCommas(item.product.price)}</div>
                 <div className="cart__item__info__quantity">
                     <div className="product__info__item__quantity">
                         <div className="product__info__item__quantity-btn" onClick={() => updateQuantity('-')}>

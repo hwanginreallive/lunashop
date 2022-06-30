@@ -44,7 +44,6 @@ const ProductView = (props) => {
     }, [props.product]);
 
     const check = () => {
-        let res = true;
         if (color === undefined && size) {
             notifiColorRef.current.classList.add('active');
             return false;
@@ -97,10 +96,10 @@ const ProductView = (props) => {
         <div className="product">
             <div className="product__images">
                 <div className="product__images__list">
-                    <div className="product__images__list__item">
+                    <div onClick={() => setPreviewImg(props.product.image01)} className="product__images__list__item">
                         <img src={props.product.image01} alt="" />
                     </div>
-                    <div className="product__images__list__item">
+                    <div onClick={() => setPreviewImg(props.product.image02)} className="product__images__list__item">
                         <img src={props.product.image02} alt="" />
                     </div>
                 </div>

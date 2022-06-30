@@ -16,6 +16,14 @@ html {
     @include mobile {
         font-size: 11px;
     }
+    .slick-next:before,
+    .slick-prev:before {
+        content: '';
+    }
+    .slick-next,
+    .slick-prev {
+        z-index: 99;
+    }
 }
 
 body {

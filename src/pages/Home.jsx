@@ -11,6 +11,7 @@ import policy from '~/assets/fake-data/policy';
 import productData from '~/assets/fake-data/products';
 import ProductCard from '~/components/ProductCard';
 import banner from '~/assets/images/banner.png';
+import SliderProduct from '~/components/SliderProduct';
 const Home = () => {
     return (
         <Helmet title="Trang chủ">
@@ -36,18 +37,7 @@ const Home = () => {
             <Section>
                 <SectionTitle>Top sản phẩm bán chạy trong tuần</SectionTitle>
                 <SectionBody>
-                    <Grid col={4} mdCol={2} smCol={1} gap={20}>
-                        {productData.getProducts(4).map((item, index) => (
-                            <ProductCard
-                                key={index}
-                                img01={item.image01}
-                                img02={item.image02}
-                                name={item.title}
-                                price={Number(item.price)}
-                                slug={item.slug}
-                            ></ProductCard>
-                        ))}
-                    </Grid>
+                    <SliderProduct></SliderProduct>
                 </SectionBody>
             </Section>
 
@@ -55,8 +45,8 @@ const Home = () => {
             <Section>
                 <SectionTitle>Sản phẩm mới</SectionTitle>
                 <SectionBody>
-                    <Grid col={3} mdCol={2} smCol={1} gap={20}>
-                        {productData.getProducts(6).map((item, index) => (
+                    <Grid col={4} mdCol={2} smCol={1} gap={20}>
+                        {productData.getProducts(4).map((item, index) => (
                             <ProductCard
                                 key={index}
                                 img01={item.image01}

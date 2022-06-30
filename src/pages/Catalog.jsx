@@ -1,10 +1,7 @@
 import React, { useCallback, useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
 
 import Helmet from '~/components/Helmet';
-import Grid from '~/components/Grid';
 import productData from '~/assets/fake-data/products';
-import ProductCard from '~/components/ProductCard';
 import category from '~/assets/fake-data/category';
 import Checkbox from '~/components/Checkbox';
 import colors from '~/assets/fake-data/product-colors';

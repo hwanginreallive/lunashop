@@ -1,7 +1,6 @@
 .cart {
+    padding-top: 30px;
     @include flex(flex-start, flex-start);
-
-    margin-top: 30px;
 
     @include tablet {
         flex-wrap: wrap-reverse;
@@ -46,18 +45,22 @@
             @include flex(flex, space-between);
 
             margin-bottom: 20px;
+            .btn-pay {
+                margin-left: 30px;
+            }
         }
     }
 
     &__list {
         flex-grow: 1;
+        box-shadow: $box-shadow;
+        padding: 0 20px 0;
     }
 
     &__item {
         @include flex(center, flex-start);
-        margin-bottom: 20px;
+        margin: 10px 0;
         &__img {
-            margin-right: 20px;
             img {
                 height: 150px;
                 cursor: pointer;
@@ -66,12 +69,18 @@
         &__info {
             @include flex(center, space-between);
             flex-grow: 1;
+            margin-left: 30px;
 
+            @include mobile {
+                flex-direction: column;
+                @include flex(flex-start, center);
+            }
             &__name {
                 width: 40%;
+
                 span {
-                    padding-left: 15px;
-                    display: inline-block;
+                    display: block;
+                    line-height: 2rem;
                 }
             }
 

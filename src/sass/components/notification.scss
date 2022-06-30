@@ -1,0 +1,14 @@
+.item {
+    @include flex(center, space-between);
+    &__img {
+        img {
+            width: 100px;
+        }
+    }
+}
+.profile__right__notification{
+
+    @include tablet{
+        
+    }
+}

@@ -69,11 +69,9 @@ const HeaderSliderItem = (props) => (
                 <span>{props.item.description}</span>
             </div>
             <div className={`hero-slider__item__info__btn color-${props.item.color}`}>
-                <Link to={props.item.path}>
-                    <Button backGroundColor={props.item.color} animate>
-                        Xem chi tiết
-                    </Button>
-                </Link>
+                <Button to={props.item.path} backGroundColor={props.item.color} animate>
+                    Xem chi tiết
+                </Button>
             </div>
         </div>
         <div className="hero-slider__item__image">

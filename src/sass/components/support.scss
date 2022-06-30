@@ -1,0 +1,104 @@
+.support {
+    &__search {
+        width: 100%;
+        color: white;
+        background-color: $main-color;
+        height: 220px;
+
+        &__content {
+            @include flex(center, center);
+            flex-direction: column;
+            padding: 40px 0;
+
+            &__title {
+                font-size: 36px;
+                font-weight: 400;
+                line-height: 59px;
+                @include tablet {
+                    line-height: 40px;
+                    text-align: center;
+                }
+                @include mobile {
+                    font-size: 20px;
+                    text-align: center;
+                    line-height: 30px;
+                }
+            }
+            &__input {
+                position: relative;
+                margin-top: 30px;
+                width: 800px;
+
+                @include tablet {
+                    width: 80%;
+                }
+
+                @include mobile {
+                    width: 80%;
+                }
+
+                input {
+                    box-sizing: border-box;
+                    width: 100%;
+                    padding: 0px 20px;
+                    font-size: 20px;
+                    line-height: 23px;
+                    color: rgba(0, 0, 0, 0.87);
+                    border: 0px;
+                    height: 60px;
+                    border: none;
+                    outline: none;
+                    border-radius: 5px;
+
+                    @include mobile {
+                        height: 30px;
+                        font-size: 14px;
+                    }
+                }
+                &__icon {
+                    position: absolute;
+                    display: flex;
+                    right: 3px;
+                    top: 3px;
+                    align-items: center;
+                    justify-content: center;
+                    width: 80px;
+                    height: 54px;
+                    cursor: pointer;
+                    border-radius: 3px;
+                    background-color: $main-color;
+                    font-size: 40px;
+                    &:hover {
+                        opacity: 0.8;
+                    }
+
+                    @include mobile {
+                        height: 25px;
+                        width: 30px;
+                        font-size: 16px;
+                    }
+                }
+            }
+        }
+    }
+    &__question {
+        margin: 30px 0;
+        &__title {
+            padding-bottom: 20px;
+            font-size: 24px;
+            font-weight: 500;
+            line-height: 24px;
+            border-bottom: 1px dashed #e1e1e1;
+        }
+        .question {
+            padding: 16px 10px;
+            font-size: 18px;
+            line-height: 28px;
+            cursor: pointer;
+            border-bottom: 1px dashed #e1e1e1;
+            &:hover {
+                color: $main-color;
+            }
+        }
+    }
+}

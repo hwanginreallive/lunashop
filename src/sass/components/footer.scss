@@ -23,5 +23,11 @@
         p {
             margin-bottom: 1.25rem;
         }
+        .about-us {
+            display: flex;
+            p {
+                @include flex(center, flex-start);
+            }
+        }
     }
 }

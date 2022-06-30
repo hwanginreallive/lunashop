@@ -1,0 +1,68 @@
+.profile {
+    margin-top: 30px;
+    @include flex(flex-start, flex-start);
+
+    @include tablet {
+        flex-direction: column;
+    }
+    &__left {
+        width: 200px;
+        display: block;
+
+        &__avt {
+            @include flex(flex-start, flex-start);
+
+            padding: 15px 0;
+            border-bottom: 1px solid #efefef;
+
+            img {
+                height: 50px;
+                width: 50px;
+                border-radius: 50%;
+            }
+
+            &__title {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                padding-left: 20px;
+                font-size: 1.25rem;
+
+                div,
+                i {
+                    @include flex(center, center);
+                    cursor: pointer;
+                    color: $main-color;
+                }
+            }
+        }
+        &__info {
+            margin-top: 20px;
+            .info-user {
+                @include flex(flex-start, center);
+                flex-direction: column;
+                &__item {
+                    @include flex(center, center);
+                    padding: 10px;
+                    font-size: 1.25rem;
+                    line-height: 1rem;
+                    .title {
+                        padding-left: 10px;
+                    }
+                    &.active {
+                        font-weight: 600;
+                        color: $main-color;
+                    }
+                }
+            }
+        }
+    }
+    &__right {
+        flex-grow: 1;
+        padding: 15px 30px;
+        margin-left: 30px;
+        font-size: 18px;
+        box-shadow: $box-shadow;
+        max-width: 80%;
+    }
+}

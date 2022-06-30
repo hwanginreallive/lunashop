@@ -9,6 +9,10 @@ import CartItem from '~/components/CartItem';
 
 import numberWithCommas from '~/utils/numberWithCommas';
 
+import Section, { SectionTitle, SectionBody } from '~/components/Section';
+import Grid from '~/components/Grid';
+import ProductCard from '~/components/ProductCard';
+
 const Cart = () => {
     const cartItems = useSelector((state) => state.cartItems.value);
 
@@ -37,10 +41,10 @@ const Cart = () => {
                         </div>
                     </div>
                     <div className="cart__info__btn">
-                        <Link to="/catalog">
-                            <Button>Tiếp tục mua hàng</Button>
-                        </Link>
-                        <Button>Thanh toán</Button>
+                        <Button to="/catalog">Tiếp tục mua hàng</Button>
+                        <div className="btn-pay">
+                            <Button>Thanh toán</Button>
+                        </div>
                     </div>
                 </div>
                 <div className="cart__list">
@@ -49,6 +53,23 @@ const Cart = () => {
                     ))}
                 </div>
             </div>
+            <Section>
+                <SectionTitle>Top sản phẩm bán chạy trong tuần</SectionTitle>
+                <SectionBody>
+                    <Grid col={4} mdCol={2} smCol={1} gap={20}>
+                        {productData.getProducts(8).map((item, index) => (
+                            <ProductCard
+                                key={index}
+                                img01={item.image01}
+                                img02={item.image02}
+                                name={item.title}
+                                price={Number(item.price)}
+                                slug={item.slug}
+                            ></ProductCard>
+                        ))}
+                    </Grid>
+                </SectionBody>
+            </Section>
         </Helmet>
     );
 };
