@@ -2,7 +2,6 @@
     @include flex(flex-start, space-between);
 
     &__right {
-        
         &__user {
             &__title {
                 border-bottom: 0.0625rem solid #efefef;
@@ -37,31 +36,35 @@
                         @include flex(center, flex-start);
                         margin-bottom: 1.875rem;
                         width: 100%;
+                        height: 40px;
+
                         span {
                             text-align: right;
                             color: rgba(85, 85, 85, 0.8);
                             text-transform: capitalize;
-                            width: 20%;
+                            width: 25%;
+                            padding-right: 20px;
                         }
 
-                        div {
-                            padding-left: 20px;
-                            width: 80%;
-                            input {
-                                width: 80%;
-                                display: flex;
-                                align-items: center;
-                                background-color: #fff;
-                                position: relative;
-                                border-radius: 2px;
-                                border: 1px solid rgba(0, 0, 0, 0.14);
-                                box-sizing: border-box;
-                                box-shadow: inset 0 2px 0 0 rgb(0 0 0 / 2%);
-                                color: #222;
-                                height: 40px;
-                                padding: 10px;
-                                transition: border-color 0.1s ease;
-                                font-size: 0.875em;
+                        input {
+                            width: 60%;
+                            display: flex;
+                            align-items: center;
+                            background-color: #fff;
+                            position: relative;
+                            border-radius: 2px;
+                            border: 1px solid rgba(0, 0, 0, 0.14);
+                            box-sizing: border-box;
+                            box-shadow: inset 0 2px 0 0 rgb(0 0 0 / 2%);
+                            color: #222;
+                            padding: 10px;
+                            transition: border-color 0.1s ease;
+                            font-size: 0.875em;
+
+                            &:focus {
+                                outline: none !important;
+                                border: 1px solid $main-color;
+                                box-shadow: 0 0 5px $main-color;
                             }
                         }
                     }

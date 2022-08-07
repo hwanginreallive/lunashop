@@ -8,7 +8,6 @@ import ProductView from '~/components/ProductView';
 
 const Product = (props) => {
     const product = productData.getProductBySlug(props.match.params.slug);
-    console.log(product);
 
     const relateProducts = productData.getProducts(8);
 

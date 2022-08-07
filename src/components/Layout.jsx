@@ -6,7 +6,6 @@ import Header from './Header';
 import Footer from './Footer';
 
 import Routes from '../routes/Routes';
-import InfoUser from './infoUser';
 const Layout = () => {
     return (
         <BrowserRouter>

@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
-import { Link } from 'react-router-dom';
 import productData from '~/assets/fake-data/products';
 import Button from '~/components/Button';
 import Helmet from '~/components/Helmet';
-
 import CartItem from '~/components/CartItem';
-
 import numberWithCommas from '~/utils/numberWithCommas';
 
 import Section, { SectionTitle, SectionBody } from '~/components/Section';
@@ -15,8 +12,6 @@ import ProductCard from '~/components/ProductCard';
 
 const Cart = () => {
     const cartItems = useSelector((state) => state.cartItems.value);
-
-    console.log(productData.getCartItemsInfo(cartItems));
 
     const [cartProducts, setCartProduct] = useState([]);
 

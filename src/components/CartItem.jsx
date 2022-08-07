@@ -30,7 +30,6 @@ const CartItem = (props) => {
     };
 
     const removeCartItem = () => {
-        console.log('removeCartItem');
         dispatch(removeItem(item));
     };
 

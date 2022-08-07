@@ -11,15 +11,13 @@ const Button = (props) => {
     const animate = props.animate ? 'btn-animate' : '';
 
     return (
-        <Link to={props.to}>
-            <button className={`btn ${bg} ${size} ${animate} `} onClick={props.onClick ? () => props.onClick() : null}>
-                <span className="btn__txt">{props.children}</span>
+        <button className={`btn ${bg} ${size} ${animate} `} onClick={props.onClick ? () => props.onClick() : null}>
+            <span className="btn__txt">{props.children}</span>
 
-                <span className="btn__icon">
-                    <BiCart></BiCart>
-                </span>
-            </button>
-        </Link>
+            <span className="btn__icon">
+                <BiCart></BiCart>
+            </span>
+        </button>
     );
 };
 

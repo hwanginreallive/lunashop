@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { useDispatch } from 'react-redux';
-
 import { addItem } from '~/redux/shopping-cart/cartItemsSlide';
 
 import 'boxicons';

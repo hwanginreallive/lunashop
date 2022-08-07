@@ -11,8 +11,6 @@ import productData from '~/assets/fake-data/products';
 const Purchase = () => {
     const cartItems = useSelector((state) => state.cartItems.value);
 
-    console.log(productData.getCartItemsInfo(cartItems));
-
     const [cartProducts, setCartProduct] = useState([]);
 
     const [totalProducts, setTotalProducts] = useState(0);

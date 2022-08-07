@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import logo from '~/assets/images/Logo-2.png';
 import { AiOutlineSearch, AiOutlineUser, AiOutlineShoppingCart, AiOutlineClose } from 'react-icons/ai';
 import { BiMenuAltLeft } from 'react-icons/bi';
+import { useSelector } from 'react-redux';
 
 import useOnclickOutside from '~/utils/useOnclickOutside';
 const mainNav = [
@@ -47,7 +48,13 @@ const Header = () => {
 
     const menuLeft = useRef(null);
 
+    const cartRef = useRef();
+
     const menuToggle = () => menuLeft.current.classList.toggle('active');
+
+    const currentSelector = useSelector((state) => state.cartItems.value);
+
+    const currentItems = currentSelector.reduce((total, current) => total + current.quantity, 0);
 
     return (
         <div className="header" ref={headerRef}>
@@ -100,6 +107,14 @@ const Header = () => {
                             <Link to="/cart">
                                 <div className="icon">
                                     <AiOutlineShoppingCart />
+                                    <div
+                                        ref={cartRef}
+                                        className={` header__menu__right__item__cart ${
+                                            currentItems > 0 ? 'active' : ''
+                                        } `}
+                                    >
+                                        <label htmlFor="">{currentItems == 0 ? '' : currentItems}</label>
+                                    </div>
                                 </div>
                             </Link>
                         </div>

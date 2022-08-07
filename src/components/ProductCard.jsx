@@ -22,9 +22,11 @@ const ProductCard = (props) => {
                 </div>
             </Link>
             <div className="product-card__btn">
-                <Button to={`/catalog/${props.slug}`} size="sm" icon="bx bx-cart" animate={true}>
-                    chọn mua
-                </Button>
+                <Link to={`/catalog/${props.slug}`}>
+                    <Button size="sm" icon="bx bx-cart" animate={true}>
+                        chọn mua
+                    </Button>
+                </Link>
             </div>
         </div>
     );

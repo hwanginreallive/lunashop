@@ -34,8 +34,8 @@
         @include flex(center, center);
         position: absolute;
         inset: 0;
-        pointer-events: none;
-
+        width: 40%;
+        left: 30%;
         img {
             height: 70px;
             @include mobile {
@@ -79,7 +79,28 @@
         &__right {
             font-size: 2.25rem;
             &__item {
+                position: relative;
                 @include flex(center, center);
+
+                &__cart.active {
+                    width: 20px;
+                    height: 20px;
+                    background-color: $main-color;
+                    position: absolute;
+                    top: -5px;
+                    right: -5px;
+                    border-radius: 50%;
+                    label {
+                        @include flex(center, center);
+                        font-size: 1.25rem;
+                        cursor: pointer;
+                        color: $main-bg;
+                    }
+                    @include mobile {
+                        width: 80%;
+                        height: 80%;
+                    }
+                }
             }
             .form-search {
                 position: absolute;
@@ -107,6 +128,7 @@
         &__left {
             &__mobile-close {
                 display: none;
+                cursor: pointer;
             }
 
             @include tablet {
@@ -143,6 +165,8 @@
         }
         &__mobile-toggle {
             display: none;
+            cursor: pointer;
+
             @include tablet {
                 display: block;
                 font-size: 2.25rem;

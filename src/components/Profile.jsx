@@ -1,38 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import InfoUser from './infoUser';
 import Helmet from './Helmet';
 import userImage from '~/assets/images/users/userdefault.jfif';
+import ProfileItem from './ProfileItem';
 
-const profile = [
+const infos = [
     {
         title: 'Tên Đăng Nhập',
+        content: 'noahtaylor',
     },
     {
         title: 'Tên',
+        content: 'Nguyen Van A',
     },
     {
         title: 'Email',
+        content: 'NguyenVanA@gmail.com',
     },
     {
         title: 'Số điện thoại ',
+        content: '033232323232',
     },
-
     {
         title: 'Giới Tính',
+        content: 'Nam',
     },
     {
         title: 'Ngày sinh',
+        content: '23/02/2000',
     },
 ];
-
-const info = {
-    username: 'noahtaylor',
-    name: 'Nguyen Van A',
-    email: 'NguyenVanA@gmail.com',
-    phoneNumber: '033232323232',
-    gender: 'Nam',
-    date: '23/02/2000',
-};
 
 const Profile = () => {
     return (
@@ -49,33 +46,9 @@ const Profile = () => {
                         </div>
                         <div className="profile__right__user__content">
                             <div className="profile__right__user__content__info">
-                                <div className="profile__right__user__content__info__item">
-                                    <span>Tên Đăng Nhập</span>
-                                    <div>{info.username}</div>
-                                </div>
-                                <div className="profile__right__user__content__info__item">
-                                    <span>Tên</span>
-                                    <div>
-                                        <input type="text" value={info.name} />
-                                    </div>
-                                </div>
-                                <div className="profile__right__user__content__info__item">
-                                    <span>Email</span>
-                                    <div>{info.email}</div>
-                                </div>
-
-                                <div className="profile__right__user__content__info__item">
-                                    <span>Số điện thoại</span>
-                                    <div>{info.phoneNumber}</div>
-                                </div>
-                                <div className="profile__right__user__content__info__item">
-                                    <span>Giới tính</span>
-                                    <div>{info.gender}</div>
-                                </div>
-                                <div className="profile__right__user__content__info__item">
-                                    <span>Ngày Sinh</span>
-                                    <div>{info.date}</div>
-                                </div>
+                                {infos.map((info, index) => (
+                                    <ProfileItem key={index} info={info}></ProfileItem>
+                                ))}
                             </div>
                             <div className="profile__right__user__content__img">
                                 <img src={userImage} alt="" />
