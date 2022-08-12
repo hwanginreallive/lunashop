@@ -25,7 +25,6 @@ const Catalog = () => {
 
     const [products, setProducts] = useState(productList);
     const [filter, setFilter] = useState(initFilter);
-    const [showButtonFilter, setShowButtonFilter] = useState(false);
 
     const clearFilter = () => setFilter(initFilter);
 

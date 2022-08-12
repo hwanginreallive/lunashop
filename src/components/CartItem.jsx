@@ -1,12 +1,16 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+
+import { Link } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux/es/hooks/useDispatch';
 import { updateItem } from '~/redux/shopping-cart/cartItemsSlide';
-import numberWithCommas from '~/utils/numberWithCommas';
 import { removeItem } from '~/redux/shopping-cart/cartItemsSlide';
-import { Link } from 'react-router-dom';
+
+import numberWithCommas from '~/utils/numberWithCommas';
+
 import { AiOutlineDelete, AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
+
 const CartItem = (props) => {
     const dispatch = useDispatch();
 

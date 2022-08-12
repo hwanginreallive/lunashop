@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react';
+
 import Helmet from './Helmet';
 import InfoUser from './infoUser';
 import CartItem from './CartItem';
 
 import { useSelector } from 'react-redux';
 
-import numberWithCommas from '~/utils/numberWithCommas';
-
 import productData from '~/assets/fake-data/products';
+
 const Purchase = () => {
     const cartItems = useSelector((state) => state.cartItems.value);
 
     const [cartProducts, setCartProduct] = useState([]);
 
+    // eslint-disable-next-line
     const [totalProducts, setTotalProducts] = useState(0);
+    // eslint-disable-next-line
     const [totalPrice, setTotalPrice] = useState(0);
 
     useEffect(() => {
@@ -21,6 +23,7 @@ const Purchase = () => {
         setTotalProducts(cartItems.reduce((total, item) => total + Number(item.quantity), 0));
         setTotalPrice(cartItems.reduce((total, item) => total + Number(item.quantity) * Number(item.price), 0));
     }, [cartItems]);
+
     return (
         <Helmet title="Đơn mua">
             <div className="profile">

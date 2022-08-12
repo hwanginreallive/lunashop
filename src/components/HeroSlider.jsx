@@ -1,8 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+
 import { Link } from 'react-router-dom';
-import { MdOutlineArrowForwardIos, MdArrowBackIosNew } from 'react-icons/md';
+
 import Button from './Button';
+
+import { MdOutlineArrowForwardIos, MdArrowBackIosNew } from 'react-icons/md';
 
 const HeroSlider = (props) => {
     const data = props.data;

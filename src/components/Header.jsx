@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
-import { useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+
+import { useSelector } from 'react-redux';
+
 import logo from '~/assets/images/Logo-2.png';
+
 import { AiOutlineSearch, AiOutlineUser, AiOutlineShoppingCart, AiOutlineClose } from 'react-icons/ai';
 import { BiMenuAltLeft } from 'react-icons/bi';
-import { useSelector } from 'react-redux';
 
 import useOnclickOutside from '~/utils/useOnclickOutside';
 const mainNav = [

@@ -1,13 +1,14 @@
 import React from 'react';
+import Slider from 'react-slick';
+
 import productData from '~/assets/fake-data/products';
 import ProductCard from './ProductCard';
+
 import { FcNext, FcPrevious } from 'react-icons/fc';
-import Slider from 'react-slick';
-import { BiNoEntry } from 'react-icons/bi';
 
 const SliderProduct = () => {
     function SampleNextArrow(props) {
-        const { className, style, onClick } = props;
+        const { className, onClick } = props;
         return (
             <div className={className} style={{ fontSize: '2.5rem' }} onClick={onClick}>
                 <FcNext></FcNext>
@@ -16,7 +17,7 @@ const SliderProduct = () => {
     }
 
     function SamplePrevArrow(props) {
-        const { className, style, onClick } = props;
+        const { className, onClick } = props;
         return (
             <div className={className} style={{ fontSize: '2.5rem' }} onClick={onClick}>
                 <FcPrevious></FcPrevious>

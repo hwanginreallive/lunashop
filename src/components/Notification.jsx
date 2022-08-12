@@ -1,8 +1,11 @@
 import React from 'react';
+
 import Helmet from './Helmet';
 import InfoUser from './infoUser';
-import productData from '~/assets/fake-data/products';
 import NotificationItem from './NotificationItem';
+
+import productData from '~/assets/fake-data/products';
+
 const Notification = () => {
     return (
         <Helmet title="Thông báo">

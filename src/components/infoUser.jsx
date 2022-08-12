@@ -1,7 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
 import profileInfos from '~/assets/fake-data/users';
+
 import userImage from '~/assets/images/users/userdefault.jfif';
+
 import { FaPen } from 'react-icons/fa';
 
 const InfoUser = () => {

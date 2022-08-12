@@ -7,7 +7,7 @@ import Grid from './Grid';
 import logo from '~/assets/images/Logo-2.png';
 import Instagram from '~/assets/images/instagram.png';
 
-import { FaFacebook, FaTwitter, FaInstagram, FaYoutube } from 'react-icons/fa';
+import { FaFacebook, FaTwitter, FaYoutube } from 'react-icons/fa';
 const footerAboutLink = [
     {
         display: 'Facebook',
@@ -21,7 +21,7 @@ const footerAboutLink = [
     },
     {
         display: 'Instagram',
-        icon: <img src={Instagram} style={{ width: '16.25px' }} />,
+        icon: <img src={Instagram} alt="instagram" style={{ width: '16.25px' }} />,
         href: 'https://www.instagram.com/',
     },
     {

@@ -1,9 +1,8 @@
 import React from 'react';
+
 import Helmet from '~/components/Helmet';
+
 import { AiOutlineSearch } from 'react-icons/ai';
-import Section, { SectionTitle, SectionBody } from '~/components/Section';
-import Grid from '~/components/Grid';
-import 'boxicons';
 
 const questions = [
     {
