@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import InfoUser from './infoUser';
 import Helmet from './Helmet';
 import userImage from '~/assets/images/users/userdefault.jfif';

@@ -12,6 +12,7 @@ import productData from '~/assets/fake-data/products';
 import ProductCard from '~/components/ProductCard';
 import banner from '~/assets/images/banner.png';
 import SliderProduct from '~/components/SliderProduct';
+
 const Home = () => {
     return (
         <Helmet title="Trang chủ">

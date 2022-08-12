@@ -1,14 +1,19 @@
 import React, { useCallback, useState, useEffect, useRef } from 'react';
 
 import Helmet from '~/components/Helmet';
+import Checkbox from '~/components/Checkbox';
+import Button from '~/components/Button';
+import InfinityList from '~/components/InfinityList';
+
+import useOnclickOutside from '~/utils/useOnclickOutside';
+
 import productData from '~/assets/fake-data/products';
 import category from '~/assets/fake-data/category';
-import Checkbox from '~/components/Checkbox';
 import colors from '~/assets/fake-data/product-colors';
 import sizes from '~/assets/fake-data/product-size';
-import Button from '~/components/Button';
 
-import InfinityList from '~/components/InfinityList';
+import { BiX } from 'react-icons/bi';
+
 const Catalog = () => {
     const initFilter = {
         category: [],
@@ -20,6 +25,7 @@ const Catalog = () => {
 
     const [products, setProducts] = useState(productList);
     const [filter, setFilter] = useState(initFilter);
+    const [showButtonFilter, setShowButtonFilter] = useState(false);
 
     const clearFilter = () => setFilter(initFilter);
 
@@ -85,15 +91,20 @@ const Catalog = () => {
 
     const filterRef = useRef(null);
 
+    console.log(filterRef.current);
+
     const showHideFilter = () => {
         filterRef.current.classList.toggle('active');
     };
+
+    useOnclickOutside(filterRef, () => filterRef.current.classList.remove('active'));
+
     return (
         <Helmet title="Sản phẩm">
             <div className="catalog">
                 <div className="catalog__filter" ref={filterRef}>
                     <i className="catalog__filter__exit" onClick={showHideFilter}>
-                        <box-icon pull="right" name="x"></box-icon>
+                        <BiX></BiX>
                     </i>
                     <div className="catalog__filter__widget">
                         <div className="catalog__filter__widget__title">Danh mục sản phẩm</div>

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { BiCart } from 'react-icons/bi';
-import { Link } from 'react-router-dom';
 const Button = (props) => {
     const bg = props.backGroundColor ? 'bg-' + props.backGroundColor : 'bg-main';
 

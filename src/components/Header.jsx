@@ -113,7 +113,7 @@ const Header = () => {
                                             currentItems > 0 ? 'active' : ''
                                         } `}
                                     >
-                                        <label htmlFor="">{currentItems == 0 ? '' : currentItems}</label>
+                                        <label htmlFor="">{currentItems === 0 ? '' : currentItems}</label>
                                     </div>
                                 </div>
                             </Link>

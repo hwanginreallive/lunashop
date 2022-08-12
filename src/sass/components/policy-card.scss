@@ -12,6 +12,10 @@
         align-items: center;
         width: 40%;
         color: $main-color;
+
+        i {
+            font-size: 30px;
+        }
     }
     &__info {
         &__name {

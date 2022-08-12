@@ -5,27 +5,28 @@ import { Link } from 'react-router-dom';
 import Grid from './Grid';
 
 import logo from '~/assets/images/Logo-2.png';
-import 'boxicons';
+import Instagram from '~/assets/images/instagram.png';
 
+import { FaFacebook, FaTwitter, FaInstagram, FaYoutube } from 'react-icons/fa';
 const footerAboutLink = [
     {
         display: 'Facebook',
-        icon: 'facebook-circle',
+        icon: <FaFacebook style={{ color: '#2962ff' }}></FaFacebook>,
         href: 'https://www.facebook.com/',
     },
     {
         display: 'Twitter',
-        icon: 'twitter',
+        icon: <FaTwitter style={{ color: '#2962ff' }}></FaTwitter>,
         href: 'https://twitter.com',
     },
     {
         display: 'Instagram',
-        icon: 'instagram',
+        icon: <img src={Instagram} style={{ width: '16.25px' }} />,
         href: 'https://www.instagram.com/',
     },
     {
         display: 'Youtube',
-        icon: 'youtube',
+        icon: <FaYoutube style={{ color: '#ff0000' }}></FaYoutube>,
         href: 'https://www.youtube.com/',
     },
 ];
@@ -74,9 +75,7 @@ const Footer = () => {
                         <div className="footer__content">
                             {footerAboutLink.map((item, index) => (
                                 <a href={item.href} className="about-us" key={index}>
-                                    <p>
-                                        <box-icon type="logo" name={item.icon}></box-icon>
-                                    </p>
+                                    <i>{item.icon}</i>
                                     <p>{item.display}</p>
                                 </a>
                             ))}

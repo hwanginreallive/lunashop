@@ -6,11 +6,9 @@ import { updateItem } from '~/redux/shopping-cart/cartItemsSlide';
 import numberWithCommas from '~/utils/numberWithCommas';
 import { removeItem } from '~/redux/shopping-cart/cartItemsSlide';
 import { Link } from 'react-router-dom';
-import { AiOutlineDelete } from 'react-icons/ai';
+import { AiOutlineDelete, AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 const CartItem = (props) => {
     const dispatch = useDispatch();
-
-    const itemRef = useRef(null);
 
     const [item, setItem] = useState(props.item);
     const [quantity, setQuantity] = useState(props.item.quantity);
@@ -53,11 +51,11 @@ const CartItem = (props) => {
                 <div className="cart__item__info__quantity">
                     <div className="product__info__item__quantity">
                         <div className="product__info__item__quantity-btn" onClick={() => updateQuantity('-')}>
-                            <box-icon name="minus"></box-icon>
+                            <AiOutlineMinus></AiOutlineMinus>
                         </div>
                         <div className="product__info__item__quantity-input">{item.quantity}</div>
                         <div className="product__info__item__quantity-btn" onClick={() => updateQuantity('+')}>
-                            <box-icon name="plus"></box-icon>
+                            <AiOutlinePlus></AiOutlinePlus>
                         </div>
                     </div>
                 </div>

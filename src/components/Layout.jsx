@@ -1,27 +1,26 @@
 import React from 'react';
 
 import { BrowserRouter, Route } from 'react-router-dom';
+import Routes from '../routes/Routes';
+import ScrollToTop from './ScrollToTop';
 
 import Header from './Header';
 import Footer from './Footer';
 
-import Routes from '../routes/Routes';
 const Layout = () => {
     return (
         <BrowserRouter>
-            <Route
-                render={(props) => (
-                    <>
-                        <Header {...props} />
-                        <div className="container">
-                            <div className="main">
-                                <Routes />
-                            </div>
+            <ScrollToTop>
+                <Route>
+                    <Header />
+                    <div className="container">
+                        <div className="main">
+                            <Routes />
                         </div>
-                        <Footer />
-                    </>
-                )}
-            ></Route>
+                    </div>
+                    <Footer />
+                </Route>
+            </ScrollToTop>
         </BrowserRouter>
     );
 };

@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { addItem } from '~/redux/shopping-cart/cartItemsSlide';
 
-import 'boxicons';
 import Button from './Button';
 import numberWithCommas from '~/utils/numberWithCommas';
 import { useHistory } from 'react-router-dom';
+import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 
 const ProductView = (props) => {
     const dispatch = useDispatch();
@@ -165,11 +165,11 @@ const ProductView = (props) => {
                     <div className="product__info__item__title"> Số lượng </div>
                     <div className="product__info__item__quantity">
                         <div className="product__info__item__quantity-btn" onClick={() => updateQuantity('minus')}>
-                            <box-icon name="minus"></box-icon>
+                            <AiOutlineMinus></AiOutlineMinus>
                         </div>
                         <div className="product__info__item__quantity-input">{quantity}</div>
                         <div className="product__info__item__quantity-btn" onClick={() => updateQuantity('plus')}>
-                            <box-icon name="plus"></box-icon>
+                            <AiOutlinePlus></AiOutlinePlus>
                         </div>
                     </div>
                 </div>

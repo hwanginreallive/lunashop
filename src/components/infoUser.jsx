@@ -1,14 +1,10 @@
-import React, { useRef } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import profileInfos from '~/assets/fake-data/users';
-import { Link, useLocation } from 'react-router-dom';
-import 'boxicons';
 import userImage from '~/assets/images/users/userdefault.jfif';
+import { FaPen } from 'react-icons/fa';
 
 const InfoUser = () => {
-    const { pathname } = useLocation();
-    const activeInfo = profileInfos.findIndex((e) => e.path === pathname);
-
-    const infoUserRef = useRef(null);
     return (
         <>
             <div className="profile__left__avt">
@@ -17,7 +13,7 @@ const InfoUser = () => {
                     <h3>Noah Taylor</h3>
                     <div>
                         <i>
-                            <box-icon type="solid" name="pencil"></box-icon>
+                            <FaPen></FaPen>
                         </i>
                         <span>Sửa hồ sơ</span>
                     </div>
@@ -27,11 +23,8 @@ const InfoUser = () => {
                 <div className="info-user">
                     {profileInfos.map((info, index) => (
                         <Link to={`${info.path}`} key={index}>
-                            <div
-                                ref={infoUserRef}
-                                className={`info-user__item  ${index === activeInfo ? 'active' : ''} `}
-                            >
-                                <box-icon type=" solid" name={info.icon}></box-icon>
+                            <div className={`info-user__item`}>
+                                <i>{info.icon}</i>
                                 <span className="title"> {info.title} </span>
                             </div>
                         </Link>

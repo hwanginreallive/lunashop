@@ -41,17 +41,19 @@
             .info-user {
                 @include flex(flex-start, center);
                 flex-direction: column;
+
                 &__item {
                     @include flex(center, center);
                     padding: 10px;
                     font-size: 1.25rem;
                     line-height: 1rem;
+
+                    i {
+                        font-size: 24px;
+                    }
+
                     .title {
                         padding-left: 10px;
-                    }
-                    &.active {
-                        font-weight: 600;
-                        color: $main-color;
                     }
                 }
             }

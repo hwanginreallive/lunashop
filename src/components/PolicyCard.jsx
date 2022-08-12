@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import 'boxicons';
+
 const PolicyCard = (props) => {
-    const name = 'asd';
     return (
         <div className="policy-card">
             <div className="policy-card__icon">
-                <box-icon type="regular  " name={props.icon}></box-icon>
+                <i>{props.icon}</i>
             </div>
             <div className="policy-card__info">
                 <div className="policy-card__info__name">
@@ -23,7 +22,7 @@ const PolicyCard = (props) => {
 PolicyCard.propTypes = {
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
-    icon: PropTypes.string.isRequired,
+    icon: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 };
 
 export default PolicyCard;
