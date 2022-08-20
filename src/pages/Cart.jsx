@@ -3,12 +3,12 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 
 import productData from '~/assets/fake-data/products';
-import Button from '~/components/Button';
-import Helmet from '~/components/Helmet';
-import CartItem from '~/components/CartItem';
-import Section, { SectionTitle, SectionBody } from '~/components/Section';
-import Grid from '~/components/Grid';
-import ProductCard from '~/components/ProductCard';
+import Button from '~/components/Button/Button';
+import Helmet from '~/components/Helmet/Helmet';
+import CartItem from '~/components/CartItem/CartItem';
+import Section, { SectionTitle, SectionBody } from '~/components/Section/Section';
+import Grid from '~/components/Grid/Grid';
+import ProductCard from '~/components/Product/ProductCard';
 
 import numberWithCommas from '~/utils/numberWithCommas';
 

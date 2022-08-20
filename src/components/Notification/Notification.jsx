@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Helmet from './Helmet';
-import InfoUser from './infoUser';
+import Helmet from '../Helmet/Helmet';
+import InfoUser from '../User/infoUser';
 import NotificationItem from './NotificationItem';
 
 import productData from '~/assets/fake-data/products';

@@ -1,19 +1,19 @@
 import React from 'react';
 
-import Helmet from './Helmet';
-import InfoUser from './infoUser';
+import Helmet from '../Helmet/Helmet';
+import InfoUser from '../User/infoUser';
 
-const Voucher = () => {
+const coin = () => {
     return (
-        <Helmet title="Mã giảm giá">
+        <Helmet title="Xu">
             <div className="profile">
                 <div className="profile__left">
                     <InfoUser></InfoUser>
                 </div>
-                <div className="profile__right">Voucher</div>
+                <div className="profile__right">Coin</div>
             </div>
         </Helmet>
     );
 };
 
-export default Voucher;
+export default coin;

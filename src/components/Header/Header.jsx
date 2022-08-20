@@ -8,7 +8,7 @@ import logo from '~/assets/images/Logo-2.png';
 import { AiOutlineSearch, AiOutlineUser, AiOutlineShoppingCart, AiOutlineClose } from 'react-icons/ai';
 import { BiMenuAltLeft } from 'react-icons/bi';
 
-import useOnclickOutside from '~/utils/useOnclickOutside';
+import useOnclickOutside from '../Hooks/useOnclickOutside';
 const mainNav = [
     {
         display: 'Trang chủ',

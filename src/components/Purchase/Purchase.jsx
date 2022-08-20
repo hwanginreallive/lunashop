@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-import Helmet from './Helmet';
-import InfoUser from './infoUser';
-import CartItem from './CartItem';
+import Helmet from '../Helmet/Helmet';
+import InfoUser from '../User/infoUser';
+import { Tabs, Tab } from '@mui/material';
 
 import { useSelector } from 'react-redux';
 
@@ -11,11 +11,15 @@ import productData from '~/assets/fake-data/products';
 const Purchase = () => {
     const cartItems = useSelector((state) => state.cartItems.value);
 
+    const [selectedTab, setSelectedTab] = useState(0);
+
+    const handleChange = (event, newValue) => {
+        setSelectedTab(newValue);
+    };
+
     const [cartProducts, setCartProduct] = useState([]);
 
-    // eslint-disable-next-line
     const [totalProducts, setTotalProducts] = useState(0);
-    // eslint-disable-next-line
     const [totalPrice, setTotalPrice] = useState(0);
 
     useEffect(() => {
@@ -32,9 +36,13 @@ const Purchase = () => {
                 </div>
                 <div className="profile__right">
                     <div className="profile__right__purchase">
-                        {cartProducts.map((item, index) => (
-                            <CartItem item={item} key={index}></CartItem>
-                        ))}
+                        <Tabs value={selectedTab} onChange={handleChange}>
+                            <Tab label="Chờ xác nhận" />
+                            <Tab label="Đang Giao" />
+                            <Tab label="Đã Giao" />
+                            <Tab label="Đã Hủy" />
+                        </Tabs>
+                        {}
                     </div>
                 </div>
             </div>

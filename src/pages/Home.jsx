@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Helmet from '~/components/Helmet';
-import HeroSlider from '~/components/HeroSlider';
-import Section, { SectionTitle, SectionBody } from '~/components/Section';
-import PolicyCard from '~/components/PolicyCard';
-import Grid from '~/components/Grid';
-import ProductCard from '~/components/ProductCard';
-import SliderProduct from '~/components/SliderProduct';
+import Helmet from '~/components/Helmet/Helmet';
+import HeroSlider from '~/components/HeroSlider/HeroSlider';
+import Section, { SectionTitle, SectionBody } from '~/components/Section/Section';
+import PolicyCard from '~/components/PolicyCard/PolicyCard';
+import Grid from '~/components/Grid/Grid';
+import ProductCard from '~/components/Product/ProductCard';
+import SliderProduct from '~/components/Product/SliderProduct';
 
 import heroSliderData from '~/assets/fake-data/hero-slider';
 import policy from '~/assets/fake-data/policy';

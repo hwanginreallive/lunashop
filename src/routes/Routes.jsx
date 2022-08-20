@@ -7,11 +7,11 @@ import Catalog from '../pages/Catalog';
 import Cart from '../pages/Cart';
 import Product from '../pages/Product';
 import Support from '~/pages/Support';
-import Profile from '~/components/Profile';
-import Purchase from '~/components/Purchase';
-import Coin from '~/components/Coin';
-import Voucher from '~/components/Voucher';
-import Notification from '~/components/Notification';
+import Profile from '~/components/Profile/Profile';
+import Purchase from '~/components/Purchase/Purchase';
+import Coin from '~/components/Coin/Coin';
+import Voucher from '~/components/Voucher/Voucher';
+import Notification from '~/components/Notification/Notification';
 
 const Routes = () => {
     return (

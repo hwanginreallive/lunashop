@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { addItem } from '~/redux/shopping-cart/cartItemsSlide';
 
-import Button from './Button';
+import Button from '../Button/Button';
 import numberWithCommas from '~/utils/numberWithCommas';
 import { useHistory } from 'react-router-dom';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';

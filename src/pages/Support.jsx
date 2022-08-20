@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Helmet from '~/components/Helmet';
+import Helmet from '~/components/Helmet/Helmet';
 
 import { AiOutlineSearch } from 'react-icons/ai';
 

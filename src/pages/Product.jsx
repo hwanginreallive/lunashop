@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 
-import Helmet from '~/components/Helmet';
-import Section, { SectionTitle, SectionBody } from '~/components/Section';
-import Grid from '~/components/Grid';
-import ProductCard from '~/components/ProductCard';
-import ProductView from '~/components/ProductView';
+import Helmet from '~/components/Helmet/Helmet';
+import Section, { SectionTitle, SectionBody } from '~/components/Section/Section';
+import Grid from '~/components/Grid/Grid';
+import ProductCard from '~/components/Product/ProductCard';
+import ProductView from '~/components/Product/ProductView';
 
 import productData from '~/assets/fake-data/products';
 

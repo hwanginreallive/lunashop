@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 
-import Grid from './Grid';
+import Grid from '../Grid/Grid';
 
 import logo from '~/assets/images/Logo-2.png';
 import Instagram from '~/assets/images/instagram.png';

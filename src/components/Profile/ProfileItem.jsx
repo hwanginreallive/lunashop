@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 
-import useOnclickOutside from '~/utils/useOnclickOutside';
+import useOnclickOutside from '~/components/Hooks/useOnclickOutside';
 
 const ProfileItem = ({ info }) => {
     const [inEditMode, setInEditMode] = useState(false);
@@ -12,7 +12,7 @@ const ProfileItem = ({ info }) => {
     useOnclickOutside(profileRef, () => setInEditMode(false));
 
     const onViewNameKeyup = (event) => {
-        const newName = event.target.value;
+        const newName = event.target.value.trim();
         if (event.key === 'Enter') {
             if (!newName) {
                 setInEditMode(!inEditMode);
@@ -33,7 +33,7 @@ const ProfileItem = ({ info }) => {
         >
             <span>{info.title}</span>
             {inEditMode ? (
-                <input type="text" autoFocus onKeyUp={(e) => onViewNameKeyup(e)} />
+                <input type="text" defaultValue={info.content} autoFocus onKeyUp={(e) => onViewNameKeyup(e)} />
             ) : (
                 <div>{info.content}</div>
             )}

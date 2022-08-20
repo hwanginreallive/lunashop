@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import Grid from './Grid';
-import ProductCard from './ProductCard';
+import Grid from '../Grid/Grid';
+import ProductCard from '../Product/ProductCard';
 
 const InfinityList = (props) => {
     const perLoad = 6; // items each load

@@ -1,11 +1,11 @@
 import React, { useCallback, useState, useEffect, useRef } from 'react';
 
-import Helmet from '~/components/Helmet';
-import Checkbox from '~/components/Checkbox';
-import Button from '~/components/Button';
-import InfinityList from '~/components/InfinityList';
+import Helmet from '~/components/Helmet/Helmet';
+import Checkbox from '~/components/CheckBox/Checkbox';
+import Button from '~/components/Button/Button';
+import InfinityList from '~/components/InfinityList/InfinityList';
 
-import useOnclickOutside from '~/utils/useOnclickOutside';
+import useOnclickOutside from '~/components/Hooks/useOnclickOutside';
 
 import productData from '~/assets/fake-data/products';
 import category from '~/assets/fake-data/category';
@@ -89,8 +89,6 @@ const Catalog = () => {
     }, [updateProducts]);
 
     const filterRef = useRef(null);
-
-    console.log(filterRef.current);
 
     const showHideFilter = () => {
         filterRef.current.classList.toggle('active');
