@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
+import { Tabs, Tab } from '@mui/material';
 import Helmet from '../Helmet/Helmet';
 import InfoUser from '../User/infoUser';
-import { Tabs, Tab } from '@mui/material';
-
-import { useSelector } from 'react-redux';
 
 import productData from '~/assets/fake-data/products';
 
+import { products_shiping, products_shiped, products_deny } from '~/assets/fake-data/products';
+import WaitToConfirm from './WaitToConfirm';
+import Shiping from './Shiping';
+import Shiped from './Shiped';
+import Deny from './Deny';
 const Purchase = () => {
     const cartItems = useSelector((state) => state.cartItems.value);
 
@@ -18,7 +22,6 @@ const Purchase = () => {
     };
 
     const [cartProducts, setCartProduct] = useState([]);
-
     const [totalProducts, setTotalProducts] = useState(0);
     const [totalPrice, setTotalPrice] = useState(0);
 
@@ -28,6 +31,8 @@ const Purchase = () => {
         setTotalPrice(cartItems.reduce((total, item) => total + Number(item.quantity) * Number(item.price), 0));
     }, [cartItems]);
 
+    console.log(11, cartProducts);
+    console.log(12, products_shiping);
     return (
         <Helmet title="Đơn mua">
             <div className="profile">
@@ -42,7 +47,10 @@ const Purchase = () => {
                             <Tab label="Đã Giao" />
                             <Tab label="Đã Hủy" />
                         </Tabs>
-                        {}
+                        {selectedTab === 0 && <WaitToConfirm product={cartProducts}></WaitToConfirm>}
+                        {selectedTab === 1 && <Shiping product={products_shiping}></Shiping>}
+                        {selectedTab === 2 && <Shiped product={products_shiped}></Shiped>}
+                        {selectedTab === 3 && <Deny product={products_deny}></Deny>}
                     </div>
                 </div>
             </div>

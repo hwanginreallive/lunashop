@@ -45,7 +45,7 @@ const Cart = () => {
                 </div>
                 <div className="cart__list">
                     {cartProducts.map((item, index) => (
-                        <CartItem item={item} key={index}></CartItem>
+                        <CartItem item={item} key={index} delete></CartItem>
                     ))}
                 </div>
             </div>

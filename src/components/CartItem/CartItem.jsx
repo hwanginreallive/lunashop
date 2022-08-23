@@ -52,23 +52,35 @@ const CartItem = (props) => {
                     </Link>
                 </div>
 
-                <div className="cart__item__info__quantity">
-                    <div className="product__info__item__quantity">
-                        <div className="product__info__item__quantity-btn" onClick={() => updateQuantity('-')}>
-                            <AiOutlineMinus></AiOutlineMinus>
+                {props.delete ? (
+                    <>
+                        <div className="cart__item__info__quantity">
+                            <div className="product__info__item__quantity">
+                                <div className="product__info__item__quantity-btn" onClick={() => updateQuantity('-')}>
+                                    <AiOutlineMinus></AiOutlineMinus>
+                                </div>
+                                <div className="product__info__item__quantity-input">{item.quantity}</div>
+                                <div className="product__info__item__quantity-btn" onClick={() => updateQuantity('+')}>
+                                    <AiOutlinePlus></AiOutlinePlus>
+                                </div>
+                            </div>
                         </div>
-                        <div className="product__info__item__quantity-input">{item.quantity}</div>
-                        <div className="product__info__item__quantity-btn" onClick={() => updateQuantity('+')}>
-                            <AiOutlinePlus></AiOutlinePlus>
+                        <div className="cart__item__info__del" onClick={removeCartItem}>
+                            <span>Xóa</span>
+                            <i>
+                                <AiOutlineDelete></AiOutlineDelete>{' '}
+                            </i>
                         </div>
-                    </div>
-                </div>
-                <div className="cart__item__info__del" onClick={removeCartItem}>
-                    <span>Xóa</span>
-                    <i>
-                        <AiOutlineDelete></AiOutlineDelete>
-                    </i>
-                </div>
+                    </>
+                ) : props.Shiping ? (
+                    <div>Đơn hàng đang trên đường vận chuyển</div>
+                ) : props.Shiped ? (
+                    <div>Đơn hàng đã hoàn thành </div>
+                ) : props.Deny ? (
+                    <div>Đơn hàng đã hủy</div>
+                ) : (
+                    ''
+                )}
             </div>
         </div>
     );
