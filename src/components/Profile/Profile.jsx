@@ -6,6 +6,9 @@ import ProfileItem from './ProfileItem';
 
 import userImage from '~/assets/images/users/userdefault.jfif';
 
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
 const infos = [
     {
         title: 'Tên Đăng Nhập',
@@ -54,9 +57,19 @@ const Profile = () => {
                             </div>
                             <div className="profile__right__user__content__img">
                                 <img src={userImage} alt="" />
-                                <button>Chọn ảnh</button>
+                                <div>
+                                    <Button variant="contained" component="label">
+                                        Chọn ảnh
+                                        <input hidden accept="image/*" multiple type="file" />
+                                    </Button>
+                                    <IconButton color="primary" aria-label="upload picture" component="label">
+                                        <input hidden accept="image/*" type="file" />
+                                        <PhotoCamera />
+                                    </IconButton>
+                                </div>
                                 <div className="title">
                                     <div>Dụng lượng file tối đa 1 MB</div>
+
                                     <div>Định dạng:.JPEG, .PNG</div>
                                 </div>
                             </div>

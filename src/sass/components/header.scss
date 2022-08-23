@@ -81,26 +81,6 @@
             &__item {
                 position: relative;
                 @include flex(center, center);
-
-                &__cart.active {
-                    width: 20px;
-                    height: 20px;
-                    background-color: $main-color;
-                    position: absolute;
-                    top: -5px;
-                    right: -5px;
-                    border-radius: 50%;
-                    label {
-                        @include flex(center, center);
-                        font-size: 1.25rem;
-                        cursor: pointer;
-                        color: $main-bg;
-                    }
-                    @include mobile {
-                        width: 80%;
-                        height: 80%;
-                    }
-                }
             }
             .form-search {
                 position: absolute;

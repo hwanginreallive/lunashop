@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
 import { useSelector } from 'react-redux/es/hooks/useSelector';
+import { Link } from 'react-router-dom';
 
 import productData from '~/assets/fake-data/products';
-import Button from '~/components/Button/Button';
 import Helmet from '~/components/Helmet/Helmet';
 import CartItem from '~/components/CartItem/CartItem';
 import Section, { SectionTitle, SectionBody } from '~/components/Section/Section';
@@ -11,6 +11,8 @@ import Grid from '~/components/Grid/Grid';
 import ProductCard from '~/components/Product/ProductCard';
 
 import numberWithCommas from '~/utils/numberWithCommas';
+
+import { Button } from '@mui/material';
 
 const Cart = () => {
     const cartItems = useSelector((state) => state.cartItems.value);
@@ -37,9 +39,13 @@ const Cart = () => {
                         </div>
                     </div>
                     <div className="cart__info__btn">
-                        <Button to="/catalog">Tiếp tục mua hàng</Button>
+                        <Button variant="contained">
+                            <Link to="/catalog">Tiếp tục mua hàng</Link>
+                        </Button>
                         <div className="btn-pay">
-                            <Button>Thanh toán</Button>
+                            <Button variant="contained">
+                                <Link to="/catalog">Thanh toán</Link>
+                            </Button>
                         </div>
                     </div>
                 </div>

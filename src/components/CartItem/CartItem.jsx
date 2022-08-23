@@ -9,8 +9,8 @@ import { removeItem } from '~/redux/shopping-cart/cartItemsSlide';
 
 import numberWithCommas from '~/utils/numberWithCommas';
 
-import { AiOutlineDelete, AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
-
+import { AiFillDelete, AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
+import { Button, IconButton } from '@mui/material';
 const CartItem = (props) => {
     const dispatch = useDispatch();
 
@@ -57,19 +57,23 @@ const CartItem = (props) => {
                         <div className="cart__item__info__quantity">
                             <div className="product__info__item__quantity">
                                 <div className="product__info__item__quantity-btn" onClick={() => updateQuantity('-')}>
-                                    <AiOutlineMinus></AiOutlineMinus>
+                                    <IconButton aria-label="fingerprint" color="secondary">
+                                        <AiOutlineMinus></AiOutlineMinus>
+                                    </IconButton>
                                 </div>
                                 <div className="product__info__item__quantity-input">{item.quantity}</div>
                                 <div className="product__info__item__quantity-btn" onClick={() => updateQuantity('+')}>
-                                    <AiOutlinePlus></AiOutlinePlus>
+                                    <IconButton aria-label="fingerprint" color="secondary">
+                                        <AiOutlinePlus></AiOutlinePlus>
+                                    </IconButton>
                                 </div>
                             </div>
                         </div>
+
                         <div className="cart__item__info__del" onClick={removeCartItem}>
-                            <span>Xóa</span>
-                            <i>
-                                <AiOutlineDelete></AiOutlineDelete>{' '}
-                            </i>
+                            <Button variant="contained" startIcon={<AiFillDelete />}>
+                                Xóa
+                            </Button>
                         </div>
                     </>
                 ) : props.Shiping ? (

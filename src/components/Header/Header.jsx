@@ -9,6 +9,8 @@ import { AiOutlineSearch, AiOutlineUser, AiOutlineShoppingCart, AiOutlineClose }
 import { BiMenuAltLeft } from 'react-icons/bi';
 
 import useOnclickOutside from '../Hooks/useOnclickOutside';
+import { Badge } from '@mui/material';
+import MailIcon from '@mui/icons-material/Mail';
 const mainNav = [
     {
         display: 'Trang chủ',
@@ -49,8 +51,6 @@ const Header = () => {
     }, []);
 
     const menuLeft = useRef(null);
-
-    const cartRef = useRef();
 
     const menuToggle = () => menuLeft.current.classList.toggle('active');
 
@@ -107,17 +107,13 @@ const Header = () => {
                         </div>
                         <div className="header__menu__item header__menu__right__item">
                             <Link to="/cart">
-                                <div className="icon">
-                                    <AiOutlineShoppingCart />
-                                    <div
-                                        ref={cartRef}
-                                        className={` header__menu__right__item__cart ${
-                                            currentItems > 0 ? 'active' : ''
-                                        } `}
-                                    >
-                                        <label htmlFor="">{currentItems === 0 ? '' : currentItems}</label>
+                                <Badge badgeContent={currentItems > 0 ? currentItems : 0} color="primary">
+                                    <div className="icon">
+                                        <AiOutlineShoppingCart />
+
+                                        <div className="header__menu__right__item__cart"></div>
                                     </div>
-                                </div>
+                                </Badge>
                             </Link>
                         </div>
                         <div className="header__menu__item header__menu__right__item">

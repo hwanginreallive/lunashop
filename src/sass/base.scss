@@ -114,6 +114,7 @@ img {
     margin-top: $header-height;
     margin-bottom: 2rem;
     // min-height: 100vh;
+    min-height: 60vh;
 
     @include tablet {
         margin-top: calc(#{$header-tablet-height} + 20px);
