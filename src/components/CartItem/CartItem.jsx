@@ -10,7 +10,10 @@ import { removeItem } from '~/redux/shopping-cart/cartItemsSlide';
 import numberWithCommas from '~/utils/numberWithCommas';
 
 import { AiFillDelete, AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
-import { Button, IconButton } from '@mui/material';
+import { Button, IconButton, Fab } from '@mui/material';
+
+import { MdLocalShipping, MdTaskAlt, MdErrorOutline, MdOutlineMailOutline } from 'react-icons/md';
+
 const CartItem = (props) => {
     const dispatch = useDispatch();
 
@@ -48,40 +51,50 @@ const CartItem = (props) => {
                         <span>{item.product.title}</span>
                         <span>{item.color}</span>
                         <span>{item.size}</span>
-                        <span>{numberWithCommas(item.product.price)}</span>
                     </Link>
                 </div>
+                <div> Số tiền: {numberWithCommas(item.product.price * quantity)}</div>
 
                 {props.delete ? (
                     <>
                         <div className="cart__item__info__quantity">
                             <div className="product__info__item__quantity">
                                 <div className="product__info__item__quantity-btn" onClick={() => updateQuantity('-')}>
-                                    <IconButton aria-label="fingerprint" color="secondary">
+                                    <Fab color="primary" size="small" variant="extended">
                                         <AiOutlineMinus></AiOutlineMinus>
-                                    </IconButton>
+                                    </Fab>
                                 </div>
                                 <div className="product__info__item__quantity-input">{item.quantity}</div>
                                 <div className="product__info__item__quantity-btn" onClick={() => updateQuantity('+')}>
-                                    <IconButton aria-label="fingerprint" color="secondary">
+                                    <Fab color="primary" size="small" variant="extended">
                                         <AiOutlinePlus></AiOutlinePlus>
-                                    </IconButton>
+                                    </Fab>
                                 </div>
                             </div>
                         </div>
 
                         <div className="cart__item__info__del" onClick={removeCartItem}>
-                            <Button variant="contained" startIcon={<AiFillDelete />}>
+                            <Button variant="contained" size="medium" startIcon={<AiFillDelete />}>
                                 Xóa
                             </Button>
                         </div>
                     </>
+                ) : props.confirm ? (
+                    <Button variant="contained" size="medium" startIcon={<MdOutlineMailOutline />}>
+                        Liên hệ với shop
+                    </Button>
                 ) : props.Shiping ? (
-                    <div>Đơn hàng đang trên đường vận chuyển</div>
+                    <Button variant="contained" size="medium" startIcon={<MdLocalShipping />}>
+                        Đơn hàng đang trên đường vận chuyển
+                    </Button>
                 ) : props.Shiped ? (
-                    <div>Đơn hàng đã hoàn thành </div>
+                    <Button variant="contained" size="medium" startIcon={<MdTaskAlt />}>
+                        Đơn hàng đã hoàn thành
+                    </Button>
                 ) : props.Deny ? (
-                    <div>Đơn hàng đã hủy</div>
+                    <Button variant="contained" size="medium" startIcon={<MdErrorOutline />}>
+                        Đơn hàng đã hủy
+                    </Button>
                 ) : (
                     ''
                 )}

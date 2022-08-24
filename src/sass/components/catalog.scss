@@ -30,6 +30,8 @@
         }
 
         &.active {
+            top: 0;
+            z-index: 99999;
             animation: fadeIn ease 1s;
             transform: translateX(0);
         }

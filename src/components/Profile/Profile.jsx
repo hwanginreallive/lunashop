@@ -6,7 +6,7 @@ import ProfileItem from './ProfileItem';
 
 import userImage from '~/assets/images/users/userdefault.jfif';
 
-import Button from '@mui/material/Button';
+import { Button } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 const infos = [

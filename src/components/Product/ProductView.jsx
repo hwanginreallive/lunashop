@@ -4,10 +4,14 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { addItem } from '~/redux/shopping-cart/cartItemsSlide';
 
-import Button from '../Button/Button';
+import { Button, Fab } from '@mui/material';
+
 import numberWithCommas from '~/utils/numberWithCommas';
 import { useHistory } from 'react-router-dom';
-import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
+import { AiOutlineMinus, AiOutlinePlus, AiFillCaretDown, AiFillCaretUp } from 'react-icons/ai';
+import { ToastContainer } from 'react-toastify';
+
+import { notifyError, notifySuccess, notifyWarning } from '../Toasts/Toast';
 
 const ProductView = (props) => {
     const dispatch = useDispatch();
@@ -18,7 +22,6 @@ const ProductView = (props) => {
 
     const [color, setColor] = useState(undefined);
     const [size, setSize] = useState(undefined);
-
     const [quantity, setQuantity] = useState(1);
 
     const notifiColorRef = useRef(null);
@@ -43,21 +46,12 @@ const ProductView = (props) => {
     }, [props.product]);
 
     const check = () => {
-        if (color === undefined && size) {
-            notifiColorRef.current.classList.add('active');
+        if (color === undefined) {
+            notifyWarning('Vui lòng chọn màu sắc');
             return false;
-        }
-        if (size === undefined && color) {
-            notifiSizeRef.current.classList.add('active');
+        } else if (size === undefined) {
+            notifyWarning('Vui lòng chọn kích thước');
             return false;
-        }
-        if (size === undefined && color === undefined) {
-            notifiSizeRef.current.classList.add('active');
-            notifiColorRef.current.classList.add('active');
-            return false;
-        } else {
-            notifiSizeRef.current.classList.remove('active');
-            notifiColorRef.current.classList.remove('active');
         }
         return true;
     };
@@ -73,6 +67,7 @@ const ProductView = (props) => {
                     price: props.product.price,
                 }),
             );
+            notifySuccess('Thêm vào giỏ hàng thành công!');
         }
     };
 
@@ -112,7 +107,12 @@ const ProductView = (props) => {
                         dangerouslySetInnerHTML={{ __html: props.product.description }}
                     ></div>
                     <div className="product__description__toggle">
-                        <Button onClick={() => setDescriptionExpand(!descriptionExpand)}>
+                        <Button
+                            variant="contained"
+                            size="large"
+                            endIcon={descriptionExpand ? <AiFillCaretUp /> : <AiFillCaretDown />}
+                            onClick={() => setDescriptionExpand(!descriptionExpand)}
+                        >
                             {descriptionExpand ? 'Thu gọn' : 'Xem thêm'}
                         </Button>
                     </div>
@@ -136,10 +136,7 @@ const ProductView = (props) => {
                             </div>
                         ))}
                     </div>
-                    <span ref={notifiColorRef} className="product__info__item__notifications">
-                        {' '}
-                        Vui lòng chọn màu sắc{' '}
-                    </span>
+                    <span ref={notifiColorRef} className="product__info__item__notifications"></span>
                 </div>
                 <div className="product__info__item">
                     <span className="product__info__item__title">Kích thước</span>
@@ -156,30 +153,36 @@ const ProductView = (props) => {
                             </div>
                         ))}
                     </div>
-                    <span ref={notifiSizeRef} className="product__info__item__notifications">
-                        {' '}
-                        Vui lòng chọn kích thươc{' '}
-                    </span>
+                    <span ref={notifiSizeRef} className="product__info__item__notifications"></span>
                 </div>
                 <div className="product__info__item">
                     <div className="product__info__item__title"> Số lượng </div>
                     <div className="product__info__item__quantity">
-                        <div className="product__info__item__quantity-btn" onClick={() => updateQuantity('minus')}>
-                            <AiOutlineMinus></AiOutlineMinus>
+                        <div className="product__info__item__quantity__btn" onClick={() => updateQuantity('minus')}>
+                            <Fab color="primary" size="small" aria-label="add" variant="extended">
+                                <AiOutlineMinus></AiOutlineMinus>
+                            </Fab>
                         </div>
                         <div className="product__info__item__quantity-input">{quantity}</div>
-                        <div className="product__info__item__quantity-btn" onClick={() => updateQuantity('plus')}>
-                            <AiOutlinePlus></AiOutlinePlus>
+                        <div className="product__info__item__quantity__btn" onClick={() => updateQuantity('plus')}>
+                            <Fab color="primary" size="small" aria-label="add" variant="extended">
+                                <AiOutlinePlus></AiOutlinePlus>
+                            </Fab>
                         </div>
                     </div>
                 </div>
                 <div className="product__info__item">
-                    <Button onClick={goToCart}>mua ngay</Button>
-                    <Button animate onClick={addToCart}>
-                        Thêm vào giỏ hàng
-                    </Button>
+                    <div className="product__info__item__button">
+                        <Button variant="contained" size="large" onClick={goToCart}>
+                            mua ngay
+                        </Button>
+                        <Button variant="contained" size="large" animate onClick={addToCart}>
+                            Thêm vào giỏ hàng
+                        </Button>
+                    </div>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     );
 };

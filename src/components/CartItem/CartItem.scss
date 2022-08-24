@@ -1,0 +1,50 @@
+.cart__item {
+    @include flex(center, flex-start);
+    margin: 10px 0;
+    &__img {
+        img {
+            height: 150px;
+            cursor: pointer;
+        }
+    }
+    &__info {
+        @include flex(center, space-between);
+        flex-grow: 1;
+        margin-left: 30px;
+
+        @include mobile {
+            flex-direction: column;
+            @include flex(flex-start, center);
+        }
+        &__name {
+            width: 40%;
+
+            span {
+                display: block;
+                line-height: 2rem;
+            }
+        }
+
+        &__name,
+        &__price,
+        &__color,
+        &__size {
+            font-size: 1.5rem;
+        }
+        &__del {
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: flex;
+            span {
+                padding-right: 5px;
+            }
+
+            i {
+                @include flex(center, center);
+            }
+            &:hover {
+                color: $main-color;
+            }
+        }
+    }
+}

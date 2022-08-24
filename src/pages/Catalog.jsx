@@ -2,10 +2,8 @@ import React, { useCallback, useState, useEffect, useRef } from 'react';
 
 import Helmet from '~/components/Helmet/Helmet';
 import Checkbox from '~/components/CheckBox/Checkbox';
-import Button from '~/components/Button/Button';
+import { Button } from '@mui/material';
 import InfinityList from '~/components/InfinityList/InfinityList';
-
-import useOnclickOutside from '~/components/Hooks/useOnclickOutside';
 
 import productData from '~/assets/fake-data/products';
 import category from '~/assets/fake-data/category';
@@ -13,6 +11,7 @@ import colors from '~/assets/fake-data/product-colors';
 import sizes from '~/assets/fake-data/product-size';
 
 import { BiX } from 'react-icons/bi';
+import { SwipeableDrawer } from '@mui/material';
 
 const Catalog = () => {
     const initFilter = {
@@ -92,9 +91,10 @@ const Catalog = () => {
 
     const showHideFilter = () => {
         filterRef.current.classList.toggle('active');
+        setDrawer(!drawer);
     };
 
-    useOnclickOutside(filterRef, () => filterRef.current.classList.remove('active'));
+    const [drawer, setDrawer] = useState(false);
 
     return (
         <Helmet title="Sản phẩm">
@@ -147,12 +147,17 @@ const Catalog = () => {
                     </div>
                     <div className="catalog__filter__widget">
                         <div className="catalog__filter__widget__content">
-                            <Button onClick={clearFilter}>Xóa bộ lọc</Button>
+                            <Button variant="contained" size="large" onClick={clearFilter}>
+                                Xóa bộ lọc
+                            </Button>
                         </div>
                     </div>
                 </div>
                 <div className="catalog__toggle">
-                    <Button onClick={() => showHideFilter()}>Filter</Button>
+                    <Button variant="contained" size="large" onClick={() => showHideFilter()}>
+                        Filter
+                        <SwipeableDrawer open={drawer}></SwipeableDrawer>
+                    </Button>
                 </div>
 
                 <div className="catalog__content">

@@ -5,6 +5,7 @@ import { Provider } from 'react-redux/es/exports';
 import { store } from './redux/store';
 import Layout from './components/Layout/Layout';
 import '~/sass/index.scss';
+import 'react-toastify/dist/ReactToastify.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

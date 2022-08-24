@@ -6,7 +6,7 @@ const WaitToConfirm = ({ product }) => {
     return (
         <div>
             {product.map((item, index) => (
-                <CartItem item={item} key={index} delete></CartItem>
+                <CartItem item={item} key={index} confirm></CartItem>
             ))}
         </div>
     );

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Link } from 'react-router-dom';
 
-import Button from '../Button/Button';
+import ButtonCustom from '../Button/ButtonCustom';
 
 import { MdOutlineArrowForwardIos, MdArrowBackIosNew } from 'react-icons/md';
 
@@ -73,9 +73,9 @@ const HeaderSliderItem = (props) => (
             </div>
             <div className={`hero-slider__item__info__btn color-${props.item.color}`}>
                 <Link to={props.item.path}>
-                    <Button backGroundColor={props.item.color} animate>
+                    <ButtonCustom backGroundColor={props.item.color} animate>
                         Xem chi tiết
-                    </Button>
+                    </ButtonCustom>
                 </Link>
             </div>
         </div>

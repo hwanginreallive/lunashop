@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import Button from '../Button/Button';
+import { Button } from '@mui/material';
 import numberWithCommas from '~/utils/numberWithCommas';
 
 const ProductCard = (props) => {
@@ -23,7 +23,7 @@ const ProductCard = (props) => {
             </Link>
             <div className="product-card__btn">
                 <Link to={`/catalog/${props.slug}`}>
-                    <Button size="sm" icon="bx bx-cart" animate={true}>
+                    <Button variant="contained" size="large" animate={true}>
                         chọn mua
                     </Button>
                 </Link>

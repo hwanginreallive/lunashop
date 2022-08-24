@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { BiCart } from 'react-icons/bi';
-const Button = (props) => {
+const ButtonCustom = (props) => {
     const bg = props.backGroundColor ? 'bg-' + props.backGroundColor : 'bg-main';
 
     const size = props.size ? 'btn-' + props.size : '';
@@ -20,7 +20,7 @@ const Button = (props) => {
     );
 };
 
-Button.propTypes = {
+ButtonCustom.propTypes = {
     backGroundColor: PropTypes.string,
     size: PropTypes.string,
     icon: PropTypes.string,
@@ -28,4 +28,4 @@ Button.propTypes = {
     onClick: PropTypes.func,
 };
 
-export default Button;
+export default ButtonCustom;

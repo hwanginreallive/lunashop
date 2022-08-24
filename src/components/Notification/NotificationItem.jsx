@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Button from '../Button/Button';
+import { Button } from '@mui/material';
 
 const NotificationItem = (props) => {
     return (
@@ -18,7 +18,11 @@ const NotificationItem = (props) => {
                     <div>Đã giao thành công đến bạn</div>
                 </div>
             </div>
-            <Button to={`/catalog/${props.product.slug}`}>Xem chi tiết đơn hàng</Button>
+            <Link to={`/catalog/${props.product.slug}`}>
+                <Button variant="contained" size="large">
+                    Xem chi tiết đơn hàng
+                </Button>
+            </Link>
         </div>
     );
 };

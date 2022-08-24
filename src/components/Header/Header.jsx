@@ -10,7 +10,6 @@ import { BiMenuAltLeft } from 'react-icons/bi';
 
 import useOnclickOutside from '../Hooks/useOnclickOutside';
 import { Badge } from '@mui/material';
-import MailIcon from '@mui/icons-material/Mail';
 const mainNav = [
     {
         display: 'Trang chủ',
@@ -34,6 +33,8 @@ const Header = () => {
 
     const searchRef = useRef();
     const [showSearch, setShowSearch] = useState(false);
+    const [value, setValue] = useState(0);
+
     useOnclickOutside(searchRef, () => setShowSearch(false));
 
     useEffect(() => {
@@ -123,6 +124,7 @@ const Header = () => {
                                 </div>
                             </Link>
                         </div>
+                        <div className="header__menu__item header__menu__right__item"></div>
                     </div>
                 </div>
             </div>

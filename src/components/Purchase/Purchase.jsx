@@ -31,8 +31,6 @@ const Purchase = () => {
         setTotalPrice(cartItems.reduce((total, item) => total + Number(item.quantity) * Number(item.price), 0));
     }, [cartItems]);
 
-    console.log(11, cartProducts);
-    console.log(12, products_shiping);
     return (
         <Helmet title="Đơn mua">
             <div className="profile">
