@@ -57,7 +57,7 @@ const Profile = () => {
                             </div>
                             <div className="profile__right__user__content__img">
                                 <img src={userImage} alt="" />
-                                <div>
+                                <div className="button">
                                     <Button variant="contained" component="label">
                                         Chọn ảnh
                                         <input hidden accept="image/*" multiple type="file" />

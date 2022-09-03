@@ -27,10 +27,19 @@
                 padding-top: 1.875rem;
                 @include flex(flex-start, space-between);
 
+                @include mobile {
+                    flex-direction: column-reverse;
+                    margin: auto;
+                }
+
                 &__info {
                     @include flex(flex-start, space-between);
                     flex-direction: column;
                     width: 60%;
+
+                    @include mobile {
+                        width: 100%;
+                    }
 
                     &__item {
                         @include flex(center, flex-start);
@@ -38,12 +47,43 @@
                         width: 100%;
                         height: 40px;
 
+                        @include tablet {
+                            font-size: 0.875em;
+                        }
+
+                        &__left {
+                            text-align: right;
+                            color: rgba(85, 85, 85, 0.8);
+                        }
+
+                        &__right {
+                            padding-left: 20px;
+                        }
+
                         span {
                             text-align: right;
                             color: rgba(85, 85, 85, 0.8);
                             text-transform: capitalize;
-                            width: 25%;
+                            width: 30%;
                             padding-right: 20px;
+
+                            @include tablet {
+                                width: 40%;
+                            }
+
+                            @include mobile {
+                                width: 40%;
+                            }
+                        }
+
+                        div {
+                            @include tablet {
+                                overflow: hidden;
+                            }
+
+                            @include mobile {
+                                overflow: hidden;
+                            }
                         }
 
                         input {
@@ -68,49 +108,43 @@
                             }
                         }
                     }
-
-                    &__left {
-                        text-align: right;
-                        color: rgba(85, 85, 85, 0.8);
-                    }
-
-                    &__right {
-                        padding-left: 20px;
-                    }
                 }
 
                 &__img {
                     width: 40%;
                     border-left: 0.0625rem solid #efefef;
+
                     @include flex(center, center);
+
                     flex-direction: column;
-                    position: relative;
+
+                    @include mobile {
+                        flex-direction: row;
+                        width: 100%;
+                        justify-content: space-around;
+                    }
+
                     img {
                         width: 100px;
                         height: 100px;
                         border-radius: 50%;
                         margin: 20px 0;
                     }
-
-                    button {
-                        outline: 0px;
-                        background: rgb(255, 255, 255);
-                        color: rgb(85, 85, 85);
-                        border: 1px solid rgba(0, 0, 0, 0.09);
-                        box-shadow: rgb(0 0 0 / 3%) 0px 1px 1px 0px;
-                        overflow: visible;
-                        height: 40px;
-                        padding: 0 20px;
-                        min-width: 70px;
-                        max-width: 220px;
-                        bottom: 50;
-                        font-size: 0.875em;
+                    .button {
+                        @include mobile {
+                            @include flex(center, flex-start);
+                            flex-direction: column;
+                        }
                     }
+
                     .title {
                         margin-top: 10px;
                         color: #999;
                         font-size: 1.2rem;
                         line-height: 2rem;
+                        @include mobile {
+                            display: none;
+                        }
                     }
                 }
             }

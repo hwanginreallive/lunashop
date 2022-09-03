@@ -45,7 +45,7 @@ const Cart = () => {
                             </Button>
                         </Link>
                         <div className="btn-pay">
-                            <Link>
+                            <Link to="/catalog">
                                 <Button variant="contained" size="large">
                                     Thanh toán
                                 </Button>

@@ -20,7 +20,7 @@ const profileInfos = [
     },
     {
         title: 'Kho voucher',
-        icon: <img style={{ height: '24px', width: '24px', color: 'red' }} src={Discount} />,
+        icon: <img style={{ height: '24px', width: '24px', color: 'red' }} src={Discount} alt="voucher" />,
         path: '/user/voucher',
     },
     {

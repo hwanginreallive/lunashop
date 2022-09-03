@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import CartItem from '../CartItem/CartItem';
@@ -12,6 +12,8 @@ const WaitToConfirm = ({ product }) => {
     );
 };
 
-WaitToConfirm.propTypes = {};
+WaitToConfirm.propTypes = {
+    product: PropTypes.array,
+};
 
 export default WaitToConfirm;

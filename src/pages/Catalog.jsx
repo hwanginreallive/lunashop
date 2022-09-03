@@ -24,6 +24,7 @@ const Catalog = () => {
 
     const [products, setProducts] = useState(productList);
     const [filter, setFilter] = useState(initFilter);
+    const [drawer, setDrawer] = useState(false);
 
     const clearFilter = () => setFilter(initFilter);
 
@@ -94,8 +95,6 @@ const Catalog = () => {
         setDrawer(!drawer);
     };
 
-    const [drawer, setDrawer] = useState(false);
-
     return (
         <Helmet title="Sản phẩm">
             <div className="catalog">
@@ -154,9 +153,13 @@ const Catalog = () => {
                     </div>
                 </div>
                 <div className="catalog__toggle">
-                    <Button variant="contained" size="large" onClick={() => showHideFilter()}>
+                    <Button variant="contained" size="large" onClick={showHideFilter}>
                         Filter
-                        <SwipeableDrawer open={drawer}></SwipeableDrawer>
+                        <SwipeableDrawer
+                            open={drawer}
+                            onClose={() => setDrawer(false)}
+                            onOpen={() => setDrawer(true)}
+                        ></SwipeableDrawer>
                     </Button>
                 </div>
 

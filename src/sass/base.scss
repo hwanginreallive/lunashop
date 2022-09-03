@@ -12,6 +12,7 @@
 
 html {
     font-size: 13px;
+    overflow-y: overlay;
 
     @include mobile {
         font-size: 11px;
@@ -34,10 +35,12 @@ body {
 html *::-webkit-scrollbar {
     border-radius: 0;
     width: 8px;
+    overflow-y: over-lay;
 }
 
 html *::-webkit-scrollbar-thumb {
     border-radius: 4px;
+    overflow-y: over-lay;
     background-color: rgba(0, 0, 0, 0.15);
 }
 

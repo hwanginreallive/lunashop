@@ -10,7 +10,7 @@ import { removeItem } from '~/redux/shopping-cart/cartItemsSlide';
 import numberWithCommas from '~/utils/numberWithCommas';
 
 import { AiFillDelete, AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
-import { Button, IconButton, Fab } from '@mui/material';
+import { Button, Fab } from '@mui/material';
 
 import { MdLocalShipping, MdTaskAlt, MdErrorOutline, MdOutlineMailOutline } from 'react-icons/md';
 

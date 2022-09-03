@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { useDispatch } from 'react-redux';
@@ -11,7 +11,7 @@ import { useHistory } from 'react-router-dom';
 import { AiOutlineMinus, AiOutlinePlus, AiFillCaretDown, AiFillCaretUp } from 'react-icons/ai';
 import { ToastContainer } from 'react-toastify';
 
-import { notifyError, notifySuccess, notifyWarning } from '../Toasts/Toast';
+import { notifySuccess, notifyWarning } from '../Toasts/Toast';
 
 const ProductView = (props) => {
     const dispatch = useDispatch();
@@ -23,10 +23,6 @@ const ProductView = (props) => {
     const [color, setColor] = useState(undefined);
     const [size, setSize] = useState(undefined);
     const [quantity, setQuantity] = useState(1);
-
-    const notifiColorRef = useRef(null);
-
-    const notifiSizeRef = useRef(null);
 
     const history = useHistory();
 
@@ -136,7 +132,6 @@ const ProductView = (props) => {
                             </div>
                         ))}
                     </div>
-                    <span ref={notifiColorRef} className="product__info__item__notifications"></span>
                 </div>
                 <div className="product__info__item">
                     <span className="product__info__item__title">Kích thước</span>
@@ -153,7 +148,6 @@ const ProductView = (props) => {
                             </div>
                         ))}
                     </div>
-                    <span ref={notifiSizeRef} className="product__info__item__notifications"></span>
                 </div>
                 <div className="product__info__item">
                     <div className="product__info__item__title"> Số lượng </div>
@@ -174,10 +168,10 @@ const ProductView = (props) => {
                 <div className="product__info__item">
                     <div className="product__info__item__button">
                         <Button variant="contained" size="large" onClick={goToCart}>
-                            mua ngay
+                            {'mua ngay'}
                         </Button>
-                        <Button variant="contained" size="large" animate onClick={addToCart}>
-                            Thêm vào giỏ hàng
+                        <Button variant="contained" size="large" onClick={addToCart}>
+                            {'thêm vào giỏ hàng'}
                         </Button>
                     </div>
                 </div>

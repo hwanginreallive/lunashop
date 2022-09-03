@@ -11,6 +11,8 @@ const Shiping = ({ product }) => {
     );
 };
 
-Shiping.propTypes = {};
+Shiping.propTypes = {
+    product: PropTypes.array,
+};
 
 export default Shiping;

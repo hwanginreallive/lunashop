@@ -4,12 +4,30 @@ import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import logo from '~/assets/images/Logo-2.png';
+import {
+    Badge,
+    IconButton,
+    SwipeableDrawer,
+    List,
+    ListItem,
+    ListItemButton,
+    ListItemIcon,
+    ListItemText,
+} from '@mui/material';
 
-import { AiOutlineSearch, AiOutlineUser, AiOutlineShoppingCart, AiOutlineClose } from 'react-icons/ai';
-import { BiMenuAltLeft } from 'react-icons/bi';
+import {
+    AiOutlineSearch,
+    AiOutlineUser,
+    AiOutlineShoppingCart,
+    AiFillHome,
+    AiFillSkin,
+    AiFillInfoCircle,
+} from 'react-icons/ai';
 
-import useOnclickOutside from '../Hooks/useOnclickOutside';
-import { Badge } from '@mui/material';
+import { BiUser, BiNotepad, BiBell, BiMenuAltLeft } from 'react-icons/bi';
+import { FaBitcoin } from 'react-icons/fa';
+import Discount from '~/assets/images/discount.png';
+
 const mainNav = [
     {
         display: 'Trang chủ',
@@ -25,17 +43,61 @@ const mainNav = [
     },
 ];
 
+const mainNavMobile = [
+    {
+        display: 'Trang chủ',
+        path: '/',
+        icon: <AiFillHome></AiFillHome>,
+    },
+    {
+        display: 'Sản phẩm ',
+        path: '/catalog',
+        icon: <AiFillSkin></AiFillSkin>,
+    },
+    {
+        display: 'Hỗ trợ',
+        path: '/support',
+        icon: <AiFillInfoCircle></AiFillInfoCircle>,
+    },
+    {
+        display: 'Tài Khoản',
+        path: '/user/profile',
+        icon: <BiUser style={{ color: '#4267b2' }}></BiUser>,
+    },
+    {
+        display: 'Đơn mua',
+        path: '/user/purchase',
+        icon: <BiNotepad style={{ color: '#4267b2' }}></BiNotepad>,
+    },
+    {
+        display: 'Thông báo',
+        path: '/user/notification',
+        icon: <BiBell style={{ color: 'red' }}></BiBell>,
+    },
+    {
+        display: 'Kho voucher',
+        path: '/user/voucher',
+        icon: <img style={{ height: '24px', width: '24px', color: 'red' }} src={Discount} alt="voucher" />,
+    },
+    {
+        display: 'Coin',
+        path: '/user/coin',
+        icon: <FaBitcoin style={{ color: '#f6a42d' }}></FaBitcoin>,
+    },
+];
+
 const Header = () => {
     const { pathname } = useLocation();
     const activeNav = mainNav.findIndex((e) => e.path === pathname);
+    const activeNavMobile = mainNavMobile.findIndex((e) => e.path === pathname);
+
+    const [drawer, setDrawer] = useState(false);
 
     const headerRef = useRef(null);
 
-    const searchRef = useRef();
-    const [showSearch, setShowSearch] = useState(false);
-    const [value, setValue] = useState(0);
+    const currentSelector = useSelector((state) => state.cartItems.value);
 
-    useOnclickOutside(searchRef, () => setShowSearch(false));
+    const currentItems = currentSelector.reduce((total, current) => total + current.quantity, 0);
 
     useEffect(() => {
         window.addEventListener('scroll', () => {
@@ -51,13 +113,9 @@ const Header = () => {
         };
     }, []);
 
-    const menuLeft = useRef(null);
-
-    const menuToggle = () => menuLeft.current.classList.toggle('active');
-
-    const currentSelector = useSelector((state) => state.cartItems.value);
-
-    const currentItems = currentSelector.reduce((total, current) => total + current.quantity, 0);
+    const handleDrawer = () => {
+        setDrawer(!drawer);
+    };
 
     return (
         <div className="header" ref={headerRef}>
@@ -67,21 +125,41 @@ const Header = () => {
                         <img src={logo} alt="" />
                     </Link>
                 </div>
+
                 <div className="header__menu">
-                    <div onClick={menuToggle} className="header__menu__mobile-toggle">
-                        <BiMenuAltLeft />
+                    <div className="header__menu__mobile-toggle" onClick={handleDrawer}>
+                        <IconButton size="large">
+                            <BiMenuAltLeft />
+                        </IconButton>
+                        <SwipeableDrawer open={drawer} onClose={() => setDrawer(false)} onOpen={() => setDrawer(true)}>
+                            <List>
+                                {mainNavMobile.map((item, index) => (
+                                    <ListItem
+                                        key={index}
+                                        disablePadding
+                                        className={`header__menu__item header__menu__left__item ${
+                                            index === activeNavMobile ? 'active' : ''
+                                        }`}
+                                    >
+                                        <ListItemButton>
+                                            <Link to={item.path}>
+                                                <ListItemIcon>{item.icon}</ListItemIcon>
+
+                                                <ListItemText> {item.display}</ListItemText>
+                                            </Link>
+                                        </ListItemButton>
+                                    </ListItem>
+                                ))}
+                            </List>
+                        </SwipeableDrawer>
                     </div>
-                    <div className="header__menu__left" ref={menuLeft}>
-                        <div onClick={menuToggle} className="header__menu__left__mobile-close">
-                            <AiOutlineClose />
-                        </div>
+                    <div className="header__menu__left">
                         {mainNav.map((item, index) => (
                             <div
                                 key={index}
                                 className={`header__menu__item header__menu__left__item ${
                                     index === activeNav ? 'active' : ''
                                 }`}
-                                onClick={menuToggle}
                             >
                                 <Link to={item.path}>
                                     <span> {item.display}</span>
@@ -91,17 +169,7 @@ const Header = () => {
                     </div>
 
                     <div className="header__menu__right">
-                        <div
-                            onClick={() => setShowSearch(true)}
-                            className="header__menu__item header__menu__right__item "
-                        >
-                            {showSearch ? (
-                                <div ref={searchRef} className="form-search">
-                                    <input type="text" />
-                                </div>
-                            ) : (
-                                ''
-                            )}
+                        <div className="header__menu__item header__menu__right__item ">
                             <div className="icon">
                                 <AiOutlineSearch className="icon-search" />
                             </div>

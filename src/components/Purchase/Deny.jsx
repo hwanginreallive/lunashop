@@ -13,6 +13,8 @@ const Deny = ({ product }) => {
     );
 };
 
-Deny.propTypes = {};
+Deny.propTypes = {
+    product: PropTypes.array,
+};
 
 export default Deny;

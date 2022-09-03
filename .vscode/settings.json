@@ -1,5 +1,5 @@
 {
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "cSpell.words": ["jfif", "reduxjs", "Thông", "userdefault"]
+    "cSpell.words": ["jfif", "reduxjs", "Swipeable", "Thông", "userdefault"]
 }

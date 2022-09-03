@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 
-import useOnclickOutside from '~/components/Hooks/useOnclickOutside';
+import useOnclickOutside from '~/Hooks/useOnclickOutside';
 
 const ProfileItem = ({ info }) => {
     const [inEditMode, setInEditMode] = useState(false);

@@ -8,6 +8,11 @@
     &__left {
         width: 200px;
         display: block;
+        margin-right: 50px;
+
+        @include tablet {
+            display: none;
+        }
 
         &__avt {
             @include flex(flex-start, flex-start);
@@ -69,6 +74,11 @@
         margin-left: 30px;
         font-size: 18px;
         box-shadow: $box-shadow;
-        max-width: 80%;
+        margin: auto;
+        width: 80%;
+
+        @include mobile {
+            width: 100%;
+        }
     }
 }

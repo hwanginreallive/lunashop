@@ -22,13 +22,9 @@ const Purchase = () => {
     };
 
     const [cartProducts, setCartProduct] = useState([]);
-    const [totalProducts, setTotalProducts] = useState(0);
-    const [totalPrice, setTotalPrice] = useState(0);
 
     useEffect(() => {
         setCartProduct(productData.getCartItemsInfo(cartItems));
-        setTotalProducts(cartItems.reduce((total, item) => total + Number(item.quantity), 0));
-        setTotalPrice(cartItems.reduce((total, item) => total + Number(item.quantity) * Number(item.price), 0));
     }, [cartItems]);
 
     return (

@@ -5,26 +5,27 @@ import { Rating } from '@mui/material';
 import CartItem from '../CartItem/CartItem';
 
 const Shiped = ({ product }) => {
-    const [value, setValue] = useState(2);
+    const [value, setValue] = useState(5);
 
     return (
         <div>
             {product.map((item, index) => (
-                <>
-                    <CartItem item={item} key={index} Shiped></CartItem>
+                <div key={index}>
+                    <CartItem item={item} Shiped></CartItem>
                     <Rating
-                        name="simple-controlled"
                         value={value}
-                        onChange={(event, newValue) => {
+                        onChange={(newValue) => {
                             setValue(newValue);
                         }}
                     />
-                </>
+                </div>
             ))}
         </div>
     );
 };
 
-Shiped.propTypes = {};
+Shiped.propTypes = {
+    product: PropTypes.array,
+};
 
 export default Shiped;

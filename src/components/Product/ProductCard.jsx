@@ -23,7 +23,7 @@ const ProductCard = (props) => {
             </Link>
             <div className="product-card__btn">
                 <Link to={`/catalog/${props.slug}`}>
-                    <Button variant="contained" size="large" animate={true}>
+                    <Button variant="contained" size="large">
                         chọn mua
                     </Button>
                 </Link>
