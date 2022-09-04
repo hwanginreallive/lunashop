@@ -52,17 +52,6 @@
             display: none;
         }
 
-        &__item {
-            margin-right: 39px;
-
-            @include tablet {
-                margin-right: 20px;
-            }
-            @include mobile {
-                margin-right: 10px;
-            }
-        }
-
         &__item.active {
             font-weight: 600;
             color: $main-color;
@@ -71,35 +60,42 @@
             color: $main-color;
         }
 
-        &__left,
-        &__right {
+        &__left {
             @include flex(center, center);
             height: 100%;
+            &__item {
+                margin-right: 39px;
+
+                @include tablet {
+                    margin-right: 20px;
+                }
+                @include mobile {
+                    margin-right: 10px;
+                }
+            }
         }
+
         &__right {
+            @include flex(center, flex-end);
+            width: max-content;
+            justify-content: flex-end;
             font-size: 2.25rem;
+
             &__item {
                 position: relative;
                 @include flex(center, center);
-            }
-            .form-search {
-                position: absolute;
-                top: $header-shrink-height;
-                right: 10%;
-                background-color: rgba(22, 24, 35, 0.0588235294);
-                border-radius: 92px;
-                border: 1.5px solid transparent;
-                height: 40px;
-                width: 250px;
-                animation: 0.3s ease;
-                @include flex(center, center);
-                input {
-                    border: none;
-                    outline: none;
-                    background-color: transparent;
-                    font-size: 16px;
+                margin-left: 39px;
+
+                @include tablet {
+                    margin-right: 20px;
+                    margin-left: 0;
+                }
+                @include mobile {
+                    margin-left: 0;
+                    margin-right: 10px;
                 }
             }
+
             @include mobile {
                 font-size: 1.5rem;
             }
@@ -112,31 +108,7 @@
             }
 
             @include tablet {
-                flex-direction: column;
-                background-color: $main-bg;
-                position: fixed;
-                left: 0;
-                top: 0;
-                width: 100%;
-                justify-content: flex-start;
-                padding-top: 30px;
-                transform: translateX(-100%);
-                transition: transform 0.5s ease;
-                z-index: 99;
-
-                &.active {
-                    transform: translateX(0);
-                }
-
-                &__item {
-                    margin-left: 0;
-                    padding: 10px 0;
-                }
-                &__mobile-close {
-                    display: block;
-                    position: absolute;
-                    left: 20px;
-                }
+                display: none;
             }
             @include mobile {
                 &__item {
@@ -154,5 +126,15 @@
                 font-size: 2.25rem;
             }
         }
+    }
+}
+.swipeable-logo {
+    width: 170px;
+    padding: 10px 0 10px 0;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-bottom: 0.0625rem solid #efefef;
+    img {
+        width: 80%;
     }
 }

@@ -15,9 +15,7 @@ const Notification = () => {
                 </div>
                 <div className="profile__right">
                     <div className="profile__right__notification">
-                        <div className="profile__right__notification__title">
-                            <h4>Đánh dấu đã độc tất cả</h4>
-                        </div>
+                        <div className="profile__right__notification__title"> Thong Bao</div>
                         <div className="profile__right__notification__list">
                             {productData.getProducts(3).map((product, index) => (
                                 <NotificationItem key={index} product={product}></NotificationItem>

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import emptyImage from '~/assets/images/emptyproduct.png';
 import { Typography } from '@mui/material';
 const EmptyProductSlide = (props) => {
@@ -10,7 +9,5 @@ const EmptyProductSlide = (props) => {
         </div>
     );
 };
-
-EmptyProductSlide.propTypes = {};
 
 export default EmptyProductSlide;

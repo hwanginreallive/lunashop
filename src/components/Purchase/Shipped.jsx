@@ -5,7 +5,7 @@ import { Rating } from '@mui/material';
 import CartItem from '../CartItem/CartItem';
 import EmptyProductSlide from './EmptyProductSlide';
 
-const Shiped = ({ product }) => {
+const Shipped = ({ product }) => {
     const [value, setValue] = useState(5);
 
     return (
@@ -13,13 +13,14 @@ const Shiped = ({ product }) => {
             {product.length > 0 ? (
                 product.map((item, index) => (
                     <div key={index}>
-                        <CartItem item={item}></CartItem>
-                        <Rating
-                            value={value}
-                            onChange={(newValue) => {
-                                setValue(newValue);
-                            }}
-                        />
+                        <CartItem item={item} Shipped stardust>
+                            <Rating
+                                value={value}
+                                onChange={(event, newValue) => {
+                                    setValue(newValue);
+                                }}
+                            />
+                        </CartItem>
                     </div>
                 ))
             ) : (
@@ -29,8 +30,8 @@ const Shiped = ({ product }) => {
     );
 };
 
-Shiped.propTypes = {
+Shipped.propTypes = {
     product: PropTypes.array,
 };
 
-export default Shiped;
+export default Shipped;

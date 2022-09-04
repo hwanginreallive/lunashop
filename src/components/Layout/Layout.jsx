@@ -6,6 +6,7 @@ import ScrollToTop from '../../Hooks/ScrollToTop';
 
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import SpeedDialog from '../SpeedDial/SpeedDialog';
 
 const Layout = () => {
     return (
@@ -18,6 +19,7 @@ const Layout = () => {
                             <Routes />
                         </div>
                     </div>
+                    <SpeedDialog></SpeedDialog>
                     <Footer />
                 </Route>
             </ScrollToTop>

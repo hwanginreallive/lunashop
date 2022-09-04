@@ -129,9 +129,12 @@ const Header = () => {
                 <div className="header__menu">
                     <div className="header__menu__mobile-toggle" onClick={handleDrawer}>
                         <IconButton size="large">
-                            <BiMenuAltLeft />
+                            <BiMenuAltLeft sx={{ padding: 0 }} />
                         </IconButton>
                         <SwipeableDrawer open={drawer} onClose={() => setDrawer(false)} onOpen={() => setDrawer(true)}>
+                            <div className="swipeable-logo">
+                                <img src={logo} alt="" />
+                            </div>
                             <List>
                                 {mainNavMobile.map((item, index) => (
                                     <ListItem
@@ -140,14 +143,18 @@ const Header = () => {
                                         className={`header__menu__item header__menu__left__item ${
                                             index === activeNavMobile ? 'active' : ''
                                         }`}
+                                        sx={{ padding: 0 }}
                                     >
-                                        <ListItemButton>
-                                            <Link to={item.path}>
-                                                <ListItemIcon>{item.icon}</ListItemIcon>
-
-                                                <ListItemText> {item.display}</ListItemText>
-                                            </Link>
-                                        </ListItemButton>
+                                        <Link to={item.path}>
+                                            <ListItemButton sx={{}}>
+                                                <ListItemIcon sx={{ fontSize: 24, minWidth: 40 }}>
+                                                    {item.icon}
+                                                </ListItemIcon>
+                                                <div style={{ width: 100 }}>
+                                                    <ListItemText primary={item.display}></ListItemText>
+                                                </div>
+                                            </ListItemButton>
+                                        </Link>
                                     </ListItem>
                                 ))}
                             </List>
@@ -192,7 +199,6 @@ const Header = () => {
                                 </div>
                             </Link>
                         </div>
-                        <div className="header__menu__item header__menu__right__item"></div>
                     </div>
                 </div>
             </div>

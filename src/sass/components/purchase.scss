@@ -1,4 +1,14 @@
 .profile {
     &__right {
+        box-shadow: none;
+        &__purchase {
+            &__tab {
+                box-shadow: $box-shadow;
+            }
+
+            &__content {
+                margin-top: 20px;
+            }
+        }
     }
 }

@@ -53,7 +53,10 @@ const CartItem = (props) => {
                         <span>{item.size}</span>
                     </Link>
                 </div>
-                <div> Số tiền: {numberWithCommas(item.product.price * quantity)}</div>
+                <div className="cart__item__info__price">
+                    Số tiền: {numberWithCommas(item.product.price * quantity)}
+                </div>
+                {props.stardust && <div>Danh gia {props.children}</div>}
 
                 {props.delete ? (
                     <>
@@ -79,20 +82,20 @@ const CartItem = (props) => {
                             </Button>
                         </div>
                     </>
-                ) : props.confirm ? (
-                    <Button variant="contained" size="medium" startIcon={<MdOutlineMailOutline />}>
+                ) : props.Confirm ? (
+                    <Button variant="contained" size="medium" color="secondary" startIcon={<MdOutlineMailOutline />}>
                         Liên hệ với shop
                     </Button>
-                ) : props.Shiping ? (
-                    <Button variant="contained" size="medium" startIcon={<MdLocalShipping />}>
+                ) : props.Shipping ? (
+                    <Button variant="contained" size="medium" color="primary" startIcon={<MdLocalShipping />}>
                         Đơn hàng đang trên đường vận chuyển
                     </Button>
-                ) : props.Shiped ? (
-                    <Button variant="contained" size="medium" startIcon={<MdTaskAlt />}>
+                ) : props.Shipped ? (
+                    <Button variant="contained" size="medium" color="success" startIcon={<MdTaskAlt />}>
                         Đơn hàng đã hoàn thành
                     </Button>
                 ) : props.Deny ? (
-                    <Button variant="contained" size="medium" startIcon={<MdErrorOutline />}>
+                    <Button variant="contained" size="medium" color="error" startIcon={<MdErrorOutline />}>
                         Đơn hàng đã hủy
                     </Button>
                 ) : (

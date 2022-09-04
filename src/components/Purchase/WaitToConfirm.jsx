@@ -7,7 +7,7 @@ const WaitToConfirm = ({ product }) => {
     return (
         <div>
             {product.length > 0 ? (
-                product.map((item, index) => <CartItem item={item} key={index}></CartItem>)
+                product.map((item, index) => <CartItem item={item} key={index} Confirm></CartItem>)
             ) : (
                 <EmptyProductSlide></EmptyProductSlide>
             )}
