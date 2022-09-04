@@ -265,7 +265,7 @@ const products = [
     // 18 products
 ];
 
-export const products_shiping = [
+export const products_shipping = [
     {
         color: 'white',
         id: 2,
@@ -352,7 +352,7 @@ export const products_deny = [
     },
 ];
 
-export const products_shiped = [
+export const products_shipped = [
     {
         color: 'white',
         id: 1,

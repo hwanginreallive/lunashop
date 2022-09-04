@@ -74,11 +74,16 @@
         margin-left: 30px;
         font-size: 18px;
         box-shadow: $box-shadow;
-        margin: auto;
         width: 80%;
+        min-height: 60vh;
+
+        @include tablet {
+            margin: auto;
+        }
 
         @include mobile {
             width: 100%;
+            margin: auto;
         }
     }
 }
