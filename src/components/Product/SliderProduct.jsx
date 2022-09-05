@@ -59,7 +59,7 @@ const SliderProduct = () => {
         ],
     };
     return (
-        <Slider {...settings}>
+        <Slider {...settings} pauseOnFocus={false}>
             {productData.getProducts(8).map((item, index) => (
                 <ProductCard
                     key={index}

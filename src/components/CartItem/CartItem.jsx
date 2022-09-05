@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { Link } from 'react-router-dom';
+import { Button, Fab } from '@mui/material';
 
 import { useDispatch } from 'react-redux/es/hooks/useDispatch';
 import { updateItem } from '~/redux/shopping-cart/cartItemsSlide';
 import { removeItem } from '~/redux/shopping-cart/cartItemsSlide';
 
 import numberWithCommas from '~/utils/numberWithCommas';
-
+import ViewDiaglog from '../ViewDialog/ViewDialog';
 import { AiFillDelete, AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
-import { Button, Fab } from '@mui/material';
 
 import { MdLocalShipping, MdTaskAlt, MdErrorOutline, MdOutlineMailOutline } from 'react-icons/md';
 
@@ -19,7 +19,7 @@ const CartItem = (props) => {
 
     const [item, setItem] = useState(props.item);
     const [quantity, setQuantity] = useState(props.item.quantity);
-
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
     useEffect(() => {
         setItem(props.item);
         setQuantity(props.item.quantity);
@@ -36,6 +36,14 @@ const CartItem = (props) => {
 
     const removeCartItem = () => {
         dispatch(removeItem(item));
+    };
+
+    const handleOpenDialog = () => {
+        setIsDialogOpen(true);
+    };
+
+    const handleCloseDialog = () => {
+        setIsDialogOpen(false);
     };
 
     return (
@@ -76,7 +84,7 @@ const CartItem = (props) => {
                             </div>
                         </div>
 
-                        <div className="cart__item__info__del" onClick={removeCartItem}>
+                        <div className="cart__item__info__del" onClick={handleOpenDialog}>
                             <Button variant="contained" size="medium" startIcon={<AiFillDelete />}>
                                 Xóa
                             </Button>
@@ -102,6 +110,12 @@ const CartItem = (props) => {
                     ''
                 )}
             </div>
+            <ViewDiaglog
+                handleOpenDialog={handleOpenDialog}
+                handleCloseDialog={handleCloseDialog}
+                removeCartItem={removeCartItem}
+                isDialogOpen={isDialogOpen}
+            ></ViewDiaglog>
         </div>
     );
 };
