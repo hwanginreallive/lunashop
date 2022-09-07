@@ -16,19 +16,20 @@ const SpeedDialog = () => {
         { icon: <ShareIcon />, name: 'Share' },
     ];
     return (
-        <div className="speed-dial">
-            <Box sx={{ height: 320, transform: 'translateZ(0px)', flexGrow: 1 }}>
-                <SpeedDial
-                    ariaLabel="SpeedDial basic example"
-                    sx={{ position: 'absolute', bottom: 16, right: 16 }}
-                    icon={<SpeedDialIcon />}
-                >
-                    {actions.map((action) => (
-                        <SpeedDialAction key={action.name} icon={action.icon} tooltipTitle={action.name} />
-                    ))}
-                </SpeedDial>
-            </Box>
-        </div>
+        <Box
+            sx={{ height: 320, transform: 'translateZ(0px)', flexGrow: 1 }}
+            style={{ position: 'fixed', bottom: 30, right: 30 }}
+        >
+            <SpeedDial
+                ariaLabel="SpeedDial basic example"
+                sx={{ position: 'absolute', bottom: 16, right: 16 }}
+                icon={<SpeedDialIcon />}
+            >
+                {actions.map((action) => (
+                    <SpeedDialAction key={action.name} icon={action.icon} tooltipTitle={action.name} />
+                ))}
+            </SpeedDial>
+        </Box>
     );
 };
 
