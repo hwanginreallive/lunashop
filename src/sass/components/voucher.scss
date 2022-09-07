@@ -1,0 +1,17 @@
+.profile__right {
+    &__search {
+        width: 100%;
+        margin: auto;
+        padding: 20px;
+        &__input {
+            @include flex(center, center);
+            &__btn {
+                margin-left: 10px;
+            }
+        }
+    }
+
+    &__content {
+        margin-top: 30px;
+    }
+}

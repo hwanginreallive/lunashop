@@ -19,7 +19,7 @@ const Layout = () => {
                             <Routes />
                         </div>
                     </div>
-                    <SpeedDialog></SpeedDialog>
+                    {/* <SpeedDialog></SpeedDialog> */}
                     <Footer />
                 </Route>
             </ScrollToTop>
