@@ -5,8 +5,9 @@ import { Tabs, Tab, Typography, TextField, Fab } from '@mui/material';
 import Helmet from '../Helmet/Helmet';
 import InfoUser from '../User/infoUser';
 import AllVouchers from './VouchersContent/AllVouchers';
-import NewVouchers from './VouchersContent/NewVouchers';
-import ExpireVouchers from './VouchersContent/ExpireVouchers';
+import RefundVoucher from './VouchersContent/RefundVoucher';
+import FreeShipVoucher from './VouchersContent/FreeShipVoucher';
+import DiscountVoucher from './VouchersContent/DiscountVoucher';
 import { AiOutlineSearch } from 'react-icons/ai';
 const Voucher = () => {
     const [selectedTab, setSelectedTab] = useState(0);
@@ -39,15 +40,17 @@ const Voucher = () => {
                     </div>
                     <div className="profile__right__nav">
                         <Tabs value={selectedTab} onChange={handleChange}>
-                            <Tab label="Mới nhất" />
-                            <Tab label="Phổ biến" />
-                            <Tab label="Sắp hết hạn" />
+                            <Tab label="Tất cả" />
+                            <Tab label="FreeShip" />
+                            <Tab label="Hoàn Xu" />
+                            <Tab label="Giảm giá" />
                         </Tabs>
                     </div>
                     <div className="profile__right__content">
                         {selectedTab === 0 && <AllVouchers></AllVouchers>}
-                        {selectedTab === 1 && <NewVouchers></NewVouchers>}
-                        {selectedTab === 2 && <ExpireVouchers></ExpireVouchers>}
+                        {selectedTab === 1 && <FreeShipVoucher></FreeShipVoucher>}
+                        {selectedTab === 2 && <RefundVoucher></RefundVoucher>}
+                        {selectedTab === 3 && <DiscountVoucher></DiscountVoucher>}
                     </div>
                 </div>
             </div>

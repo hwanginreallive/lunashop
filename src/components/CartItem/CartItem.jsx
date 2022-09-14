@@ -9,12 +9,14 @@ import { updateItem } from '~/redux/shopping-cart/cartItemsSlide';
 import { removeItem } from '~/redux/shopping-cart/cartItemsSlide';
 
 import numberWithCommas from '~/utils/numberWithCommas';
-import ViewDiaglog from '../ViewDialog/ViewDialog';
+import ViewDialog from '../ViewDialog/ViewDialog';
 import { AiFillDelete, AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 
 import { MdLocalShipping, MdTaskAlt, MdErrorOutline, MdOutlineMailOutline } from 'react-icons/md';
 
 const CartItem = (props) => {
+    const { stardust, Confirm, Shipping, Shipped, Deny } = props;
+
     const dispatch = useDispatch();
 
     const [item, setItem] = useState(props.item);
@@ -36,6 +38,7 @@ const CartItem = (props) => {
 
     const removeCartItem = () => {
         dispatch(removeItem(item));
+        setIsDialogOpen(false);
     };
 
     const handleOpenDialog = () => {
@@ -64,9 +67,8 @@ const CartItem = (props) => {
                 <div className="cart__item__info__price">
                     Số tiền: {numberWithCommas(item.product.price * quantity)}
                 </div>
-                {props.stardust && <div>Danh gia {props.children}</div>}
-
-                {props.delete ? (
+                {stardust && <div>Danh gia {props.children}</div>}
+                {props.delete && (
                     <>
                         <div className="cart__item__info__quantity">
                             <div className="product__info__item__quantity">
@@ -90,32 +92,52 @@ const CartItem = (props) => {
                             </Button>
                         </div>
                     </>
-                ) : props.Confirm ? (
-                    <Button variant="contained" size="medium" color="secondary" startIcon={<MdOutlineMailOutline />}>
+                )}
+                {Confirm && (
+                    <Button
+                        disableRipple
+                        variant="contained"
+                        size="medium"
+                        color="secondary"
+                        startIcon={<MdOutlineMailOutline />}
+                    >
                         Liên hệ với shop
                     </Button>
-                ) : props.Shipping ? (
-                    <Button variant="contained" size="medium" color="primary" startIcon={<MdLocalShipping />}>
-                        Đơn hàng đang trên đường vận chuyển
+                )}
+                {Shipping && (
+                    <Button
+                        disableRipple
+                        variant="contained"
+                        size="medium"
+                        color="primary"
+                        startIcon={<MdLocalShipping />}
+                    >
+                        Đang vận chuyển
                     </Button>
-                ) : props.Shipped ? (
-                    <Button variant="contained" size="medium" color="success" startIcon={<MdTaskAlt />}>
-                        Đơn hàng đã hoàn thành
+                )}
+                {Shipped && (
+                    <Button disableRipple variant="contained" size="medium" color="success" startIcon={<MdTaskAlt />}>
+                        Đã hoàn thành
                     </Button>
-                ) : props.Deny ? (
-                    <Button variant="contained" size="medium" color="error" startIcon={<MdErrorOutline />}>
+                )}
+                {Deny && (
+                    <Button
+                        disableRipple
+                        variant="contained"
+                        size="medium"
+                        color="error"
+                        startIcon={<MdErrorOutline />}
+                    >
                         Đơn hàng đã hủy
                     </Button>
-                ) : (
-                    ''
                 )}
             </div>
-            <ViewDiaglog
+            <ViewDialog
                 handleOpenDialog={handleOpenDialog}
                 handleCloseDialog={handleCloseDialog}
                 removeCartItem={removeCartItem}
                 isDialogOpen={isDialogOpen}
-            ></ViewDiaglog>
+            ></ViewDialog>
         </div>
     );
 };

@@ -5,7 +5,7 @@ const Transition = forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const ViewDiaglog = ({ handleCloseDialog, handleOpenDialog, removeCartItem, isDialogOpen }) => {
+const ViewDialog = ({ handleCloseDialog, removeCartItem, isDialogOpen }) => {
     return (
         <div>
             <Dialog
@@ -15,7 +15,13 @@ const ViewDiaglog = ({ handleCloseDialog, handleOpenDialog, removeCartItem, isDi
                 onClose={handleCloseDialog}
                 aria-describedby="alert-dialog-slide-description"
             >
-                <DialogContent>
+                <DialogContent
+                    maxWidth="md"
+                    sx={{
+                        height: 100,
+                        width: 350,
+                    }}
+                >
                     <DialogContentText id="alert-dialog-slide-description">
                         Sản phẩm này sẽ bị xóa khỏi giỏ hàng
                     </DialogContentText>
@@ -33,4 +39,4 @@ const ViewDiaglog = ({ handleCloseDialog, handleOpenDialog, removeCartItem, isDi
     );
 };
 
-export default ViewDiaglog;
+export default ViewDialog;

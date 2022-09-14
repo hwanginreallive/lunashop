@@ -11,7 +11,24 @@
         }
     }
 
+    &__nav {
+        @include mobile {
+            justify-content: space-around;
+        }
+    }
+
     &__content {
-        margin-top: 30px;
+        margin: 30px 50px 0px 50px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+
+        @include tablet {
+            justify-content: center;
+        }
+
+        @include mobile {
+            justify-content: center;
+        }
     }
 }

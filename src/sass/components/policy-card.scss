@@ -4,6 +4,10 @@
     padding-left: 0;
     box-shadow: $box-shadow;
     transition: transform 0.5s ease;
+
+    @include mobile {
+    }
+
     &:hover {
         transform: translateY(-20px);
     }
