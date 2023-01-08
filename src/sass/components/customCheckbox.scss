@@ -23,8 +23,8 @@
         }
     }
     input:checked ~ &__checkmark {
-        background-color: $main-color;
-        border: 1px solid $main-color;
+        background-color: #1976d2;
+        border: 1px solid #1976d2;
         color: $txt-white;
         .icon-check {
             transform: scale(1);

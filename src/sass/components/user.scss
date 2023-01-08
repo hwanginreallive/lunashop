@@ -70,13 +70,15 @@
     }
     &__right {
         flex-grow: 1;
-        padding: 15px 30px;
+        padding: 0 30px;
+        margin: 20px 0;
         margin-left: 30px;
         font-size: 18px;
-        box-shadow: $box-shadow;
         width: 80%;
         min-height: 60vh;
-
+        box-shadow: 0 1px 2px 0 rgb(0 0 0 / 13%);
+        border-radius: 0.125rem;
+        background: #fff;
         @include tablet {
             margin: auto;
         }

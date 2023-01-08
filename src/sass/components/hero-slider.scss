@@ -47,6 +47,7 @@
             height: 70%;
             width: 80%;
             padding-left: 50px;
+            transform: translateX(-100%);
             @include tablet {
                 width: 100%;
                 padding-left: 0px;
@@ -90,22 +91,11 @@
             &__btn {
                 overflow: hidden;
             }
-            &__title > span,
-            &__description > span,
-            &__btn button {
-                display: block;
-                transform: translateX(-100%);
-            }
         }
 
         &.active &__info {
-            &__title > span,
-            &__description > span,
-            &__btn button {
-                display: block;
-                animation: fade ease 1s;
-                transform: translateX(0);
-            }
+            animation: fadeIn ease 1s;
+            transform: translateX(0);
         }
 
         &__image {
@@ -180,7 +170,7 @@
     }
 }
 
-@keyframes fade {
+@keyframes fadeIn {
     from {
         opacity: 0;
         transform: translateX(-100%);
@@ -190,6 +180,7 @@
         transform: translateX(0);
     }
 }
+
 @keyframes imgFade {
     from {
         opacity: 0;

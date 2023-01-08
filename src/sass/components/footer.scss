@@ -1,8 +1,8 @@
 .footer {
     padding: 70px 0;
-    box-shadow: $box-shadow;
     font-size: 1.1rem;
-
+    border-top: 1px solid rgba(0, 0, 0, 0.09);
+    background-color: #fbfbfb;
     &__logo {
         height: 40px;
     }

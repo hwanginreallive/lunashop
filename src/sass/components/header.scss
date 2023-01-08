@@ -102,19 +102,16 @@
         }
 
         &__left {
-            &__mobile-close {
-                display: none;
-                cursor: pointer;
-            }
-
             @include tablet {
                 display: none;
+                &__item {
+                    margin: 0;
+                    &:hover {
+                        background-color: rgba(0, 0, 0, 0.08);
+                    }
+                }
             }
             @include mobile {
-                &__item {
-                    margin-left: 0;
-                    padding: 10px 0;
-                }
             }
         }
         &__mobile-toggle {
@@ -132,7 +129,6 @@
     width: 170px;
     padding: 10px 0 10px 0;
     margin-left: 10px;
-    margin-right: 10px;
     border-bottom: 0.0625rem solid #efefef;
     img {
         width: 80%;

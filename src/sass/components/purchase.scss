@@ -1,13 +1,16 @@
 .profile {
     &__right {
         box-shadow: none;
+        padding: 0 30px;
+
         &__purchase {
             &__tab {
-                box-shadow: $box-shadow;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.09);
             }
 
-            &__content {
-                margin-top: 20px;
+            &__search {
+                width: 100%;
+                padding: 20px;
             }
         }
     }

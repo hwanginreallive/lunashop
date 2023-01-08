@@ -1,7 +1,6 @@
 .policy-card {
-    @include flex(center, flex-start);
+    @include flex(center, space-around);
     padding: 20px;
-    padding-left: 0;
     box-shadow: $box-shadow;
     transition: transform 0.5s ease;
 
@@ -14,7 +13,6 @@
     &__icon {
         @include flex(center, center);
         align-items: center;
-        width: 40%;
         color: $main-color;
 
         i {
