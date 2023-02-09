@@ -5,11 +5,12 @@
     box-shadow: rgb(0 0 0 / 5%) 0px 1px 1px 0px;
     border-radius: 0.125rem;
     border-bottom: 1px solid #e8e8e8;
-
+    height: 150px;
+    padding-right: 10px;
     &__img {
+        height: 100%;
         img {
-            height: 150px;
-            width: 100px;
+            height: 100%;
             cursor: pointer;
             max-width: none;
         }

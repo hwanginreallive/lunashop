@@ -7,8 +7,10 @@ import Helmet from '../Helmet/Helmet';
 import InfoUser from '../User/infoUser';
 
 import productData from '~/assets/fake-data/products';
+import productShipingData from '~/assets/fake-data/product-shiping';
+import productShipedData from '~/assets/fake-data/product-shiped';
+import productDenyData from '~/assets/fake-data/products-deny';
 
-import { products_shipping, products_shipped, products_deny } from '~/assets/fake-data/products';
 import WaitToConfirm from './WaitToConfirm';
 import Shipping from './Shipping';
 import Shipped from './Shipped';
@@ -19,6 +21,10 @@ import { Button } from '@mui/material';
 import { MdLocalShipping, MdTaskAlt, MdErrorOutline, MdOutlineMailOutline } from 'react-icons/md';
 const Purchase = () => {
     const cartItems = useSelector((state) => state.cartItems.value);
+
+    const dataShipping = productShipingData.getAllProductShiping();
+    const dataShipped = productShipedData.getAllProductsShiped();
+    const dataDeny = productDenyData.getAllProductsDeny();
 
     const [selectedTab, setSelectedTab] = useState(0);
 
@@ -57,21 +63,21 @@ const Purchase = () => {
                                 </WaitToConfirm>
                             )}
                             {selectedTab === 1 && (
-                                <Shipping product={products_shipping}>
+                                <Shipping product={dataShipping}>
                                     <Button variant="contained" size="medium" startIcon={<MdLocalShipping />}>
                                         Đơn hàng đang trên đường vận chuyển
                                     </Button>
                                 </Shipping>
                             )}
                             {selectedTab === 2 && (
-                                <Shipped product={products_shipped}>
+                                <Shipped product={dataShipped}>
                                     <Button variant="contained" size="medium" startIcon={<MdTaskAlt />}>
                                         Đơn hàng đã hoàn thành
                                     </Button>
                                 </Shipped>
                             )}
                             {selectedTab === 3 && (
-                                <Deny product={products_deny}>
+                                <Deny product={dataDeny}>
                                     {' '}
                                     <Button variant="contained" size="medium" startIcon={<MdErrorOutline />}>
                                         Đơn hàng đã hủy

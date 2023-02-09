@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom';
 import { Button, Fab } from '@mui/material';
 
 import { useDispatch } from 'react-redux/es/hooks/useDispatch';
-import { updateItem } from '~/redux/shopping-cart/cartItemsSlide';
-import { removeItem } from '~/redux/shopping-cart/cartItemsSlide';
+import { updateItem } from '~/redux/slices/shopping-cart/cartItemsSlide';
+import { removeItem } from '~/redux/slices/shopping-cart/cartItemsSlide';
 
 import numberWithCommas from '~/utils/numberWithCommas';
-import ViewDialog from '../ViewDialog/ViewDialog';
+import CartDialog from '../ViewDialog/CartDialog';
 import { AiFillDelete, AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 
 import { MdLocalShipping, MdTaskAlt, MdErrorOutline, MdOutlineMailOutline } from 'react-icons/md';
@@ -132,12 +132,12 @@ const CartItem = (props) => {
                     </Button>
                 )}
             </div>
-            <ViewDialog
+            <CartDialog
                 handleOpenDialog={handleOpenDialog}
                 handleCloseDialog={handleCloseDialog}
                 removeCartItem={removeCartItem}
                 isDialogOpen={isDialogOpen}
-            ></ViewDialog>
+            ></CartDialog>
         </div>
     );
 };

@@ -1,0 +1,51 @@
+.qr-payment {
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    padding: 25px;
+    text-transform: capitalize;
+    flex-direction: row;
+    background-color: white;
+    margin: auto;
+    min-width: 900px;
+    justify-content: space-between;
+    box-shadow: 0 4px 8px rgb(33 38 44 / 16%);
+
+    .left {
+        padding: 20px;
+        width: 350px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        background-color: #f5f5f5;
+        border-radius: 4px;
+        .title {
+            padding-bottom: 24px;
+            border-bottom: 1px solid #bfccd9;
+        }
+
+        .box-payment {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            .label {
+                color: #5a7087;
+            }
+
+            .content {
+                margin: 0;
+                font-size: 22px;
+                line-height: 1.4;
+                font-weight: 500;
+                color: #0071a9;
+            }
+        }
+    }
+    .right {
+        .content {
+            img {
+                width: 400px;
+            }
+        }
+    }
+}

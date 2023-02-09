@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { useDispatch } from 'react-redux';
-import { addItem } from '~/redux/shopping-cart/cartItemsSlide';
+import { addItem } from '~/redux/slices/shopping-cart/cartItemsSlide';
 
 import { Button, Fab } from '@mui/material';
 
 import numberWithCommas from '~/utils/numberWithCommas';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { AiOutlineMinus, AiOutlinePlus, AiFillCaretDown, AiFillCaretUp } from 'react-icons/ai';
-import { ToastContainer } from 'react-toastify';
 
 import { notifySuccess, notifyWarning } from '../Toasts/Toast';
 
@@ -24,7 +23,7 @@ const ProductView = (props) => {
     const [size, setSize] = useState(undefined);
     const [quantity, setQuantity] = useState(1);
 
-    const history = useHistory();
+    const history = useNavigate();
 
     const updateQuantity = (type) => {
         if (type === 'plus') {
@@ -78,7 +77,7 @@ const ProductView = (props) => {
                     price: props.product.price,
                 }),
             );
-            history.push('/cart');
+            history('/cart');
         }
     };
 
@@ -176,7 +175,6 @@ const ProductView = (props) => {
                     </div>
                 </div>
             </div>
-            <ToastContainer />
         </div>
     );
 };

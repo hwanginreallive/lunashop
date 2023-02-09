@@ -1,15 +1,16 @@
 .catalog {
     padding-top: 30px;
     @include flex(flex-start, flex-start);
-
     @include tablet {
         flex-direction: column;
     }
-
     &__filter {
         width: 20%;
         position: sticky;
         top: $header-height;
+        background-color: white;
+
+        padding: 10px 20px;
 
         @include tablet {
             width: max-content;
@@ -24,7 +25,6 @@
             animation: fadeOut ease 1s;
             transform: translateX(-100%);
         }
-
         @include mobile {
             top: $header-mobile-height;
         }
@@ -35,18 +35,18 @@
             animation: fadeIn ease 1s;
             transform: translateX(0);
         }
-
         &__widget {
+            margin-bottom: 2rem;
             &__title {
                 font-size: 1.25rem;
                 font-weight: 600;
                 text-transform: capitalize;
+                margin-bottom: 16px;
             }
-
             &__content {
                 color: $txt-second-color;
                 &__item {
-                    // margin-bottom: 13px;
+                    margin-bottom: 13px;
                 }
             }
         }
@@ -57,42 +57,35 @@
             cursor: pointer;
             text-align: center;
             font-size: 20px;
-
             @include tablet {
                 display: block;
             }
-
             @include mobile {
                 display: block;
             }
         }
     }
-
     &__content {
         flex-grow: 1;
         @include tablet {
             width: 100%;
         }
     }
-
     &__toggle {
         position: fixed;
         display: none;
         z-index: 96;
         bottom: 100px;
-
         @include tablet {
             display: block;
             left: $header-tablet-height;
         }
-
         @include mobile {
             display: block;
             left: $header-mobile-height;
         }
     }
 }
-
 @keyframes fadeIn {
     from {
         opacity: 0;

@@ -13,6 +13,7 @@ import {
     ListItemButton,
     ListItemIcon,
     ListItemText,
+    Button,
 } from '@mui/material';
 
 import {
@@ -27,7 +28,6 @@ import {
 import { BiUser, BiNotepad, BiBell, BiMenuAltLeft } from 'react-icons/bi';
 import { FaBitcoin } from 'react-icons/fa';
 import Discount from '~/assets/images/discount.png';
-
 const mainNav = [
     {
         display: 'Trang chủ',
@@ -96,22 +96,23 @@ const Header = () => {
     const headerRef = useRef(null);
 
     const currentSelector = useSelector((state) => state.cartItems.value);
+    const layoutConfig = useSelector((state) => state.setLayout.layout.header);
+    const isLogin = localStorage.getItem('token') !== null ? JSON.parse(localStorage.getItem('token')) : null;
 
     const currentItems = currentSelector.reduce((total, current) => total + current.quantity, 0);
 
     useEffect(() => {
         window.addEventListener('scroll', () => {
-            if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
-                headerRef.current.classList.add('shrink');
+            if (
+                document.body.scrollTop > 80 ||
+                (document.documentElement.scrollTop > 80 && !!headerRef && layoutConfig)
+            ) {
+                headerRef?.current?.classList.add('shrink');
             } else {
-                headerRef.current.classList.remove('shrink');
+                headerRef?.current?.classList.remove('shrink');
             }
         });
-
-        return () => {
-            window.removeEventListener('scroll');
-        };
-    }, []);
+    }, [layoutConfig]);
 
     const handleDrawer = () => {
         setDrawer(!drawer);
@@ -183,21 +184,38 @@ const Header = () => {
                         </div>
                         <div className="header__menu__item header__menu__right__item">
                             <Link to="/cart">
-                                <Badge badgeContent={currentItems > 0 ? currentItems : 0} color="primary">
+                                <Badge
+                                    sx={{
+                                        '&:hover .MuiBadge-badge': { color: 'white' },
+                                    }}
+                                    badgeContent={currentItems > 0 ? currentItems : 0}
+                                    color="primary"
+                                >
                                     <div className="icon">
                                         <AiOutlineShoppingCart />
-
-                                        <div className="header__menu__right__item__cart"></div>
                                     </div>
                                 </Badge>
                             </Link>
                         </div>
                         <div className="header__menu__item header__menu__right__item">
-                            <Link to="/user/profile">
-                                <div className="icon">
-                                    <AiOutlineUser></AiOutlineUser>
-                                </div>
-                            </Link>
+                            {isLogin ? (
+                                <Link to="/user/profile">
+                                    <div className="icon">
+                                        <AiOutlineUser></AiOutlineUser>
+                                    </div>
+                                </Link>
+                            ) : (
+                                <Link to="/login">
+                                    <Button
+                                        sx={{
+                                            '&:hover': { color: 'white' },
+                                        }}
+                                        variant="contained"
+                                    >
+                                        Đăng nhập
+                                    </Button>
+                                </Link>
+                            )}
                         </div>
                     </div>
                 </div>

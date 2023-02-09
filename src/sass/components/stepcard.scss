@@ -1,0 +1,12 @@
+.step-card {
+    position: relative;
+    min-height: 400px;
+
+    &__btn {
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        display: flex;
+        justify-content: space-between;
+    }
+}

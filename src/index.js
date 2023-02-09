@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux/es/exports';
-import { store } from './redux/store';
+import { store } from './redux/store/store';
 import Layout from './components/Layout/Layout';
 import '~/sass/index.scss';
 import 'react-toastify/dist/ReactToastify.css';
