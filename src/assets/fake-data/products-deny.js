@@ -1,7 +1,7 @@
-import product_10_image_01 from '../images/products/product-10_1.jpg';
-import product_10_image_02 from '../images/products/product-10_2.jpg';
 import product_08_image_01 from '../images/products/product-08_1.jpg';
 import product_08_image_02 from '../images/products/product-08_2.jpg';
+import product_10_image_01 from '../images/products/product-10_1.jpg';
+import product_10_image_02 from '../images/products/product-10_2.jpg';
 
 export const products_deny = [
     {
@@ -66,9 +66,7 @@ const getCartItemsInfo = (cartItems) => {
             });
         });
     }
-    // console.log(res)
-    // console.log('sorted')
-    // console.log(res.sort((a, b) => a.slug > b.slug ? 1 :(a.slug < b.slug ? -1 : 0)))
+
     return res.sort((a, b) => (a.id > b.id ? 1 : a.id < b.id ? -1 : 0));
 };
 

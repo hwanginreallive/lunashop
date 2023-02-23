@@ -1,32 +1,40 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { Tabs, Tab } from '@mui/material';
+import { Tab, Tabs } from '@mui/material';
 
 import Helmet from '../Helmet/Helmet';
 import InfoUser from '../User/infoUser';
 
 import productData from '~/assets/fake-data/products';
-import productShipingData from '~/assets/fake-data/product-shiping';
-import productShipedData from '~/assets/fake-data/product-shiped';
-import productDenyData from '~/assets/fake-data/products-deny';
 
-import WaitToConfirm from './WaitToConfirm';
-import Shipping from './Shipping';
-import Shipped from './Shipped';
 import Deny from './Deny';
+import Shipped from './Shipped';
+import Shipping from './Shipping';
+import WaitToConfirm from './WaitToConfirm';
+
+import { useGetOrderByUserQuery } from '~/redux/api/orderApi/orderApi';
 
 import { Button } from '@mui/material';
 
-import { MdLocalShipping, MdTaskAlt, MdErrorOutline, MdOutlineMailOutline } from 'react-icons/md';
+import { MdErrorOutline, MdLocalShipping, MdOutlineMailOutline, MdTaskAlt } from 'react-icons/md';
 const Purchase = () => {
     const cartItems = useSelector((state) => state.cartItems.value);
 
-    const dataShipping = productShipingData.getAllProductShiping();
-    const dataShipped = productShipedData.getAllProductsShiped();
-    const dataDeny = productDenyData.getAllProductsDeny();
-
+    const [dataShipped, setDataShipped] = useState([]);
+    const [dataShipping, setDataShipping] = useState([]);
+    const [dataDeny, setDataDeny] = useState([]);
     const [selectedTab, setSelectedTab] = useState(0);
+
+    const userCookies = JSON.parse(localStorage?.getItem('token'));
+    const { data } = useGetOrderByUserQuery({
+        id: userCookies,
+    });
+
+    useEffect(() => {
+        if (data?.length > 0) {
+        }
+    }, [data]);
 
     const handleChange = (event, newValue) => {
         setSelectedTab(newValue);

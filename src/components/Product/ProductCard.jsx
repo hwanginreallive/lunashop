@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
@@ -10,8 +9,9 @@ const ProductCard = (props) => {
         <div className="product-card">
             <Link to={`/catalog/${props.slug}`}>
                 <div className="product-card__image">
-                    <img src={props.img01} alt="" />
-                    <img src={props.img02} alt="" />
+                    {props?.images?.map((image, index) => (
+                        <img key={index} src={image} alt="" />
+                    ))}
                 </div>
                 <h3 className="product-card__name">{props.name}</h3>
                 <div className="product-card__price">
@@ -33,8 +33,7 @@ const ProductCard = (props) => {
 };
 
 ProductCard.propTypes = {
-    img01: PropTypes.string.isRequired,
-    img02: PropTypes.string.isRequired,
+    images: PropTypes.array.isRequired,
     name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     slug: PropTypes.string.isRequired,

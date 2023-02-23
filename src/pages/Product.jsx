@@ -1,25 +1,19 @@
-import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import Helmet from '~/components/Helmet/Helmet';
-import Section, { SectionTitle, SectionBody } from '~/components/Section/Section';
+import productData from '~/assets/fake-data/products';
 import Grid from '~/components/Grid/Grid';
+import Helmet from '~/components/Helmet/Helmet';
 import ProductCard from '~/components/Product/ProductCard';
 import ProductView from '~/components/Product/ProductView';
-
-import productData from '~/assets/fake-data/products';
-
+import Section, { SectionBody, SectionTitle } from '~/components/Section/Section';
+import { useGetListProductsQuery } from '~/redux/api/productApi/productApi';
 const Product = () => {
+    const { data } = useGetListProductsQuery();
     const { slug } = useParams();
-    const product = productData.getProductBySlug(slug);
 
-    const relateProducts = productData.getProducts(8);
-
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, [product]);
-
+    const product = productData.getProductBySlug(data, slug);
+    const productSection = productData.getProductBySection(data, product?.category);
     return (
-        <Helmet title={product.title}>
+        <Helmet title={product?.title}>
             <Section>
                 <SectionBody>
                     <ProductView product={product} />
@@ -28,15 +22,14 @@ const Product = () => {
                     <SectionTitle>Kham pha them</SectionTitle>
                     <SectionBody>
                         <Grid col={4} mdCol={2} smCol={1} gap={20}>
-                            {relateProducts.map((item, index) => (
+                            {productSection?.map((item, index) => (
                                 <ProductCard
                                     key={index}
-                                    img01={item.image01}
-                                    img02={item.image02}
+                                    images={item.images}
                                     name={item.title}
                                     price={Number(item.price)}
                                     slug={item.slug}
-                                ></ProductCard>
+                                />
                             ))}
                         </Grid>
                     </SectionBody>

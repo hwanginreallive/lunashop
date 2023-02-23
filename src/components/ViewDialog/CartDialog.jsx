@@ -1,11 +1,11 @@
-import React, { forwardRef } from 'react';
-import { Dialog, Button, DialogActions, DialogContent, DialogContentText, Slide } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, Slide } from '@mui/material';
+import { forwardRef } from 'react';
 
 const Transition = forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const CartDialog = ({ handleCloseDialog, removeCartItem, isDialogOpen }) => {
+const CartDialog = ({ handleCloseDialog, removeCartItem, isDialogOpen, id }) => {
     return (
         <>
             <Dialog
@@ -30,7 +30,7 @@ const CartDialog = ({ handleCloseDialog, removeCartItem, isDialogOpen }) => {
                     <Button onClick={handleCloseDialog} variant="outlined">
                         Hủy Bỏ
                     </Button>
-                    <Button onClick={removeCartItem} variant="contained">
+                    <Button onClick={() => removeCartItem(id)} variant="contained">
                         Đồng ý
                     </Button>
                 </DialogActions>

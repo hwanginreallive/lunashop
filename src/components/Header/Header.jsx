@@ -1,33 +1,28 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-import { useSelector } from 'react-redux';
-
-import logo from '~/assets/images/Logo-2.png';
 import {
     Badge,
+    Button,
     IconButton,
-    SwipeableDrawer,
     List,
     ListItem,
     ListItemButton,
     ListItemIcon,
     ListItemText,
-    Button,
+    SwipeableDrawer
 } from '@mui/material';
+import logo from '~/assets/images/Logo-2.png';
 
-import {
-    AiOutlineSearch,
-    AiOutlineUser,
-    AiOutlineShoppingCart,
-    AiFillHome,
-    AiFillSkin,
-    AiFillInfoCircle,
-} from 'react-icons/ai';
+import { AiFillHome, AiFillInfoCircle, AiFillSkin, AiOutlineShoppingCart, AiOutlineUser } from 'react-icons/ai';
 
-import { BiUser, BiNotepad, BiBell, BiMenuAltLeft } from 'react-icons/bi';
+import { BiBell, BiMenuAltLeft, BiNotepad, BiUser } from 'react-icons/bi';
 import { FaBitcoin } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
 import Discount from '~/assets/images/discount.png';
+import { useGetCartByUserQuery } from '~/redux/api/cartApi/cartApi';
+import { addItem } from '~/redux/slices/shopping-cart/cartItemsSlide';
+import SearchAppBar from '../Search/SearchAppBar';
 const mainNav = [
     {
         display: 'Trang chủ',
@@ -87,39 +82,41 @@ const mainNavMobile = [
 ];
 
 const Header = () => {
+    const [drawer, setDrawer] = useState(false);
+
     const { pathname } = useLocation();
     const activeNav = mainNav.findIndex((e) => e.path === pathname);
     const activeNavMobile = mainNavMobile.findIndex((e) => e.path === pathname);
+    const userCookies = JSON.parse(localStorage?.getItem('token'));
 
-    const [drawer, setDrawer] = useState(false);
-
-    const headerRef = useRef(null);
-
-    const currentSelector = useSelector((state) => state.cartItems.value);
-    const layoutConfig = useSelector((state) => state.setLayout.layout.header);
-    const isLogin = localStorage.getItem('token') !== null ? JSON.parse(localStorage.getItem('token')) : null;
-
-    const currentItems = currentSelector.reduce((total, current) => total + current.quantity, 0);
+    const cartItems = useSelector((state) => state.cartItems.value);
+    const { data } = useGetCartByUserQuery({ id: userCookies?.id }, { refetchOnMountOrArgChange: true });
+    const dataRedux = cartItems?.reduce((total, item) => total + Number(item.quantity), 0);
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        window.addEventListener('scroll', () => {
-            if (
-                document.body.scrollTop > 80 ||
-                (document.documentElement.scrollTop > 80 && !!headerRef && layoutConfig)
-            ) {
-                headerRef?.current?.classList.add('shrink');
-            } else {
-                headerRef?.current?.classList.remove('shrink');
-            }
-        });
-    }, [layoutConfig]);
+        if (data?.length > 0 && cartItems.length === 0) {
+            data.forEach((item) => {
+                dispatch(
+                    addItem({
+                        id: item.product._id,
+                        color: item.color,
+                        size: item.size,
+                        price: item.price,
+                        quantity: item.quantity,
+                    }),
+                );
+            });
+        }
+        // eslint-disable-next-line
+    }, [data]);
 
     const handleDrawer = () => {
         setDrawer(!drawer);
     };
 
     return (
-        <div className="header" ref={headerRef}>
+        <div className="header">
             <div className="container">
                 <div className="header__logo">
                     <Link to="/">
@@ -152,7 +149,7 @@ const Header = () => {
                                                     {item.icon}
                                                 </ListItemIcon>
                                                 <div style={{ width: 100 }}>
-                                                    <ListItemText primary={item.display}></ListItemText>
+                                                    <ListItemText primary={item.display} />
                                                 </div>
                                             </ListItemButton>
                                         </Link>
@@ -178,9 +175,7 @@ const Header = () => {
 
                     <div className="header__menu__right">
                         <div className="header__menu__item header__menu__right__item ">
-                            <div className="icon">
-                                <AiOutlineSearch className="icon-search" />
-                            </div>
+                            <SearchAppBar />
                         </div>
                         <div className="header__menu__item header__menu__right__item">
                             <Link to="/cart">
@@ -188,7 +183,7 @@ const Header = () => {
                                     sx={{
                                         '&:hover .MuiBadge-badge': { color: 'white' },
                                     }}
-                                    badgeContent={currentItems > 0 ? currentItems : 0}
+                                    badgeContent={dataRedux}
                                     color="primary"
                                 >
                                     <div className="icon">
@@ -198,10 +193,10 @@ const Header = () => {
                             </Link>
                         </div>
                         <div className="header__menu__item header__menu__right__item">
-                            {isLogin ? (
+                            {userCookies ? (
                                 <Link to="/user/profile">
                                     <div className="icon">
-                                        <AiOutlineUser></AiOutlineUser>
+                                        <AiOutlineUser />
                                     </div>
                                 </Link>
                             ) : (

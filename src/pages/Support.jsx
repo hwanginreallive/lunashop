@@ -1,11 +1,9 @@
-import React from 'react';
-
 import Helmet from '~/components/Helmet/Helmet';
 
 import { AiOutlineSearch } from 'react-icons/ai';
 
-import { Accordion, AccordionSummary, Typography, AccordionDetails } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material';
 
 const questions = [
     {

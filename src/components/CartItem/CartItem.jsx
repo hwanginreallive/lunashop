@@ -1,21 +1,24 @@
-import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
 
-import { Link } from 'react-router-dom';
 import { Button, Fab } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux/es/hooks/useDispatch';
-import { updateItem } from '~/redux/slices/shopping-cart/cartItemsSlide';
-import { removeItem } from '~/redux/slices/shopping-cart/cartItemsSlide';
+import { removeItem, updateItem } from '~/redux/slices/shopping-cart/cartItemsSlide';
 
+import { AiFillDelete, AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 import numberWithCommas from '~/utils/numberWithCommas';
 import CartDialog from '../ViewDialog/CartDialog';
-import { AiFillDelete, AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 
-import { MdLocalShipping, MdTaskAlt, MdErrorOutline, MdOutlineMailOutline } from 'react-icons/md';
+import { MdErrorOutline, MdLocalShipping, MdOutlineMailOutline, MdTaskAlt } from 'react-icons/md';
+
+import { useDeleteCartMutation } from '~/redux/api/cartApi/cartApi';
 
 const CartItem = (props) => {
-    const { stardust, Confirm, Shipping, Shipped, Deny } = props;
+    const { stardust, Confirm, Shipping, Shipped, Deny, refetch } = props;
+
+    const [deleteCart] = useDeleteCartMutation();
 
     const dispatch = useDispatch();
 
@@ -36,8 +39,18 @@ const CartItem = (props) => {
         }
     };
 
-    const removeCartItem = () => {
-        dispatch(removeItem(item));
+    const removeCartItem = async (id) => {
+        await deleteCart({ id: id });
+        dispatch(
+            removeItem({
+                color: item.color,
+                id: item.product._id,
+                size: item.size,
+                quantity: item.quantity,
+                price: item.product.price,
+            }),
+        );
+        refetch();
         setIsDialogOpen(false);
     };
 
@@ -52,20 +65,20 @@ const CartItem = (props) => {
     return (
         <div className="cart__item">
             <div className="cart__item__img">
-                <Link to={`/catalog/${item.slug}`}>
-                    <img src={item.product.image01} alt="" />
+                <Link to={`/catalog/${item?.product?.slug}`}>
+                    <img src={item.product?.images[0]} alt="" />
                 </Link>
             </div>
             <div className="cart__item__info">
                 <div className="cart__item__info__name">
-                    <Link to={`/catalog/${item.slug}`}>
-                        <span>{item.product.title}</span>
-                        <span>{item.color}</span>
-                        <span>{item.size}</span>
+                    <Link to={`/catalog/${item?.product?.slug}`}>
+                        <span>{item.product?.title}</span>
+                        <span>{item.color.value}</span>
+                        <span>{item.size.value}</span>
                     </Link>
                 </div>
                 <div className="cart__item__info__price">
-                    Số tiền: {numberWithCommas(item.product.price * quantity)}
+                    Số tiền: {numberWithCommas(item.product?.price * quantity)}
                 </div>
                 {stardust && <div>Danh gia {props.children}</div>}
                 {props.delete && (
@@ -74,7 +87,7 @@ const CartItem = (props) => {
                             <div className="product__info__item__quantity">
                                 <div className="product__info__item__quantity-btn" onClick={() => updateQuantity('-')}>
                                     <Fab color="primary" size="small" variant="extended">
-                                        <AiOutlineMinus></AiOutlineMinus>
+                                        <AiOutlineMinus />
                                     </Fab>
                                 </div>
                                 <div className="product__info__item__quantity-input">{item.quantity}</div>
@@ -136,8 +149,9 @@ const CartItem = (props) => {
                 handleOpenDialog={handleOpenDialog}
                 handleCloseDialog={handleCloseDialog}
                 removeCartItem={removeCartItem}
+                id={item._id}
                 isDialogOpen={isDialogOpen}
-            ></CartDialog>
+            />
         </div>
     );
 };

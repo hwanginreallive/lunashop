@@ -5,20 +5,22 @@ import StepLabel from '@mui/material/StepLabel';
 import Stepper from '@mui/material/Stepper';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
-import productData from '~/assets/fake-data/products';
-import CartItem from '../CartItem/CartItem';
+import { useGetCartByUserQuery } from '~/redux/api/cartApi/cartApi';
+import { useCreateOrderMutation } from '~/redux/api/orderApi/orderApi';
+import { removeItem } from '~/redux/slices/shopping-cart/cartItemsSlide';
 import FormInput from '../FormInput/FormInput';
 import QrPayment from '../QrPay/QrPayment';
-
-const steps = ['Kiểm tra giỏ hàng', 'Địa chỉ', 'Thanh toán'];
+import { notifySuccess } from '../Toasts/Toast';
+const steps = ['Địa chỉ', 'Thanh toán'];
 
 export default function StepCard() {
     const schema = yup.object({
         name: yup.string().required('Vui lòng nhập họ tên'),
         phone: yup.string().required('Vui lòng nhập số điện thoại'),
-        address: yup.string().required('Vui lòng nhập địa chỉ'),
+        location: yup.string().required('Vui lòng nhập địa chỉ'),
         city: yup.string().required('Vui lòng chọn tỉnh / thành phố'),
         district: yup.string().required('Vui lòng chọn tỉnh / thành phố'),
         ward: yup.string().required('Vui lòng chọn quận / huyện'),
@@ -33,29 +35,40 @@ export default function StepCard() {
             name: '',
             phone: '',
             address: '',
+            location: '',
             city: '',
             district: '',
             ward: '',
             paymentMethod: 'cod',
         },
     });
-    const [activeStep, setActiveStep] = useState(0);
-    const cartItems = useSelector((state) => state.cartItems.value);
+
+    const userCookies = localStorage.getItem('token') !== null ? JSON.parse(localStorage.getItem('token')) : null;
+
+    const [create, { isError, isSuccess }] = useCreateOrderMutation();
+    const { data: dataCart, refetch } = useGetCartByUserQuery(
+        { id: userCookies?.id },
+        { refetchOnMountOrArgChange: true },
+    );
 
     const [cartProducts, setCartProduct] = useState([]);
-    const [totalProducts, setTotalProducts] = useState(0);
-    const [totalPrice, setTotalPrice] = useState(0);
+    const [activeStep, setActiveStep] = useState(0);
     const [city, setCity] = useState([]);
     const [district, setDistrict] = useState([]);
     const [ward, setWard] = useState([]);
     const [, setSelectedCity] = useState('');
     const [, setSelectedDistrict] = useState('');
     const [, setSelectedWard] = useState('');
+
+    const dispatch = useDispatch();
+
+    const history = useNavigate();
     useEffect(() => {
-        setCartProduct(productData.getCartItemsInfo(cartItems));
-        setTotalProducts(cartItems.reduce((total, item) => total + Number(item.quantity), 0));
-        setTotalPrice(cartItems.reduce((total, item) => total + Number(item.quantity) * Number(item.price), 0));
-    }, [cartItems]);
+        if (dataCart) {
+            const dataCartFilter = dataCart.filter((item) => item.isOrder === false);
+            setCartProduct(dataCartFilter);
+        }
+    }, [dataCart]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -75,39 +88,71 @@ export default function StepCard() {
     const handleBack = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
-
     const onSubmit = (data) => {
         const filterCity = city.find((item) => item.Id === data.city);
         const filterDistrict = filterCity.Districts.find((item) => item.Id === data.district);
         const filterWard = filterDistrict.Wards.find((item) => item.Id === data.ward);
+        dispatch(
+            removeItem({
+                ...cartProducts[0],
+            }),
+        );
+        const cartTotal = cartProducts.reduce(
+            (total, item) => total + Number(item.quantity) * Number(item.product.price),
+            0,
+        );
+        const cartId = cartProducts.map((item) => item._id);
         const dataPush = {
             ...data,
-            city: filterCity.Name,
-            district: filterDistrict.Name,
-            ward: filterWard.Name,
+            cart: cartId,
+            price: cartTotal + 30000,
+            user: userCookies.id,
+            address: [
+                {
+                    city: filterCity.Name,
+                },
+                {
+                    district: filterDistrict.Name,
+                },
+                {
+                    ward: filterWard.Name,
+                },
+            ],
         };
+        delete dataPush.city;
+        delete dataPush.district;
+        delete dataPush.ward;
+        create(dataPush);
     };
 
     const handleCityChange = (e) => {
         setSelectedCity(e.target.value);
-        setSelectedDistrict('');
-
         const selectedData = city.filter((city) => city.Id === e.target.value)[0];
-
         setDistrict(selectedData.Districts);
     };
 
     const handleDistrictChange = (e) => {
         setSelectedDistrict(e.target.value);
-
         const selectedData = district.filter((district) => district.Id === e.target.value)[0];
-
         setWard(selectedData.Wards);
     };
 
     const handleWardChange = (event) => {
         setSelectedWard(event.target.value);
     };
+
+    useEffect(() => {
+        if (isSuccess) {
+            notifySuccess('đặt hàng thành công');
+            history('/');
+            refetch();
+        }
+        // eslint-disable-next-line
+    }, [isSuccess]);
+
+    useEffect(() => {
+        if (isError) notifySuccess('đặt hàng thất bại');
+    }, [isError]);
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="step-card">
@@ -137,12 +182,6 @@ export default function StepCard() {
                 })}
             </Stepper>
             {activeStep === 0 ? (
-                <>
-                    {cartProducts.map((item, index) => (
-                        <CartItem item={item} key={index} delete></CartItem>
-                    ))}
-                </>
-            ) : activeStep === 1 ? (
                 <FormInput
                     control={control}
                     errors={errors}
@@ -150,9 +189,13 @@ export default function StepCard() {
                     handleCityChange={handleCityChange}
                     handleWardChange={handleWardChange}
                     city={city}
+                    district={district}
+                    ward={ward}
+                    isDirty={isDirty}
+                    cartProducts={cartProducts}
                 />
             ) : (
-                <QrPayment totalPrice={totalPrice} />
+                <QrPayment />
             )}
             <div className="step-card__btn">
                 <Button
@@ -167,7 +210,7 @@ export default function StepCard() {
 
                 <Button
                     onClick={handleNext}
-                    type={activeStep === 2 ? 'submit' : 'button'}
+                    // type={activeStep === 2 ? 'submit' : 'button'}
                     variant="contained"
                     size="medium"
                 >

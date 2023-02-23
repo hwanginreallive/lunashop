@@ -14,7 +14,7 @@ import { notifyError, notifySuccess } from '~/components/Toasts/Toast';
 import { storage } from '~/firebase';
 import { useGetUserByIdQuery, useUpdateUserMutation } from '~/redux/api/userApi/userApi';
 const Profile = () => {
-    const loginUser = localStorage.getItem('token') !== null ? JSON.parse(localStorage.getItem('token')) : null;
+    const loginUser = JSON.parse(localStorage.getItem('token'));
 
     const { data } = useGetUserByIdQuery(
         { id: loginUser.id },

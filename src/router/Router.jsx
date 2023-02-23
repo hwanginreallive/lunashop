@@ -1,24 +1,24 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 import { Route, Routes, useLocation } from 'react-router-dom';
 
-import Home from '../pages/Home';
-import Catalog from '../pages/Catalog';
-import Cart from '../pages/Cart';
-import Product from '../pages/Product';
-import Support from '~/pages/Support';
+import { useDispatch, useSelector } from 'react-redux';
+import Coin from '~/components/Coin/Coin';
+import Notification from '~/components/Notification/Notification';
 import Profile from '~/components/Profile/Profile';
 import Purchase from '~/components/Purchase/Purchase';
-import Coin from '~/components/Coin/Coin';
 import Voucher from '~/components/Voucher/Voucher';
-import Notification from '~/components/Notification/Notification';
 import Login from '~/pages/auth/Login';
-import Payment from '../pages/Payment';
-import { useDispatch } from 'react-redux';
+import Support from '~/pages/Support';
 import { setLayout } from '~/redux/slices/layout/layoutConfigSlice';
+import Cart from '../pages/Cart';
+import Catalog from '../pages/Catalog';
+import Home from '../pages/Home';
+import Payment from '../pages/Payment';
+import Product from '../pages/Product';
 const Router = () => {
     const { pathname } = useLocation();
-
+    const layoutConfig = useSelector((state) => state.setLayout.layout);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -29,7 +29,7 @@ const Router = () => {
                     footer: false,
                 }),
             );
-        } else {
+        } else if (layoutConfig?.header !== true) {
             dispatch(
                 setLayout({
                     header: true,
@@ -37,7 +37,8 @@ const Router = () => {
                 }),
             );
         }
-    }, [pathname, dispatch]);
+        // eslint-disable-next-line
+    }, [pathname]);
 
     return (
         <Routes>

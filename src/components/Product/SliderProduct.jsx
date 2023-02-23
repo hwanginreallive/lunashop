@@ -1,12 +1,10 @@
-import React from 'react';
 import Slider from 'react-slick';
 
-import productData from '~/assets/fake-data/products';
 import ProductCard from './ProductCard';
 
 import { FcNext, FcPrevious } from 'react-icons/fc';
 
-const SliderProduct = () => {
+const SliderProduct = ({ productData = [] }) => {
     function SampleNextArrow(props) {
         const { className, onClick } = props;
         return (
@@ -60,15 +58,14 @@ const SliderProduct = () => {
     };
     return (
         <Slider {...settings} pauseOnFocus={false}>
-            {productData.getProducts(8).map((item, index) => (
+            {productData.map((item, index) => (
                 <ProductCard
                     key={index}
-                    img01={item.image01}
-                    img02={item.image02}
+                    images={item.images}
                     name={item.title}
                     price={Number(item.price)}
                     slug={item.slug}
-                ></ProductCard>
+                />
             ))}
         </Slider>
     );

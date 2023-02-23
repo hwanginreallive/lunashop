@@ -1,31 +1,40 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { Link } from 'react-router-dom';
 
-import productData from '~/assets/fake-data/products';
-import Helmet from '~/components/Helmet/Helmet';
 import CartItem from '~/components/CartItem/CartItem';
-import Section, { SectionTitle, SectionBody } from '~/components/Section/Section';
-import Grid from '~/components/Grid/Grid';
-import ProductCard from '~/components/Product/ProductCard';
-
+import Helmet from '~/components/Helmet/Helmet';
 import numberWithCommas from '~/utils/numberWithCommas';
 
 import { Button } from '@mui/material';
-
+import { useSelector } from 'react-redux';
+import productData from '~/assets/fake-data/products';
+import { useGetCartByUserQuery } from '~/redux/api/cartApi/cartApi';
 const Cart = () => {
     const cartItems = useSelector((state) => state.cartItems.value);
+
+    const userCookies = localStorage.getItem('token') !== null ? JSON.parse(localStorage.getItem('token')) : null;
+
+    const { data, refetch } = useGetCartByUserQuery({ id: userCookies?.id }, { refetchOnMountOrArgChange: true }) || [];
 
     const [cartProducts, setCartProduct] = useState([]);
     const [totalProducts, setTotalProducts] = useState(0);
     const [totalPrice, setTotalPrice] = useState(0);
 
     useEffect(() => {
-        setCartProduct(productData.getCartItemsInfo(cartItems));
-        setTotalProducts(cartItems.reduce((total, item) => total + Number(item.quantity), 0));
-        setTotalPrice(cartItems.reduce((total, item) => total + Number(item.quantity) * Number(item.price), 0));
-    }, [cartItems]);
+        if (data) {
+            const dataFilter = data.filter((item) => item.isOrder === false);
+            setCartProduct(dataFilter);
+            setTotalProducts(dataFilter.reduce((total, item) => total + Number(item.quantity), 0));
+            setTotalPrice(
+                dataFilter.reduce((total, item) => total + Number(item.quantity) * Number(item.product.price), 0),
+            );
+        } else {
+            setCartProduct(productData.getCartItemsInfo(cartItems));
+            setTotalProducts(cartItems.reduce((total, item) => total + Number(item.quantity), 0));
+            setTotalPrice(cartItems.reduce((total, item) => total + Number(item.quantity) * Number(item.price), 0));
+        }
+    }, [data, cartItems]);
 
     return (
         <Helmet title="Giỏ hàng">
@@ -45,21 +54,19 @@ const Cart = () => {
                             </Button>
                         </Link>
                         <div className="btn-pay">
-                            <Link to="/payment">
-                                <Button variant="contained" size="large">
-                                    Thanh toán
-                                </Button>
-                            </Link>
+                            <Button variant="contained" disabled={!(cartProducts.length > 0)} size="large">
+                                <Link to="/payment">Thanh toán</Link>
+                            </Button>
                         </div>
                     </div>
                 </div>
                 <div className="cart__list">
-                    {cartProducts.map((item, index) => (
-                        <CartItem item={item} key={index} delete></CartItem>
+                    {cartProducts?.map((item, index) => (
+                        <CartItem item={item} key={index} delete refetch={refetch}></CartItem>
                     ))}
                 </div>
             </div>
-            <Section>
+            {/* <Section>
                 <SectionTitle>Top sản phẩm bán chạy trong tuần</SectionTitle>
                 <SectionBody>
                     <Grid col={4} mdCol={2} smCol={1} gap={20}>
@@ -75,7 +82,7 @@ const Cart = () => {
                         ))}
                     </Grid>
                 </SectionBody>
-            </Section>
+            </Section> */}
         </Helmet>
     );
 };

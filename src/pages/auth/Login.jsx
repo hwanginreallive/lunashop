@@ -1,4 +1,4 @@
-import { InputAdornment, TextField } from '@mui/material';
+import { Button, InputAdornment, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
@@ -13,9 +13,12 @@ import { notifyError, notifySuccess } from '~/components/Toasts/Toast';
 import { useLoginMutation } from '~/redux/api/auth/authApiSlice';
 import { setCredentials } from '~/redux/api/auth/authSlice';
 import { setLayout } from '~/redux/slices/layout/layoutConfigSlice';
+import SignIn from './sign-in';
+
+import Grow from '@mui/material/Grow';
 const Login = () => {
     const schema = yup.object({
-        username: yup.string().required('Địa chỉ email hoặc số điện thoại di động bạn đã nhập không đúng'),
+        username: yup.string().required('Tên tài khoản hoặc số điện thoại di động bạn đã nhập không đúng'),
     });
     const {
         handleSubmit,
@@ -30,6 +33,7 @@ const Login = () => {
     });
 
     const [typeInput, setTypeInput] = useState('password');
+    const [changeView, setChangeView] = useState(true);
 
     const [login, { isSuccess, isError }] = useLoginMutation();
 
@@ -39,7 +43,7 @@ const Login = () => {
 
     const onSubmit = async (data) => {
         const userData = await login(data);
-        if (userData) localStorage.setItem('token', JSON.stringify(userData.data));
+        if (userData.data) localStorage.setItem('token', JSON.stringify(userData.data));
         dispatch(
             setCredentials({
                 ...userData.data,
@@ -77,93 +81,124 @@ const Login = () => {
                 <img src={logo} alt="" />
                 <p>Đem cả thế giớ thời trang đến bạn</p>
             </div>
-            <div className="form-box">
-                <form
-                    onSubmit={handleSubmit(onSubmit)}
-                    style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: '20px',
-                    }}
-                >
-                    <Controller
-                        name="username"
-                        control={control}
-                        render={({ field }) => {
-                            return (
-                                <TextField
-                                    error={!!errors.email}
-                                    helperText={errors.email?.message}
-                                    placeholder="Nhập Email"
-                                    style={{
-                                        minWidth: '300px',
-                                    }}
-                                    FormHelperTextProps={{
-                                        style: {
-                                            fontSize: '14px',
-                                        },
-                                    }}
-                                    InputProps={{
-                                        endAdornment: !!errors.email && (
-                                            <InputAdornment position="end">
-                                                <WarningIcon
-                                                    style={{
-                                                        color: '#fa3c3c',
-                                                    }}
-                                                />
-                                            </InputAdornment>
-                                        ),
-                                        style: {
-                                            font: 'sans-serif',
-                                            fontSize: '14px',
-                                        },
-                                    }}
-                                    {...field}
-                                />
-                            );
-                        }}
-                    />
-                    <Controller
-                        name="password"
-                        control={control}
-                        render={({ field }) => {
-                            return (
-                                <TextField
-                                    placeholder="Mật khẩu"
-                                    type={typeInput}
-                                    InputProps={{
-                                        endAdornment: field.value && (
-                                            <InputAdornment
-                                                position="end"
-                                                style={{ cursor: 'pointer' }}
-                                                onClick={handleShowPass}
-                                            >
-                                                <RemoveRedEyeIcon />
-                                            </InputAdornment>
-                                        ),
-                                        style: {
-                                            font: 'sans-serif',
-                                            fontSize: '14px',
-                                        },
-                                    }}
-                                    style={{
-                                        minWidth: '300px',
-                                    }}
-                                    {...field}
-                                />
-                            );
-                        }}
-                    />
 
-                    <button type="submit" className="btn-submit">
-                        Log In
-                    </button>
-                    <Link to="/">Forgotten Password</Link>
-                </form>
-                <hr />
-                <div className="create-btn">
-                    <Link to="/">Create new account</Link>
+            <div className="form-box">
+                <div className="button">
+                    <Button
+                        size="large"
+                        variant={changeView ? 'contained' : 'text'}
+                        onClick={() => setChangeView(true)}
+                    >
+                        Đăng nhập
+                    </Button>
+                    <Button
+                        size="large"
+                        variant={!changeView ? 'contained' : 'text'}
+                        onClick={() => setChangeView(false)}
+                    >
+                        Đăng ký
+                    </Button>
                 </div>
+
+                {changeView ? (
+                    <Grow
+                        in={changeView}
+                        style={{ transformOrigin: '0 0 0' }}
+                        {...(changeView ? { timeout: 1000 } : {})}
+                    >
+                        <div>
+                            <form
+                                onSubmit={handleSubmit(onSubmit)}
+                                style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    gap: '20px',
+                                }}
+                            >
+                                <Controller
+                                    name="username"
+                                    control={control}
+                                    render={({ field }) => {
+                                        return (
+                                            <TextField
+                                                error={!!errors.username}
+                                                helperText={errors.username?.message}
+                                                placeholder="Nhập Email"
+                                                style={{
+                                                    minWidth: '300px',
+                                                }}
+                                                FormHelperTextProps={{
+                                                    style: {
+                                                        fontSize: '14px',
+                                                    },
+                                                }}
+                                                InputProps={{
+                                                    endAdornment: !!errors.username && (
+                                                        <InputAdornment position="end">
+                                                            <WarningIcon
+                                                                style={{
+                                                                    color: '#fa3c3c',
+                                                                }}
+                                                            />
+                                                        </InputAdornment>
+                                                    ),
+                                                    style: {
+                                                        font: 'sans-serif',
+                                                        fontSize: '14px',
+                                                    },
+                                                }}
+                                                {...field}
+                                            />
+                                        );
+                                    }}
+                                />
+                                <Controller
+                                    name="password"
+                                    control={control}
+                                    render={({ field }) => {
+                                        return (
+                                            <TextField
+                                                placeholder="Mật khẩu"
+                                                type={typeInput}
+                                                InputProps={{
+                                                    endAdornment: field.value && (
+                                                        <InputAdornment
+                                                            position="end"
+                                                            style={{ cursor: 'pointer' }}
+                                                            onClick={handleShowPass}
+                                                        >
+                                                            <RemoveRedEyeIcon />
+                                                        </InputAdornment>
+                                                    ),
+                                                    style: {
+                                                        font: 'sans-serif',
+                                                        fontSize: '14px',
+                                                    },
+                                                }}
+                                                style={{
+                                                    minWidth: '300px',
+                                                }}
+                                                {...field}
+                                            />
+                                        );
+                                    }}
+                                />
+
+                                <button type="submit" className="btn-submit">
+                                    Đăng nhập
+                                </button>
+                                <Link to="/"> Quên mật khẩu</Link>
+                            </form>
+                        </div>
+                    </Grow>
+                ) : (
+                    <SignIn
+                        setChangeView={setChangeView}
+                        dispatch={dispatch}
+                        setCredentials={setCredentials}
+                        login={login}
+                    />
+                )}
             </div>
         </div>
     );

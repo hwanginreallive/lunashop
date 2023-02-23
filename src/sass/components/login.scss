@@ -26,10 +26,15 @@
     background: #fff;
     margin-left: 60px;
     box-shadow: 0px 2px 10px 1px rgba(71, 71, 71, 0.52);
-
+    min-height: 350px;
     .error {
         font-size: medium;
         color: rgb(233 87 73 / 2);
+    }
+    .button {
+        display: flex;
+        padding: 10px;
+        padding-top: 0;
     }
 }
 .form-box .btn-submit {

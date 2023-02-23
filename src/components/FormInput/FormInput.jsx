@@ -5,6 +5,7 @@ import shopeePay from '~/assets/images/shopeepay.webp';
 import vnPay from '~/assets/images/vnpay.png';
 import zaloPay from '~/assets/images/zalopay.png';
 import SelectMui from '../FormInput/SelectMui';
+import SummaryPayment from '../SumaryPayment/SummaryPayment';
 const FormInput = ({
     control,
     errors,
@@ -14,6 +15,8 @@ const FormInput = ({
     handleWardChange,
     handleDistrictChange,
     handleCityChange,
+    isDirty,
+    cartProducts,
 }) => {
     const styleValidate = {
         '& .MuiOutlinedInput-root': {
@@ -76,26 +79,7 @@ const FormInput = ({
                                 );
                             }}
                         />
-                        <Controller
-                            name="address"
-                            control={control}
-                            render={({ field }) => {
-                                return (
-                                    <TextField
-                                        inputProps={{
-                                            style: { fontSize: 16 },
-                                        }}
-                                        fullWidth
-                                        sx={styleValidate}
-                                        placeholder="Địa chỉ"
-                                        errors={errors}
-                                        helperText={errors.address?.message}
-                                        {...field}
-                                        variant="outlined"
-                                    />
-                                );
-                            }}
-                        />
+
                         <SelectMui
                             data={city}
                             name="city"
@@ -119,6 +103,26 @@ const FormInput = ({
                             control={control}
                             handleChange={handleWardChange}
                             placeholder="Xã / Phường"
+                        />
+                        <Controller
+                            name="location"
+                            control={control}
+                            render={({ field }) => {
+                                return (
+                                    <TextField
+                                        inputProps={{
+                                            style: { fontSize: 16 },
+                                        }}
+                                        fullWidth
+                                        sx={styleValidate}
+                                        placeholder="Địa chỉ"
+                                        errors={errors}
+                                        helperText={errors.address?.message}
+                                        {...field}
+                                        variant="outlined"
+                                    />
+                                );
+                            }}
                         />
                     </div>
 
@@ -182,7 +186,10 @@ const FormInput = ({
                             )}
                         />
                     </div>
-                    <Button variant="contained" fullWidth size="large" type="submit">
+                    <div className="col">
+                        <SummaryPayment cartProducts={cartProducts} />
+                    </div>
+                    <Button variant="contained" disabled={!isDirty} fullWidth size="large" type="submit">
                         Xác nhận
                     </Button>
                 </div>

@@ -1,24 +1,8 @@
 const sizes = [
-    {
-        display: 'S',
-        size: 's',
-    },
-    {
-        display: 'M',
-        size: 'm',
-    },
-    {
-        display: 'L',
-        size: 'l',
-    },
-    {
-        display: 'XL',
-        size: 'xl',
-    },
-    {
-        display: 'XXL',
-        size: 'xxl',
-    },
+    { key: 1, value: 'XS' },
+    { key: 2, value: 'S' },
+    { key: 4, value: 'M' },
+    { key: 5, value: 'L' },
 ];
 
 export default sizes;
