@@ -8,33 +8,42 @@ import numberWithCommas from '~/utils/numberWithCommas';
 
 import { Button } from '@mui/material';
 import { useSelector } from 'react-redux';
-import productData from '~/assets/fake-data/products';
 import { useGetCartByUserQuery } from '~/redux/api/cartApi/cartApi';
+import { useGetListProductsQuery } from '~/redux/api/productApi/productApi';
 const Cart = () => {
     const cartItems = useSelector((state) => state.cartItems.value);
+    const userCart = JSON.parse(localStorage.getItem('cartItems'));
 
-    const userCookies = localStorage.getItem('token') !== null ? JSON.parse(localStorage.getItem('token')) : null;
+    const userCookies = JSON.parse(localStorage.getItem('token'));
 
     const { data, refetch } = useGetCartByUserQuery({ id: userCookies?.id }, { refetchOnMountOrArgChange: true }) || [];
+    const { data: dataCart } = useGetListProductsQuery({ refetchOnMountOrArgChange: true }) || [];
 
     const [cartProducts, setCartProduct] = useState([]);
     const [totalProducts, setTotalProducts] = useState(0);
     const [totalPrice, setTotalPrice] = useState(0);
-
     useEffect(() => {
         if (data) {
             const dataFilter = data.filter((item) => item.isOrder === false);
-            setCartProduct(dataFilter);
+            setCartProduct(dataFilter && dataFilter);
             setTotalProducts(dataFilter.reduce((total, item) => total + Number(item.quantity), 0));
             setTotalPrice(
                 dataFilter.reduce((total, item) => total + Number(item.quantity) * Number(item.product.price), 0),
             );
-        } else {
-            setCartProduct(productData.getCartItemsInfo(cartItems));
-            setTotalProducts(cartItems.reduce((total, item) => total + Number(item.quantity), 0));
-            setTotalPrice(cartItems.reduce((total, item) => total + Number(item.quantity) * Number(item.price), 0));
+        } else if (dataCart) {
+            const dataStore = userCart?.map((cart) => {
+                const data = dataCart.find((item) => item._id === cart.id);
+                return {
+                    product: data,
+                    ...cart,
+                };
+            });
+            setCartProduct(dataStore);
+            setTotalProducts(dataStore?.reduce((total, item) => total + Number(item.quantity), 0));
+            setTotalPrice(dataStore?.reduce((total, item) => total + Number(item.quantity) * Number(item.price), 0));
         }
-    }, [data, cartItems]);
+        // eslint-disable-next-line
+    }, [data, cartItems, dataCart]);
 
     return (
         <Helmet title="Giỏ hàng">
@@ -44,7 +53,7 @@ const Cart = () => {
                         <p>bạn đang có {totalProducts} sản phẩm trong giỏ hàng</p>
                         <div className="cart__info__txt__price">
                             <span>Thành tiền</span>
-                            <span>{numberWithCommas(totalPrice)}</span>
+                            <span>{totalPrice && numberWithCommas(totalPrice)}</span>
                         </div>
                     </div>
                     <div className="cart__info__btn">
@@ -54,7 +63,7 @@ const Cart = () => {
                             </Button>
                         </Link>
                         <div className="btn-pay">
-                            <Button variant="contained" disabled={!(cartProducts.length > 0)} size="large">
+                            <Button variant="contained" disabled={!(cartProducts?.length > 0)} size="large">
                                 <Link to="/payment">Thanh toán</Link>
                             </Button>
                         </div>

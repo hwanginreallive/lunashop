@@ -6,8 +6,6 @@ import { Tab, Tabs } from '@mui/material';
 import Helmet from '../Helmet/Helmet';
 import InfoUser from '../User/infoUser';
 
-import productData from '~/assets/fake-data/products';
-
 import Deny from './Deny';
 import Shipped from './Shipped';
 import Shipping from './Shipping';
@@ -23,6 +21,7 @@ const Purchase = () => {
 
     const [dataShipped, setDataShipped] = useState([]);
     const [dataShipping, setDataShipping] = useState([]);
+    const [dataConfirm, setDataConfirm] = useState([]);
     const [dataDeny, setDataDeny] = useState([]);
     const [selectedTab, setSelectedTab] = useState(0);
 
@@ -33,6 +32,10 @@ const Purchase = () => {
 
     useEffect(() => {
         if (data?.length > 0) {
+            setDataDeny(data.filter((item) => item.status === 4));
+            setDataShipping(data.filter((item) => item.status === 2));
+            setDataConfirm(data.filter((item) => item.status === 1));
+            setDataShipped(data.filter((item) => item.status === 3));
         }
     }, [data]);
 
@@ -40,17 +43,11 @@ const Purchase = () => {
         setSelectedTab(newValue);
     };
 
-    const [cartProducts, setCartProduct] = useState([]);
-
-    useEffect(() => {
-        setCartProduct(productData.getCartItemsInfo(cartItems));
-    }, [cartItems]);
-
     return (
         <Helmet title="Đơn mua">
             <div className="profile">
                 <div className="profile__left">
-                    <InfoUser></InfoUser>
+                    <InfoUser />
                 </div>
                 <div className="profile__right">
                     <div className="profile__right__purchase">
@@ -64,7 +61,7 @@ const Purchase = () => {
                         </div>
                         <div className="profile__right__purchase__content">
                             {selectedTab === 0 && (
-                                <WaitToConfirm product={cartProducts}>
+                                <WaitToConfirm product={dataConfirm}>
                                     <Button variant="contained" size="medium" startIcon={<MdOutlineMailOutline />}>
                                         Liên hệ với shop
                                     </Button>

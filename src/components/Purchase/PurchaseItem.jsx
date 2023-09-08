@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 
 import { Button, Fab } from '@mui/material';
@@ -15,19 +14,18 @@ import { MdErrorOutline, MdLocalShipping, MdOutlineMailOutline, MdTaskAlt } from
 
 import { useDeleteCartMutation } from '~/redux/api/cartApi/cartApi';
 
-const CartItem = (props) => {
+const PurchaseItem = (props) => {
     const { stardust, Confirm, Shipping, Shipped, Deny, refetch } = props;
 
     const [deleteCart] = useDeleteCartMutation();
 
     const dispatch = useDispatch();
 
-    const [item, setItem] = useState(props.item);
+    const [item, setItem] = useState([]);
     const [quantity, setQuantity] = useState(props.item.quantity);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
-
     useEffect(() => {
-        setItem(props.item);
+        setItem(props.item.cart);
         setQuantity(props.item.quantity);
     }, [props.item]);
 
@@ -63,23 +61,23 @@ const CartItem = (props) => {
         setIsDialogOpen(false);
     };
 
-    return (
+    return item.map((order) => (
         <div className="cart__item">
             <div className="cart__item__img">
-                <Link to={`/catalog/${item?.product?.slug}`}>
-                    <img src={item.product?.images[0]} alt="" />
+                <Link to={`/catalog/${order?.product?.slug}`}>
+                    <img src={order.product.images[0]} alt="" />
                 </Link>
             </div>
             <div className="cart__item__info">
                 <div className="cart__item__info__name">
-                    <Link to={`/catalog/${item?.product?.slug}`}>
-                        <span>{item.product?.title}</span>
-                        <span>{item.color}</span>
-                        <span>{item.size}</span>
-                    </Link>
+                    <span>{order.product?.title}</span>
+                    <span>{order.color}</span>
+                    <span>{order.size}</span>
+                    <span>Số lượng: {order.quantity}</span>
                 </div>
+
                 <div className="cart__item__info__price">
-                    Số tiền: {numberWithCommas(item.product?.price * quantity)}
+                    Số tiền: {numberWithCommas(order.product?.price * order.quantity)}
                 </div>
                 {stardust && <div>Danh gia {props.children}</div>}
                 {props.delete && (
@@ -154,11 +152,7 @@ const CartItem = (props) => {
                 isDialogOpen={isDialogOpen}
             />
         </div>
-    );
+    ));
 };
 
-CartItem.propTypes = {
-    item: PropTypes.object,
-};
-
-export default CartItem;
+export default PurchaseItem;

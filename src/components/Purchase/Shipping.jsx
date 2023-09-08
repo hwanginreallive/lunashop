@@ -1,14 +1,17 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import CartItem from '../CartItem/CartItem';
 import EmptyProductSlide from './EmptyProductSlide';
+import PurchaseItem from './PurchaseItem';
 const Shipping = ({ product }) => {
     return (
         <div>
             {product.length > 0 ? (
-                product.map((item, index) => <CartItem item={item} key={index} Shipping></CartItem>)
+                product.map((item, index) => (
+                    <div key={index}>
+                        <PurchaseItem item={item} Shipping></PurchaseItem>
+                    </div>
+                ))
             ) : (
-                <EmptyProductSlide></EmptyProductSlide>
+                <EmptyProductSlide />
             )}
         </div>
     );

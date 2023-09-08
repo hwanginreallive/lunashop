@@ -10,19 +10,22 @@ import {
     ListItemButton,
     ListItemIcon,
     ListItemText,
-    SwipeableDrawer
+    SwipeableDrawer,
 } from '@mui/material';
-import logo from '~/assets/images/Logo-2.png';
-
 import { AiFillHome, AiFillInfoCircle, AiFillSkin, AiOutlineShoppingCart, AiOutlineUser } from 'react-icons/ai';
+import { useNavigate } from 'react-router-dom';
+import logo from '~/assets/images/Logo-2.png';
 
 import { BiBell, BiMenuAltLeft, BiNotepad, BiUser } from 'react-icons/bi';
 import { FaBitcoin } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import Discount from '~/assets/images/discount.png';
+import { logOut } from '~/redux/api/auth/authSlice';
 import { useGetCartByUserQuery } from '~/redux/api/cartApi/cartApi';
-import { addItem } from '~/redux/slices/shopping-cart/cartItemsSlide';
+import { addManyItems, removeAllItems } from '~/redux/slices/shopping-cart/cartItemsSlide';
 import SearchAppBar from '../Search/SearchAppBar';
+import { notifySuccess } from '../Toasts/Toast';
+
 const mainNav = [
     {
         display: 'Trang chủ',
@@ -82,31 +85,48 @@ const mainNavMobile = [
 ];
 
 const Header = () => {
+    const { pathname } = useLocation();
+    const dispatch = useDispatch();
+    const history = useNavigate();
+
     const [drawer, setDrawer] = useState(false);
 
-    const { pathname } = useLocation();
     const activeNav = mainNav.findIndex((e) => e.path === pathname);
     const activeNavMobile = mainNavMobile.findIndex((e) => e.path === pathname);
+
     const userCookies = JSON.parse(localStorage?.getItem('token'));
+    const cartItemsLocal = JSON.parse(localStorage?.getItem('cartItems'));
 
     const cartItems = useSelector((state) => state.cartItems.value);
     const { data } = useGetCartByUserQuery({ id: userCookies?.id }, { refetchOnMountOrArgChange: true });
-    const dataRedux = cartItems?.reduce((total, item) => total + Number(item.quantity), 0);
-    const dispatch = useDispatch();
+    let dataStore;
+
+    if (userCookies) {
+        dataStore = cartItems?.reduce((total, item) => total + Number(item.quantity), 0);
+    } else {
+        dataStore = cartItemsLocal?.reduce((total, item) => total + Number(item.quantity), 0);
+    }
+
+    const handleLogOut = () => {
+        history('/', { replace: true });
+        dispatch(logOut());
+        dispatch(removeAllItems());
+        localStorage.removeItem('token');
+        notifySuccess('Đăng xuất thành công');
+    };
 
     useEffect(() => {
         if (data?.length > 0 && cartItems.length === 0) {
-            data.forEach((item) => {
-                dispatch(
-                    addItem({
-                        id: item.product._id,
-                        color: item.color,
-                        size: item.size,
-                        price: item.price,
-                        quantity: item.quantity,
-                    }),
-                );
+            const dataFiler = data.map((item) => {
+                return {
+                    id: item.product._id,
+                    color: item.color,
+                    size: item.size,
+                    price: item.price,
+                    quantity: item.quantity,
+                };
             });
+            dispatch(addManyItems(dataFiler));
         }
         // eslint-disable-next-line
     }, [data]);
@@ -155,6 +175,19 @@ const Header = () => {
                                         </Link>
                                     </ListItem>
                                 ))}
+
+                                {userCookies && (
+                                    <Button
+                                        sx={{
+                                            '&:hover': { color: 'white' },
+                                            marginLeft: '16px',
+                                        }}
+                                        variant="contained"
+                                        onClick={handleLogOut}
+                                    >
+                                        Đăng Xuất
+                                    </Button>
+                                )}
                             </List>
                         </SwipeableDrawer>
                     </div>
@@ -183,7 +216,7 @@ const Header = () => {
                                     sx={{
                                         '&:hover .MuiBadge-badge': { color: 'white' },
                                     }}
-                                    badgeContent={dataRedux}
+                                    badgeContent={dataStore}
                                     color="primary"
                                 >
                                     <div className="icon">

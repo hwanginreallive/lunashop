@@ -10,7 +10,9 @@ import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import { useGetCartByUserQuery } from '~/redux/api/cartApi/cartApi';
 import { useCreateOrderMutation } from '~/redux/api/orderApi/orderApi';
-import { removeItem } from '~/redux/slices/shopping-cart/cartItemsSlide';
+import { useGetListProductsQuery } from '~/redux/api/productApi/productApi';
+import { useGetUserByIdQuery } from '~/redux/api/userApi/userApi';
+import { removeAllItems } from '~/redux/slices/shopping-cart/cartItemsSlide';
 import FormInput from '../FormInput/FormInput';
 import QrPayment from '../QrPay/QrPayment';
 import { notifySuccess } from '../Toasts/Toast';
@@ -22,13 +24,14 @@ export default function StepCard() {
         phone: yup.string().required('Vui lòng nhập số điện thoại'),
         location: yup.string().required('Vui lòng nhập địa chỉ'),
         city: yup.string().required('Vui lòng chọn tỉnh / thành phố'),
-        district: yup.string().required('Vui lòng chọn tỉnh / thành phố'),
-        ward: yup.string().required('Vui lòng chọn quận / huyện'),
+        district: yup.string().required('Vui lòng chọn quận / huyện'),
+        ward: yup.string().required('Vui lòng chọn xã / phường'),
     });
     const {
         handleSubmit,
         formState: { errors, isDirty },
         control,
+        setValue,
     } = useForm({
         resolver: yupResolver(schema),
         defaultValues: {
@@ -44,12 +47,15 @@ export default function StepCard() {
     });
 
     const userCookies = localStorage.getItem('token') !== null ? JSON.parse(localStorage.getItem('token')) : null;
+    const userCart = JSON.parse(localStorage.getItem('cartItems'));
 
     const [create, { isError, isSuccess }] = useCreateOrderMutation();
     const { data: dataCart, refetch } = useGetCartByUserQuery(
         { id: userCookies?.id },
         { refetchOnMountOrArgChange: true },
     );
+    const { data: listCart } = useGetListProductsQuery({ refetchOnMountOrArgChange: true }) || [];
+    const { data: userData } = useGetUserByIdQuery({ id: userCookies?.id }, { refetchOnMountOrArgChange: true }) || [];
 
     const [cartProducts, setCartProduct] = useState([]);
     const [activeStep, setActiveStep] = useState(0);
@@ -63,23 +69,6 @@ export default function StepCard() {
     const dispatch = useDispatch();
 
     const history = useNavigate();
-    useEffect(() => {
-        if (dataCart) {
-            const dataCartFilter = dataCart.filter((item) => item.isOrder === false);
-            setCartProduct(dataCartFilter);
-        }
-    }, [dataCart]);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const response = await fetch(
-                'https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json',
-            );
-            const data = await response.json();
-            setCity(data);
-        };
-        fetchData();
-    }, []);
 
     const handleNext = () => {
         setActiveStep((prevActiveStep) => (prevActiveStep < 2 ? prevActiveStep + 1 : prevActiveStep));
@@ -92,11 +81,7 @@ export default function StepCard() {
         const filterCity = city.find((item) => item.Id === data.city);
         const filterDistrict = filterCity.Districts.find((item) => item.Id === data.district);
         const filterWard = filterDistrict.Wards.find((item) => item.Id === data.ward);
-        dispatch(
-            removeItem({
-                ...cartProducts[0],
-            }),
-        );
+
         const cartTotal = cartProducts.reduce(
             (total, item) => total + Number(item.quantity) * Number(item.product.price),
             0,
@@ -106,7 +91,7 @@ export default function StepCard() {
             ...data,
             cart: cartId,
             price: cartTotal + 30000,
-            user: userCookies.id,
+            user: userCookies?.id,
             address: [
                 {
                     city: filterCity.Name,
@@ -142,8 +127,46 @@ export default function StepCard() {
     };
 
     useEffect(() => {
+        if (dataCart) {
+            const dataCartFilter = dataCart.filter((item) => item.isOrder === false);
+            setCartProduct(dataCartFilter);
+        } else if (listCart) {
+            const dataStore = userCart?.map((cart) => {
+                const data = listCart.find((item) => item._id === cart.id);
+                return {
+                    product: data,
+                    _id: userCart._id,
+                    ...cart,
+                };
+            });
+            setCartProduct(dataStore);
+        }
+        // eslint-disable-next-line
+    }, [dataCart]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await fetch(
+                'https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json',
+            );
+            const data = await response.json();
+            setCity(data);
+        };
+        fetchData();
+    }, []);
+
+    useEffect(() => {
+        if (userData) {
+            setValue('name', userData?.name);
+            setValue('phone', userData?.phone);
+        }
+        // eslint-disable-next-line
+    }, [userData]);
+
+    useEffect(() => {
         if (isSuccess) {
             notifySuccess('đặt hàng thành công');
+            dispatch(removeAllItems());
             history('/');
             refetch();
         }
@@ -162,18 +185,15 @@ export default function StepCard() {
                 }}
                 activeStep={activeStep}
             >
-                {steps.map((label, index) => {
-                    const stepProps = {};
-                    const labelProps = {};
+                {steps.map((label) => {
                     return (
-                        <Step key={label} {...stepProps}>
+                        <Step key={label}>
                             <StepLabel
                                 sx={{
                                     '.MuiStepLabel-labelContainer span ': {
                                         fontSize: '16px',
                                     },
                                 }}
-                                {...labelProps}
                             >
                                 {label}
                             </StepLabel>
@@ -208,12 +228,7 @@ export default function StepCard() {
                     Back
                 </Button>
 
-                <Button
-                    onClick={handleNext}
-                    // type={activeStep === 2 ? 'submit' : 'button'}
-                    variant="contained"
-                    size="medium"
-                >
+                <Button onClick={handleNext} variant="contained" size="medium">
                     {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                 </Button>
             </div>

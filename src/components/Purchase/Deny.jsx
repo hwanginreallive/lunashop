@@ -1,16 +1,15 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 
-import CartItem from '../CartItem/CartItem';
 import EmptyProductSlide from './EmptyProductSlide';
+import PurchaseItem from './PurchaseItem';
 
 const Deny = ({ product }) => {
     return (
         <div>
             {product.length > 0 ? (
-                product.map((item, index) => <CartItem item={item} key={index} Deny></CartItem>)
+                product.map((item, index) => <PurchaseItem item={item} key={index} Deny></PurchaseItem>)
             ) : (
-                <EmptyProductSlide></EmptyProductSlide>
+                <EmptyProductSlide />
             )}
         </div>
     );

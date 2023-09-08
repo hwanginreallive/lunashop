@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
-import { Tabs, Tab, Typography, TextField, Fab } from '@mui/material';
+import { Fab, Tab, Tabs, TextField } from '@mui/material';
 
+import { AiOutlineSearch } from 'react-icons/ai';
+import voucherData from '~/assets/fake-data/voucher';
+import VoucherDialog from '~/components/ViewDialog/VoucherDialog';
 import Helmet from '../Helmet/Helmet';
 import InfoUser from '../User/infoUser';
 import VoucherItems from './VoucherItems/VoucherItems';
-import voucherData from '~/assets/fake-data/voucher';
-import { AiOutlineSearch } from 'react-icons/ai';
-import VoucherDialog from '~/components/ViewDialog/VoucherDialog';
 
 const Voucher = () => {
     const [selectedTab, setSelectedTab] = useState(0);
@@ -39,7 +39,7 @@ const Voucher = () => {
         <Helmet title="Mã giảm giá">
             <div className="profile">
                 <div className="profile__left">
-                    <InfoUser></InfoUser>
+                    <InfoUser />
                 </div>
                 <div className="profile__right">
                     <div className="profile__right__search">
@@ -67,17 +67,11 @@ const Voucher = () => {
                     </div>
                     <div className="profile__right__content">
                         {selectedTab === 0 && (
-                            <VoucherItems data={dataAllVoucher} handleOpenDialog={handleOpenDialog}></VoucherItems>
+                            <VoucherItems data={dataAllVoucher} handleOpenDialog={handleOpenDialog} />
                         )}
-                        {selectedTab === 1 && (
-                            <VoucherItems data={dataFreeShip} handleOpenDialog={handleOpenDialog}></VoucherItems>
-                        )}
-                        {selectedTab === 2 && (
-                            <VoucherItems data={dataRefund} handleOpenDialog={handleOpenDialog}></VoucherItems>
-                        )}
-                        {selectedTab === 3 && (
-                            <VoucherItems data={dataDiscount} handleOpenDialog={handleOpenDialog}></VoucherItems>
-                        )}
+                        {selectedTab === 1 && <VoucherItems data={dataFreeShip} handleOpenDialog={handleOpenDialog} />}
+                        {selectedTab === 2 && <VoucherItems data={dataRefund} handleOpenDialog={handleOpenDialog} />}
+                        {selectedTab === 3 && <VoucherItems data={dataDiscount} handleOpenDialog={handleOpenDialog} />}
                     </div>
                     <VoucherDialog
                         dataVoucherById={dataVoucherById}

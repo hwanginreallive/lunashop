@@ -1,18 +1,19 @@
+import { yupResolver } from '@hookform/resolvers/yup';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import WarningIcon from '@mui/icons-material/Warning';
 import { Button, InputAdornment, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import logo from '~/assets/images/logo-3.png';
-
-import { yupResolver } from '@hookform/resolvers/yup';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import WarningIcon from '@mui/icons-material/Warning';
-import { useDispatch } from 'react-redux';
 import { notifyError, notifySuccess } from '~/components/Toasts/Toast';
 import { useLoginMutation } from '~/redux/api/auth/authApiSlice';
 import { setCredentials } from '~/redux/api/auth/authSlice';
 import { setLayout } from '~/redux/slices/layout/layoutConfigSlice';
+import { removeAllItems } from '~/redux/slices/shopping-cart/cartItemsSlide';
 import SignIn from './sign-in';
 
 import Grow from '@mui/material/Grow';
@@ -43,13 +44,16 @@ const Login = () => {
 
     const onSubmit = async (data) => {
         const userData = await login(data);
-        if (userData.data) localStorage.setItem('token', JSON.stringify(userData.data));
-        dispatch(
-            setCredentials({
-                ...userData.data,
-                user: data.username,
-            }),
-        );
+        if (userData.data) {
+            localStorage.setItem('token', JSON.stringify(userData.data));
+            dispatch(
+                setCredentials({
+                    ...userData.data,
+                    user: data.username,
+                }),
+            );
+            dispatch(removeAllItems());
+        }
     };
 
     const handleShowPass = () => {
@@ -78,6 +82,17 @@ const Login = () => {
     return (
         <div className="box">
             <div className="title-box">
+                <Button
+                    sx={{
+                        position: 'absolute',
+                        top: -100,
+                        left: 0,
+                    }}
+                    startIcon={<ArrowBackIcon fontSize="small" />}
+                    onClick={() => history(-1)}
+                >
+                    Quay lại
+                </Button>
                 <img src={logo} alt="" />
                 <p>Đem cả thế giớ thời trang đến bạn</p>
             </div>
@@ -123,7 +138,8 @@ const Login = () => {
                                             <TextField
                                                 error={!!errors.username}
                                                 helperText={errors.username?.message}
-                                                placeholder="Nhập Email"
+                                                autoComplete="current-username"
+                                                label="Nhập Email"
                                                 style={{
                                                     minWidth: '300px',
                                                 }}
@@ -147,6 +163,11 @@ const Login = () => {
                                                         fontSize: '14px',
                                                     },
                                                 }}
+                                                sx={{
+                                                    '.css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root': {
+                                                        fontSize: '14px',
+                                                    },
+                                                }}
                                                 {...field}
                                             />
                                         );
@@ -158,8 +179,9 @@ const Login = () => {
                                     render={({ field }) => {
                                         return (
                                             <TextField
-                                                placeholder="Mật khẩu"
+                                                label="Mật khẩu"
                                                 type={typeInput}
+                                                autoComplete="current-password"
                                                 InputProps={{
                                                     endAdornment: field.value && (
                                                         <InputAdornment
@@ -177,6 +199,11 @@ const Login = () => {
                                                 }}
                                                 style={{
                                                     minWidth: '300px',
+                                                }}
+                                                sx={{
+                                                    '.css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root': {
+                                                        fontSize: '14px',
+                                                    },
                                                 }}
                                                 {...field}
                                             />

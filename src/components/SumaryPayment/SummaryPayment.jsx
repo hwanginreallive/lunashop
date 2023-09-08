@@ -1,3 +1,4 @@
+import numberWithCommas from '~/utils/numberWithCommas';
 const SummaryPayment = ({ cartProducts }) => {
     const totalPrice = cartProducts.reduce(
         (total, item) => total + Number(item.quantity) * Number(item.product.price),
@@ -11,15 +12,15 @@ const SummaryPayment = ({ cartProducts }) => {
                     <img src={item.product.images[0]} alt="image123" />
                     <div className="item">
                         <span>Giá sản phẩm: </span>
-                        <span>{item.product.price}</span>
+                        <span>{numberWithCommas(item.product.price)}</span>
                     </div>
                     <div className="item">
                         <span>Số lượng: </span>
                         <span>{item.quantity}</span>
                     </div>
                     <div className="item">
-                        <span>Tổng tiền: </span>
-                        <span>{item.product.price * item.quantity}</span>
+                        <span>Thành tiền: </span>
+                        <span>{numberWithCommas(item.product.price * item.quantity)}</span>
                     </div>
                 </div>
             ))}
@@ -27,11 +28,11 @@ const SummaryPayment = ({ cartProducts }) => {
             <div className="total-price">
                 <div className="item">
                     <span>Vận chuyển: </span>
-                    <span>30000</span>
+                    <span> {numberWithCommas(30000)}</span>
                 </div>
                 <div className="item">
                     <span>Tổng cộng: </span>
-                    <span> {totalPrice + 30000}</span>
+                    <span> {numberWithCommas(totalPrice + 30000)}</span>
                 </div>
             </div>
         </div>

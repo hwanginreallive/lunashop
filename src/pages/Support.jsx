@@ -3,7 +3,7 @@ import Helmet from '~/components/Helmet/Helmet';
 import { AiOutlineSearch } from 'react-icons/ai';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
 
 const questions = [
     {
@@ -197,7 +197,7 @@ const Support = () => {
                                     {question.question}
                                 </AccordionSummary>
                                 <AccordionDetails>
-                                    <Typography sx={{ fontSize: 14 }}>{question.answer}</Typography>
+                                    <div style={{ fontSize: 14, lineHeight: '2rem' }}>{question.answer}</div>
                                 </AccordionDetails>
                             </Accordion>
                         ))}

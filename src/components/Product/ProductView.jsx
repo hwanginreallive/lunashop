@@ -51,9 +51,35 @@ const ProductView = ({ product }) => {
         return true;
     };
 
-    const addToCart = () => {
+    const addToCart = async () => {
         if (check()) {
-            create({
+            const data = await create({
+                product: product._id,
+                user: user?.id,
+                color: color.value,
+                size: size.value,
+                quantity: quantity,
+                price: product.price,
+            });
+
+            if (data)
+                dispatch(
+                    addItem({
+                        id: product._id,
+                        user: user?.id,
+                        color: color.value,
+                        size: size.value,
+                        quantity: quantity,
+                        price: product.price,
+                        _id: data.data._id,
+                    }),
+                );
+        }
+    };
+
+    const goToCart = async () => {
+        if (check()) {
+            const result = await create({
                 product: product._id,
                 user: user?.id,
                 color: color.value,
@@ -70,30 +96,7 @@ const ProductView = ({ product }) => {
                     size: size.value,
                     quantity: quantity,
                     price: product.price,
-                }),
-            );
-        }
-    };
-
-    const goToCart = async () => {
-        if (check()) {
-            const result = await create({
-                product: product._id,
-                user: user.id,
-                color: color.value,
-                size: size.value,
-                quantity: quantity,
-                price: product.price,
-            });
-
-            dispatch(
-                addItem({
-                    id: product._id,
-                    user: user.id,
-                    color: color.value,
-                    size: size.value,
-                    quantity: quantity,
-                    price: product.price,
+                    _id: result.data._id,
                 }),
             );
             if (result) history('/cart');
@@ -124,7 +127,10 @@ const ProductView = ({ product }) => {
                 </div>
                 <div className={`product__description ${descriptionExpand ? 'expand' : ''}`}>
                     <div className="product__description__title">Chi tiết sản phẩm</div>
-                    <div className="product__description__content">{product?.description}</div>
+                    <div
+                        className="product__description__content"
+                        dangerouslySetInnerHTML={{ __html: product?.description }}
+                    />
                     <div className="product__description__toggle">
                         <Button
                             variant="contained"

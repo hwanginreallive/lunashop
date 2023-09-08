@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import { Rating } from '@mui/material';
+import PropTypes from 'prop-types';
+import { useState } from 'react';
 
-import CartItem from '../CartItem/CartItem';
 import EmptyProductSlide from './EmptyProductSlide';
+import PurchaseItem from './PurchaseItem';
 
 const Shipped = ({ product }) => {
     const [value, setValue] = useState(5);
@@ -13,14 +13,14 @@ const Shipped = ({ product }) => {
             {product.length > 0 ? (
                 product.map((item, index) => (
                     <div key={index}>
-                        <CartItem item={item} Shipped stardust>
+                        <PurchaseItem item={item} Shipped stardust>
                             <Rating
                                 value={value}
                                 onChange={(event, newValue) => {
                                     setValue(newValue);
                                 }}
                             />
-                        </CartItem>
+                        </PurchaseItem>
                     </div>
                 ))
             ) : (

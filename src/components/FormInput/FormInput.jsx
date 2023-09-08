@@ -117,7 +117,7 @@ const FormInput = ({
                                         sx={styleValidate}
                                         placeholder="Địa chỉ"
                                         errors={errors}
-                                        helperText={errors.address?.message}
+                                        helperText={errors.location?.message}
                                         {...field}
                                         variant="outlined"
                                     />

@@ -5,7 +5,6 @@ import { InputAdornment, TextField } from '@mui/material';
 import Grow from '@mui/material/Grow';
 import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import { notifyError } from '~/components/Toasts/Toast';
 import { useCreateAccountMutation } from '~/redux/api/auth/authApiSlice';
@@ -35,8 +34,7 @@ const SignIn = ({ changeView, login, setCredentials, dispatch }) => {
         },
     });
 
-    const history = useNavigate();
-    const [create, { isSuccess, isError, error }] = useCreateAccountMutation();
+    const [create, { isError, error }] = useCreateAccountMutation();
 
     const [typeInput, setTypeInput] = useState('password');
     const onSubmit = async (data) => {
@@ -67,6 +65,7 @@ const SignIn = ({ changeView, login, setCredentials, dispatch }) => {
 
     useEffect(() => {
         if (error?.data) setError('username');
+        // eslint-disable-next-line
     }, [error]);
 
     return (
@@ -88,7 +87,7 @@ const SignIn = ({ changeView, login, setCredentials, dispatch }) => {
                                 <TextField
                                     error={!!errors.name}
                                     helperText={errors.name?.message}
-                                    placeholder="Họ tên"
+                                    label="Họ tên"
                                     style={{
                                         minWidth: '300px',
                                     }}
@@ -113,6 +112,11 @@ const SignIn = ({ changeView, login, setCredentials, dispatch }) => {
                                         },
                                     }}
                                     {...field}
+                                    sx={{
+                                        '.css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root': {
+                                            fontSize: '14px',
+                                        },
+                                    }}
                                 />
                             );
                         }}
@@ -126,7 +130,8 @@ const SignIn = ({ changeView, login, setCredentials, dispatch }) => {
                                 <TextField
                                     error={!!errors.username}
                                     helperText={error?.data ? 'Tên đăng nhập đã tồn tại ' : errors.username?.message}
-                                    placeholder="Tên đăng nhập"
+                                    label="Tên đăng nhập"
+                                    autoComplete="username"
                                     style={{
                                         minWidth: '300px',
                                     }}
@@ -151,6 +156,11 @@ const SignIn = ({ changeView, login, setCredentials, dispatch }) => {
                                         },
                                     }}
                                     {...field}
+                                    sx={{
+                                        '.css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root': {
+                                            fontSize: '14px',
+                                        },
+                                    }}
                                 />
                             );
                         }}
@@ -161,8 +171,9 @@ const SignIn = ({ changeView, login, setCredentials, dispatch }) => {
                         render={({ field }) => {
                             return (
                                 <TextField
-                                    placeholder="Mật khẩu"
+                                    label="Mật khẩu"
                                     type={typeInput}
+                                    autoComplete="password"
                                     error={!!errors.password}
                                     helperText={errors.password?.message}
                                     InputProps={{
@@ -181,6 +192,15 @@ const SignIn = ({ changeView, login, setCredentials, dispatch }) => {
                                         },
                                     }}
                                     {...field}
+                                    sx={{
+                                        '.css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root': {
+                                            fontSize: '14px',
+                                        },
+                                        '&.MuiInputLabel-shrink': {
+                                            transform: 'translate(0px, 0px) scale(2)',
+                                            fontSize: '14px',
+                                        },
+                                    }}
                                 />
                             );
                         }}

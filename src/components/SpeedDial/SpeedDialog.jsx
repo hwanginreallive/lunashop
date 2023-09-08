@@ -1,18 +1,29 @@
-import React from 'react';
+import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
+import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
+import ShareIcon from '@mui/icons-material/Share';
 import Box from '@mui/material/Box';
 import SpeedDial from '@mui/material/SpeedDial';
-import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
-import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
-import SaveIcon from '@mui/icons-material/Save';
-import PrintIcon from '@mui/icons-material/Print';
-import ShareIcon from '@mui/icons-material/Share';
+import SpeedDialIcon from '@mui/material/SpeedDialIcon';
+import useCopyToClipboard from '~/Hooks/useCopy';
+import { notifyError, notifySuccess } from '../Toasts/Toast';
+const SpeedDialog = ({ setIsChatBotOpen }) => {
+    const handleOpen = () => {
+        setIsChatBotOpen(true);
+    };
+    const [, copy] = useCopyToClipboard();
 
-const SpeedDialog = () => {
+    const handleCopy = async () => {
+        if (window.location.origin) {
+            await copy(window.location.href);
+            notifySuccess('Copy thành công');
+        } else {
+            notifyError('copy thất bại');
+        }
+    };
     const actions = [
-        { icon: <FileCopyIcon />, name: 'Copy' },
-        { icon: <SaveIcon />, name: 'Save' },
-        { icon: <PrintIcon />, name: 'Print' },
+        { icon: <QuestionAnswerIcon />, name: 'Chat bot', action: handleOpen },
+        { icon: <FileCopyIcon />, name: 'Copy', action: handleCopy },
         { icon: <ShareIcon />, name: 'Share' },
     ];
     return (
@@ -26,7 +37,12 @@ const SpeedDialog = () => {
                 icon={<SpeedDialIcon />}
             >
                 {actions.map((action) => (
-                    <SpeedDialAction key={action.name} icon={action.icon} tooltipTitle={action.name} />
+                    <SpeedDialAction
+                        key={action.name}
+                        icon={action.icon}
+                        tooltipTitle={action.name}
+                        onClick={action.action}
+                    />
                 ))}
             </SpeedDial>
         </Box>

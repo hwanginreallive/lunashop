@@ -1,0 +1,182 @@
+.btn-config {
+    position: fixed;
+    z-index: 100;
+    border-radius: 50%;
+}
+.chat {
+    position: fixed;
+    right: 50px;
+    bottom: 100px;
+}
+.card * {
+    user-select: text !important;
+}
+pre {
+    overflow: scroll;
+}
+
+ol,
+li {
+    margin-left: 10px;
+}
+textarea {
+    resize: none;
+    border: none;
+    outline: none;
+    word-break: break-all;
+    overflow-y: hidden;
+}
+.text-era {
+    border: 1px solid #d9d9e3;
+    border-radius: 5px;
+    padding: 0 5px;
+}
+.to-top-progress {
+    z-index: 10;
+}
+.card {
+    background-color: white;
+    .card-header {
+        display: flex;
+        padding: 10px 20px;
+        justify-content: space-between;
+        background-color: #d9d9e3;
+    }
+    .card-body {
+        padding: 10px 20px;
+        max-width: 380px;
+        img {
+            border-radius: 50%;
+        }
+        .text-mess {
+            background-color: #e4e6eb;
+            padding: 8px 12px;
+            display: inline;
+            margin-left: 10px;
+            border-radius: 18px;
+            white-space: normal;
+            font-size: 14px;
+            word-break: break-word;
+            max-width: 260px;
+            white-space: pre-line;
+        }
+        .text-mess-question {
+            color: white;
+            background-color: #0084ff;
+        }
+    }
+    .card-footer {
+        padding: 0 20px;
+    }
+}
+.btn-config img {
+    background: #ffffff00;
+    width: 50px;
+    border-radius: 50%;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.box-chat {
+    position: fixed;
+    right: 50px;
+    bottom: 20px;
+    z-index: 9999;
+    width: 380px;
+}
+.App-logo {
+    height: 40vmin;
+    pointer-events: none;
+}
+#chat2 .form-control {
+    border-color: transparent;
+}
+
+#chat2 .form-control:focus {
+    border-color: transparent;
+    box-shadow: inset 0px 0px 0px 1px transparent;
+}
+
+.divider:after,
+.divider:before {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #eee;
+}
+
+.bg-all {
+    background: linear-gradient(35deg, #bceaff, #c170ff);
+    padding-bottom: 500px;
+}
+.page-heading {
+    margin-top: 150px;
+    margin-bottom: 50px;
+}
+.box-style {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    background: linear-gradient(#ffaaaa, #b2b8fe);
+    border: none;
+    border-radius: 5%;
+    padding-top: 14px;
+    margin-bottom: 20px;
+}
+.box-style img {
+    border-radius: 5%;
+}
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+.tooltip .tooltiptext {
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 100;
+    visibility: visible;
+}
+@media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
+}
+
+.App-header {
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+.App-link {
+    color: #61dafb;
+}
+
+.fade-in {
+    animation: fadeIn 1s;
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
